@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Job meta badge */
+@layer components {
+  .badge {
+    @apply flex items-center gap-1 text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-md;
+  }
+}
+@layer components {
+  /* Section background (used by PopularTags & LatestJobs) */
+  .section-bg {
+    @apply bg-[#F5F5F5];
+  }
+
+  /* Card background (same tone as PopularTags items) */
+  .soft-card {
+    @apply bg-[#F0F0F0] rounded-xl p-6;
+  }
+
+  /* Meta pill (same as PopularTags pills) */
+  .meta-pill {
+    @apply flex items-center gap-1 text-xs text-gray-700 bg-[#E5E5E5] px-2.5 py-1 rounded-md;
+  }
+}

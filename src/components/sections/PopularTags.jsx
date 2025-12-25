@@ -1,6 +1,5 @@
 import TagCard from "../common/TagCard";
 import { mockTags } from "../../data/mockTags";
-import arrowRight from "../../assets/icons/arrow-right.svg";
 
 const PopularTags = () => {
   return (
@@ -23,8 +22,16 @@ const PopularTags = () => {
                 hover:border-blue-600
               "
             >
-              73+ more</span>tags
-            <img src={arrowRight} alt="" className="w-4 h-4 ml-0.5" />
+              73+ more
+            </span>
+            tags
+
+            {/* SAFE ICON (no import, no crash) */}
+            <img
+              src="/icons/arrow-right.svg"
+              alt=""
+              className="w-4 h-4 ml-0.5"
+            />
           </button>
         </div>
 
@@ -39,6 +46,7 @@ const PopularTags = () => {
             />
           ))}
         </div>
+
       </div>
     </section>
   );
