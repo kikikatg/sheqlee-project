@@ -6,7 +6,7 @@ export const mockStats = [
   {
     id: "jobs",
     value: "100K+",
-    label: "Total jobs posted on sheqlee to date",
+    label: "Total jobs posted on Sheqlee to date",
  icon: "/icons/handshake.svg", // 🤝 companies
   },
   {
@@ -18,7 +18,7 @@ export const mockStats = [
   {
     id: "companies",
     value: "1K+",
-    label: "Korean companies postong jobs daily",
+    label: "Korean companies posting jobs daily",
     icon: "/icons/building.svg", // 🏢 jobs
   },
 ];

@@ -1,18 +1,25 @@
 import TagCard from "../common/TagCard";
 import { mockTags } from "../../data/mockTags";
+import PopularTagsSkeleton from "../skeletons/PopularTagsSkeleton";
 
 const PopularTags = () => {
+  const isLoading = false; // later from API
+<div className="skeleton h-4 w-24 rounded-md"></div>
+
   return (
+    /* 🔧 STEP 5: responsive section background */
     <section className="bg-[#F5F5F5]">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
-        
-        {/* Header */}
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-[22px] font-semibold text-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-14">
+
+        {/* HEADER */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          {/* Title */}
+          <h2 className="text-xl sm:text-[22px] font-semibold text-gray-900">
             Popular tags
           </h2>
 
-          <button className="flex items-center gap-1 text-[14px] font-medium text-gray-700">
+          {/* More tags button */}
+          <button className="flex items-center gap-1 text-sm font-medium text-gray-700 self-start sm:self-auto">
             <span
               className="
                 border-b-2 border-purple-700
@@ -26,7 +33,7 @@ const PopularTags = () => {
             </span>
             tags
 
-            {/* SAFE ICON (no import, no crash) */}
+            {/* Arrow icon */}
             <img
               src="/icons/arrow-right.svg"
               alt=""
@@ -35,8 +42,11 @@ const PopularTags = () => {
           </button>
         </div>
 
-        {/* Tags Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* TAGS GRID */}
+        {isLoading ? (
+  <PopularTagsSkeleton />
+) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {mockTags.map((tag) => (
             <TagCard
               key={tag.id}
@@ -46,7 +56,7 @@ const PopularTags = () => {
             />
           ))}
         </div>
-
+)}
       </div>
     </section>
   );
