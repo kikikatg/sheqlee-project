@@ -8,13 +8,13 @@ const PopularTags = () => {
 
   return (
     /* 🔧 STEP 5: responsive section background */
-    <section className="bg-[#F5F5F5]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-14">
+    <section className="bg-[#F7F7F7] w-full font-['Kantumruy_Pro">
+      <div className="max-w-[1500px]  mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-14">
 
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           {/* Title */}
-          <h2 className="text-xl sm:text-[22px] font-semibold text-gray-900">
+          <h2 className="text-xl sm:text-[22px] font-semibold text-gray-900 Kantumruy Pro">
             Popular tags
           </h2>
 

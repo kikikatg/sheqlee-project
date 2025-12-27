@@ -9,7 +9,7 @@ const PlatformStats = () => {
     <>
       {/* ================= CTA STRIP ================= */}
       {/* 🔧 STEP 7: responsive layout */}
-      <section className="bg-gray-200">
+      <section className="bg-[#F7F7F7]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           
           <div className="flex items-center gap-5">
@@ -23,7 +23,7 @@ const PlatformStats = () => {
             </p>
           </div>
 
-          <button className="bg-[#704cb8] text-white text-lg font-medium px-5 py-2 rounded-md hover:opacity-90 transition w-full sm:w-auto">
+          <button className=" bg-[#8967B3] text-white text-lg font-medium px-5 py-2 rounded-md hover:opacity-90 transition w-full sm:w-auto">
             Sign up
           </button>
 
