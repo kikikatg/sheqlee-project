@@ -33,7 +33,7 @@ const Hero = ({ openAuthModal }) => {
               <br />
               &amp; <span className="text-[#8967B3]">Skilled</span> Ethiopian
               <br />
-              Professionals
+              Professional
             </h1>
 
             <p
@@ -82,7 +82,7 @@ const Hero = ({ openAuthModal }) => {
             </button>
           </div>
 
-          {/* RIGHT — LOTTIE (FIXED FOR 1024–1150px) */}
+          {/* RIGHT — LOTTIE */}
           <div className="flex justify-center lg:justify-start overflow-hidden">
             <div className="lg:pr-[24px] xl:pr-[60px] w-full">
               <Player
@@ -92,12 +92,12 @@ const Hero = ({ openAuthModal }) => {
                 src="/lottie/hero.json"
                 className="
                   mx-auto
-                  max-w-[90vw]          /* ✅ hard safety */
+                  max-w-[90vw]
                   w-[260px] h-[200px]
                   sm:w-[360px] sm:h-[280px]
                   md:w-[420px] md:h-[320px]
-                  lg:w-[440px] lg:h-[330px]   /* ✅ KEY FIX */
-                  xl:w-[680px] xl:h-[480px]   /* big only on XL */
+                  lg:w-[440px] lg:h-[330px]
+                  xl:w-[680px] xl:h-[480px]
                 "
               />
             </div>

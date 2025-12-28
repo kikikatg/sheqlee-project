@@ -38,4 +38,4 @@ export const mockTags = [
     subscribers: 25,
   },
 ];
-console.log("mockTags:", mockTags);
+

@@ -1,0 +1,39 @@
+const SubNavbar = () => {
+  return (
+    <div className="w-full bg-[#FCFCFC]">
+      <div
+        className="
+          max-w-[1920px] mx-auto
+          h-[65px]
+          flex items-center
+          px-6 sm:px-8 md:px-16 lg:px-[140px]
+          font-['Kantumruy_Pro']
+        "
+      >
+        <div className="flex items-center gap-4">
+          <img
+            src="/icons/placeholder.svg"
+            alt="location"
+            className="w-[16px] h-[26px]"
+          />
+
+          <span className="text-[18px] sm:text-[20px] lg:text-[22px] text-black">
+            Sheqlee
+          </span>
+
+          <img
+            src="/icons/arrow-next.svg"
+            alt="next"
+            className="w-[7px] h-[10px] rotate-[-90deg]"
+          />
+
+          <span className="text-[20px] sm:text-[20px] lg:text-[22px] text-black">
+            All Jobs
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SubNavbar;

@@ -7,7 +7,7 @@ const FooterSocials = () => {
       </p>
 
       {/* 🔧 CHANGED: icons white */}
-      <div className="flex flex-row gap-3 bg-white-white mx-6">
+      <div className="flex flex-row cursor-pointer gap-3 bg-white-white mx-6">
         {[
           "facebook",
           "twitter",
