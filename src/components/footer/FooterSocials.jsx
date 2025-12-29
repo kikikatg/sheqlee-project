@@ -1,13 +1,13 @@
 const FooterSocials = () => {
   return (
-    <div className="space-y-4 text-sm">
+    <div className="flex flex-col gap-6 text-[18px]">
       {/* Title */}
-      <p className="font-semibold my text-gray-400 mx-6 ">
+      <p className="font-semibold text-gray-400">
         Follow us on
       </p>
 
-      {/* 🔧 CHANGED: icons white */}
-      <div className="flex flex-row cursor-pointer gap-3 bg-white-white mx-6">
+      {/* Icons */}
+      <div className="flex gap-6 cursor-pointer">
         {[
           "facebook",
           "twitter",
@@ -20,7 +20,7 @@ const FooterSocials = () => {
             key={icon}
             src={`/icons/${icon}.svg`}
             alt={icon}
-            className="w-5 h-5 brightness-0 invert opacity-70 hover:opacity-100 transition"
+            className="w-6 h-6 brightness-0 invert opacity-90 hover:opacity-100 transition"
           />
         ))}
       </div>

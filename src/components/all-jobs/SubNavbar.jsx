@@ -21,8 +21,8 @@ const SubNavbar = () => {
             Sheqlee
           </span>
 
-          <img
-            src="/icons/arrow-next.svg"
+           <img
+            src="/icons/arrow-down.svg"
             alt="next"
             className="w-[7px] h-[10px] rotate-[-90deg]"
           />

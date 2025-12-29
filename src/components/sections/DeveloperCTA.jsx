@@ -6,7 +6,7 @@ const DeveloperCTA = () => {
       className="
         w-full
         bg-[#DFDFDF]
-        h-[140px]
+        h-[200px]
         flex
         items-center
         mt-10
@@ -31,14 +31,14 @@ const DeveloperCTA = () => {
           <img
             src="/icons/celebration.png"
             alt="Celebration"
-            className="w-10 h-10"
+            className="w-12 h-12"
           />
 
           <p
             className="
-              text-[16px]
-              sm:text-[18px]
-              md:text-[24px]
+              text-[18px]
+              sm:text-[22px]
+              md:text-[28px]
               font-medium
               text-black
               text-center
@@ -54,10 +54,10 @@ const DeveloperCTA = () => {
           className="
             bg-[#8967B3]
             text-white
-            text-[18px]
+            text-[28px]
             font-medium
             px-8
-            h-[50px]
+            h-[70px]
             rounded-[15px]
             hover:opacity-90
             transition

@@ -18,7 +18,7 @@ const Pagination = ({
   return (
     <div className="mt-16 max-w-7xl mx-auto px-4">
 
-      {/* DESKTOP PAGINATION */}
+      {/* ================= DESKTOP PAGINATION ================= */}
       <div className="hidden md:flex justify-between items-start">
 
         {/* PAGE NUMBERS */}
@@ -80,14 +80,17 @@ const Pagination = ({
           </button>
         </div>
 
-        {/* ARROWS */}
+        {/* ================= ARROWS ================= */}
         <div className="flex gap-4">
+          {/* LEFT */}
           <button
-            onClick={() => !isFirstPage && onPageChange(currentPage - 1)}
+            disabled={isFirstPage}
+            onClick={() => onPageChange(currentPage - 1)}
             className={`
               w-[50px] h-[50px]
               rounded-[15px]
               flex items-center justify-center
+              transition
               ${
                 isFirstPage
                   ? "bg-[#DFDFDF] cursor-not-allowed"
@@ -98,12 +101,15 @@ const Pagination = ({
             <img src="/icons/left-arrow.svg" alt="Previous" />
           </button>
 
+          {/* RIGHT */}
           <button
-            onClick={() => !isLastPage && onPageChange(currentPage + 1)}
+            disabled={isLastPage}
+            onClick={() => onPageChange(currentPage + 1)}
             className={`
               w-[50px] h-[50px]
               rounded-[15px]
               flex items-center justify-center
+              transition
               ${
                 isLastPage
                   ? "bg-[#DFDFDF] cursor-not-allowed"
@@ -116,12 +122,17 @@ const Pagination = ({
         </div>
       </div>
 
-      {/* MOBILE PAGINATION */}
+      {/* ================= MOBILE PAGINATION ================= */}
       <div className="flex md:hidden justify-center items-center gap-6">
         <button
-          onClick={() => !isFirstPage && onPageChange(currentPage - 1)}
+          disabled={isFirstPage}
+          onClick={() => onPageChange(currentPage - 1)}
           className={`w-12 h-12 rounded-xl flex items-center justify-center
-            ${isFirstPage ? "bg-gray-300" : "bg-[#8967B3]"}`}
+            ${
+              isFirstPage
+                ? "bg-[#DFDFDF]"
+                : "bg-[#8967B3]"
+            }`}
         >
           <img src="/icons/left-arrow.svg" alt="Previous" />
         </button>
@@ -131,9 +142,14 @@ const Pagination = ({
         </span>
 
         <button
-          onClick={() => !isLastPage && onPageChange(currentPage + 1)}
+          disabled={isLastPage}
+          onClick={() => onPageChange(currentPage + 1)}
           className={`w-12 h-12 rounded-xl flex items-center justify-center
-            ${isLastPage ? "bg-gray-300" : "bg-[#8967B3]"}`}
+            ${
+              isLastPage
+                ? "bg-[#DFDFDF]"
+                : "bg-[#8967B3]"
+            }`}
         >
           <img src="/icons/arrow-next-2.svg" alt="Next" />
         </button>
