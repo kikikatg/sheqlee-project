@@ -5,15 +5,11 @@ const Pagination = ({
   totalPages = 40,
   onPageChange,
 }) => {
-  const pagesToShow = 9;
-
-  const pages = [];
-  for (let i = 1; i <= pagesToShow; i++) {
-    pages.push(i);
-  }
+  // 🔒 LOCKED PAGE SET (DESIGN REQUIREMENT)
+  const fixedPages = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === totalPages;
+  const isLastPage = currentPage === 40;
 
   return (
     <div className="mt-16 max-w-7xl mx-auto px-4">
@@ -23,7 +19,7 @@ const Pagination = ({
 
         {/* PAGE NUMBERS */}
         <div className="flex gap-4">
-          {pages.map((page) => (
+          {fixedPages.map((page) => (
             <button
               key={page}
               onClick={() => onPageChange(page)}
@@ -43,40 +39,41 @@ const Pagination = ({
             </button>
           ))}
 
+          {/* ELLIPSIS */}
           <span className="flex items-center px-2 text-xl font-medium">…</span>
 
           {/* 39 */}
           <button
-            onClick={() => onPageChange(totalPages - 1)}
+            onClick={() => onPageChange(39)}
             className={`
               w-[50px] h-[50px]
               rounded-[15px]
               text-[18px] font-medium
               ${
-                currentPage === totalPages - 1
+                currentPage === 39
                   ? "bg-black text-white"
                   : "bg-[#DFDFDF] text-black hover:opacity-80"
               }
             `}
           >
-            {totalPages - 1}
+            39
           </button>
 
           {/* 40 */}
           <button
-            onClick={() => onPageChange(totalPages)}
+            onClick={() => onPageChange(40)}
             className={`
               w-[50px] h-[50px]
               rounded-[15px]
               text-[18px] font-medium
               ${
-                currentPage === totalPages
+                currentPage === 40
                   ? "bg-black text-white"
                   : "bg-[#DFDFDF] text-black hover:opacity-80"
               }
             `}
           >
-            {totalPages}
+            40
           </button>
         </div>
 
@@ -138,7 +135,7 @@ const Pagination = ({
         </button>
 
         <span className="text-lg font-semibold">
-          {currentPage} / {totalPages}
+          {currentPage} / 40
         </span>
 
         <button

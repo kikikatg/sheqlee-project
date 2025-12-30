@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const JobsFilter = ({ onApply }) => {
-  // API-ready filter state
   const [filters, setFilters] = useState({
     category: "",
     type: "",
@@ -14,57 +13,50 @@ const JobsFilter = ({ onApply }) => {
   };
 
   const applyFilters = () => {
-    if (onApply) {
-      onApply(filters);
-    }
+    onApply?.(filters);
   };
 
   return (
-    <section className="w-full mt-14 ">
+    <section className="w-full mt-14">
       <div className="max-w-[1000px] mx-auto px-4">
 
-        {/* Top Filters */}
+        {/* TOP FILTERS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <FilterBox
-            label="All Categories"
+
+          <SelectBox
             value={filters.category}
             onChange={(v) => handleChange("category", v)}
+            options={["Design", "Development", "DevOps", "QA"]}
+            placeholder="All Categories"
           />
 
-          <FilterBox
-            label="All Types"
+          <SelectBox
             value={filters.type}
             onChange={(v) => handleChange("type", v)}
+            options={["Full-Time", "Part-Time"]}
+            placeholder="All Types"
           />
 
-          <FilterBox
-            label="All Levels"
+          <SelectBox
             value={filters.level}
             onChange={(v) => handleChange("level", v)}
+            options={["Intermediate", "Expert"]}
+            placeholder="All Levels"
           />
         </div>
 
-        {/* Search + Apply */}
+        {/* SEARCH + APPLY */}
         <div className="mt-4 grid grid-cols-1 md:grid-cols-[1fr_300px] gap-4">
-          <FilterBox
-            label="Search jobs by programming technology or field..."
+
+          <InputBox
             value={filters.search}
             onChange={(v) => handleChange("search", v)}
-            isSearch
+            placeholder="Search by programming technology or field..."
           />
 
           <button
             onClick={applyFilters}
-            className="
-              h-[70px]
-              bg-[#8967B3]
-              rounded-[15px]
-              text-white
-              text-[22px]
-              font-medium
-              hover:opacity-90
-              transition
-            "
+            className="h-[70px] bg-[#8967B3] rounded-[15px] text-white text-[22px] font-medium hover:opacity-90 transition"
           >
             Apply Filter
           </button>
@@ -77,54 +69,31 @@ const JobsFilter = ({ onApply }) => {
 
 export default JobsFilter;
 
-/* ---------------------------------
-   Reusable Filter Box (FINAL)
----------------------------------- */
-const FilterBox = ({ label, value, onChange, isSearch }) => {
-  return (
-    <div
-      className="
-        h-[70px]
-        bg-[#DFDFDF]
-        rounded-[15px]
-        flex items-center
-        px-6
-        gap-4
-      "
+/* ================= COMPONENTS ================= */
+
+const SelectBox = ({ value, onChange, options, placeholder }) => (
+  <div className="h-[70px] bg-[#DFDFDF] rounded-[15px] px-6 flex items-center">
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full bg-transparent outline-none text-[20px]"
     >
-      {/* Search Icon (LEFT) */}
-      {isSearch && (
-        <img
-          src="/icons/search.svg"
-          alt="Search"
-          className="w-6 h-6"
-        />
-      )}
+      <option value="">{placeholder}</option>
+      {options.map((opt) => (
+        <option key={opt} value={opt}>{opt}</option>
+      ))}
+    </select>
+  </div>
+);
 
-      {/* Input */}
-      <input
-        type="text"
-        placeholder={label}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="
-          flex-1
-          bg-transparent
-          outline-none
-          text-[20px]
-          text-black
-          placeholder-black
-        "
-      />
-
-      {/* Arrow Icon (RIGHT) */}
-      {!isSearch && (
-        <img
-          src="/icons/arrow-down.svg"
-          alt="Dropdown"
-          className="w-4 h-4"
-        />
-      )}
-    </div>
-  );
-};
+const InputBox = ({ value, onChange, placeholder }) => (
+  <div className="h-[70px] bg-[#DFDFDF] rounded-[15px] px-6 flex items-center gap-4">
+    <img src="/icons/search.svg" className="w-6 h-6" />
+    <input
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      className="flex-1 bg-transparent outline-none text-[20px]"
+    />
+  </div>
+);

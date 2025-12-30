@@ -2,7 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import AllJobs from "../pages/AllJobs";
 import JobDetails from "../pages/jobdetails/JobDetails";
-
+import Categories from "../pages/categories/Categories"; 
+import CategoryJobs from "../pages/categories/CategoryJobs";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -12,6 +13,8 @@ const AppRoutes = () => {
       <Route path="/about" element={<div />} />
       <Route path="/contact" element={<div />} />
       <Route path="/pricing" element={<div />} />
+      <Route path="/categories" element={<Categories />} />
+       <Route path="/categories/:categoryId" element={<CategoryJobs />} />
     </Routes>
   );
 };
