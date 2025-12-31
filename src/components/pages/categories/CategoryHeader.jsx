@@ -1,11 +1,25 @@
 import React from "react";
 import SubNavbar from "../../all-jobs/SubNavbar";
 
-const CategoryHeader = ({ title, icon, description }) => {
+const CategoryHeader = ({ title, icon, description, subscribers }) => {
   return (
     <>
       {/* ================= SUB NAVBAR ================= */}
-      <SubNavbar title={`Categories/${title}`} />
+      <SubNavbar
+        title={
+          <div className="flex items-center gap-2">
+            <span>Categories</span>
+
+           <img
+            src="/icons/arrow-down.svg"
+            alt="next"
+            className="w-[7px] h-[10px] rotate-[-90deg]"
+          />
+
+            <span className="font-medium">{title}</span>
+          </div>
+        }
+      />
 
       <section className="max-w-7xl mx-auto px-4 pt-20 text-center">
         {/* ================= ICON ================= */}
@@ -62,18 +76,24 @@ const CategoryHeader = ({ title, icon, description }) => {
           </button>
         </div>
 
-        {/* ================= SUBSCRIBERS COUNT ================= */}
+        {/* ================= SUBSCRIBERS COUNT (DYNAMIC) ================= */}
         <p
           className="mt-6 text-[22px] md:text-[28px] text-black"
           style={{ fontFamily: "Kantumruy Pro" }}
         >
-          Subscribers: <span className="font-medium">1,784</span>
+          Subscribers:{" "}
+          <span className="font-medium">
+            {subscribers?.toLocaleString()}
+          </span>
         </p>
 
         {/* ================= SOCIAL ICONS ================= */}
         <div className="mt-6 flex justify-center gap-6">
-          <img src="/icons/socials.svg" alt="Twitter" className="w-30 h-18" />
-         
+          <img
+            src="/icons/socials.svg"
+            alt="Socials"
+            className="h-5 w-26"
+          />
         </div>
       </section>
     </>

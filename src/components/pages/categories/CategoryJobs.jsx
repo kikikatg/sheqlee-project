@@ -10,6 +10,17 @@ import Footer from "../../footer/Footer";
 import { mockJobs } from "../../../data/mockJobs";
 import { mockCategories } from "../../../data/mockCategories";
 
+const CATEGORY_TAG_MAP = {
+  "Web Frontend": ["Frontend", "Web", "React", "UI"],
+  "Backend & Database": ["Backend", "API", "Database", "Python"],
+  "UI/UX & Product Design": ["UI", "UX", "Design", "Figma"],
+  "Machine Learning": ["ML", "Machine Learning", "AI", "Python"],
+  "Mobile Application": ["Mobile", "Android", "iOS"],
+  "Web Full-Stack": ["Full Stack", "Frontend", "Backend"],
+  "QA & DevOps Engineer": ["QA", "DevOps", "Testing", "CI/CD"],
+  Security: ["Security", "Cyber", "PenTest"],
+};
+
 const CategoryJobs = () => {
   const { categoryId } = useParams();
   const [page, setPage] = useState(1);
@@ -17,20 +28,23 @@ const CategoryJobs = () => {
   const jobsPerPage = 12;
 
   const category = mockCategories.find(
-    (c) => String(c.id) === categoryId
+    (c) => String(c.id) === String(categoryId)
   );
 
   const categoryJobs = useMemo(() => {
     if (!category) return [];
 
+    const keywords = CATEGORY_TAG_MAP[category.name] || [];
+
     return mockJobs.filter((job) =>
-      job.title
-        .toLowerCase()
-        .includes(category.name.toLowerCase().split(" ")[0])
+      job.details?.tags?.some((tag) =>
+        keywords.some((key) =>
+          tag.toLowerCase().includes(key.toLowerCase())
+        )
+      )
     );
   }, [category]);
 
-  // 🔒 DESIGN REQUIREMENT
   const totalPages = 15;
 
   const jobsToRender = categoryJobs.slice(
@@ -49,7 +63,7 @@ const CategoryJobs = () => {
         description={`Browse ${category.jobsCount} jobs in the ${category.name} category and subscribe for updates.`}
       />
 
-      {/* JOB LIST */}
+      {/* JOB LIST (4 x 3) */}
       <section className="max-w-7xl mx-auto px-4 pt-24">
         <LatestJobs
           jobs={jobsToRender}
@@ -58,11 +72,12 @@ const CategoryJobs = () => {
         />
       </section>
 
-      {/* PAGINATION (ENDS AT 15) */}
+      {/* CATEGORY PAGINATION */}
       <Pagination
         currentPage={page}
-        totalPages={totalPages}
+        totalPages={15}
         onPageChange={setPage}
+        variant="category"
       />
 
       <DeveloperCTA />
