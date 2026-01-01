@@ -9,7 +9,8 @@ import Footer from "../footer/Footer";
 import { mockJobs } from "../../data/mockJobs";
 
 /* -------------------------------
-   CATEGORY DERIVATION (UNCHANGED)
+   CATEGORY DERIVATION (TEMP)
+   → API WILL REPLACE THIS
 -------------------------------- */
 const getJobCategory = (job) => {
   const t = job.title.toLowerCase();
@@ -20,44 +21,34 @@ const getJobCategory = (job) => {
   return "Other";
 };
 
+const JOBS_PER_PAGE = 18;
+
 const AllJobs = () => {
   const [page, setPage] = useState(1);
   const [hasSearched, setHasSearched] = useState(false);
+  const [filteredJobs, setFilteredJobs] = useState(mockJobs);
 
-  /* ---------------------------------
-     🔒 SAFE DUPLICATION (PAGE ONLY)
-     DOES NOT AFFECT HOME PAGE
-  ---------------------------------- */
-  const allJobsForPage = useMemo(() => {
-    return [
-      ...mockJobs,
-      ...mockJobs.map((job) => ({
-        ...job,
-        id: job.id + mockJobs.length, // ensure unique keys
-      })),
-    ];
-  }, []);
+  /* -------------------------------
+     PAGINATION (ONLY SLICE POINT)
+  -------------------------------- */
+  const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
 
-  const [filteredJobs, setFilteredJobs] = useState(allJobsForPage);
+  const jobsToRender = useMemo(() => {
+    const start = (page - 1) * JOBS_PER_PAGE;
+    const end = start + JOBS_PER_PAGE;
+    return filteredJobs.slice(start, end);
+  }, [filteredJobs, page]);
 
-  const jobsPerPage = 18;
-  const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
-
-  const jobsToRender = filteredJobs.slice(
-    (page - 1) * jobsPerPage,
-    page * jobsPerPage
-  );
-
-  /* ---------------------------------
-     FILTER HANDLER (FINAL)
-  ---------------------------------- */
+  /* -------------------------------
+     FILTER HANDLER
+  -------------------------------- */
   const handleApplyFilters = (filters) => {
     setHasSearched(true);
     setPage(1);
 
     const search = filters.search.toLowerCase();
 
-    const results = allJobsForPage.filter((job) => {
+    const results = mockJobs.filter((job) => {
       const matchesSearch =
         !search ||
         job.title.toLowerCase().includes(search) ||
@@ -86,8 +77,18 @@ const AllJobs = () => {
   };
 
   return (
-    <main className="bg-white">
-      <SubNavbar title="All Jobs" />
+    <main className="bg-white min-h-screen">
+      {/* ================= SUB NAVBAR ================= */}
+      <SubNavbar
+        crumbs={[
+          {
+            label: "All Jobs",
+            href: "/jobs",
+            active: true,
+          },
+        ]}
+      />
+
       <JobsHeader />
       <JobsFilter onApply={handleApplyFilters} />
 
@@ -97,7 +98,7 @@ const AllJobs = () => {
         hasSearched={hasSearched}
       />
 
-      {jobsToRender.length > 0 && (
+      {filteredJobs.length > JOBS_PER_PAGE && (
         <Pagination
           currentPage={page}
           totalPages={totalPages}

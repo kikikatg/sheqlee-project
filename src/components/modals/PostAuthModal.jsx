@@ -1,37 +1,40 @@
 import { useEffect } from "react";
 
-const PostAuthModal = ({ onClose }) => {
- //ESC CLOSE//
+const PostAuthModal = ({
+  onClose,
+  titleLines = [
+    "Please register or login as a",
+    "client to post jobs.",
+  ],
+}) => {
+  // ESC CLOSE
   useEffect(() => {
     const handleEsc = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
+      if (e.key === "Escape") onClose();
     };
-
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
   return (
     <div className="fixed inset-0 z-50">
-      {/* 🔴 Overlay (click outside closes modal) */}
+      {/* Overlay */}
       <div
         className="absolute inset-0 bg-black/50"
         onClick={onClose}
       />
 
-      {/* ❌ Close Button (outside modal) */}
+      {/* Close Button */}
       <button
         onClick={onClose}
         className="
           absolute z-50
-          top-4 right-4
+          top-3 right-8
           sm:top-6 sm:right-8
-          lg:top-[21px] lg:right-[61px]
-          w-[32px] h-[32px]
-          sm:w-[40px] sm:h-[40px]
-          lg:w-[100px] lg:h-[30px]
+          lg:top-[50px] lg:right-[61px]
+          w-[36px] h-[36px]
+          sm:w-[46px] sm:h-[46px]
+          lg:w-[100px] lg:h-[38px]
         "
       >
         <img
@@ -41,11 +44,10 @@ const PostAuthModal = ({ onClose }) => {
         />
       </button>
 
-      {/* ⚪ Modal Wrapper */}
+      {/* Modal */}
       <div className="relative flex items-center justify-center h-full px-4">
-        {/* ⚪ Modal Container */}
         <div
-          onClick={(e) => e.stopPropagation()} // ⛔ prevent overlay close
+          onClick={(e) => e.stopPropagation()}
           className="
             bg-white rounded-[20px]
             flex flex-col items-center justify-center
@@ -55,58 +57,38 @@ const PostAuthModal = ({ onClose }) => {
             min-h-[220px]
             lg:h-[250px]
             px-6
-            lg:px-0
           "
         >
-          {/* Prompt Message */}
-          <p
-            className="
-              text-center font-medium text-black
-              text-[18px] leading-[26px]
-              sm:text-[20px] sm:leading-[28px]
-              lg:text-[22px] lg:leading-[30px]
-              max-w-[400px]
-            "
-          >
-            Please register or login as a
-            <br />
-            client to post jobs.
+          {/* Message */}
+          <p className="text-center font-medium text-black text-[18px] sm:text-[22px] lg:text-[26px] leading-[29px]">
+            {titleLines.map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))}
           </p>
 
           {/* Buttons */}
-          <div
-            className="
-              mt-8
-              flex flex-col gap-4
-              sm:flex-row sm:gap-6
-              lg:mt-14 lg:gap-10
-            "
-          >
-            {/* Sign up */}
+          <div className="mt-10 flex gap-6">
             <button
               className="
-                w-full sm:w-[140px]
-                h-[56px] sm:h-[64px] lg:h-[70px]
+                w-[140px] h-[56px] lg:h-[70px]
                 bg-[#8967B3]
                 rounded-[15px]
-                text-white
-                text-[18px] lg:text-[22px]
+                text-white text-[18px] lg:text-[22px]
                 font-medium
               "
             >
               Sign up
             </button>
 
-            {/* Log in */}
             <button
               className="
-                w-full sm:w-[140px]
-                h-[56px] sm:h-[64px] lg:h-[70px]
-                border-[3px] lg:border-[4px]
-                border-[#8967B3]
+                w-[140px] h-[56px] lg:h-[70px]
+                border-[3px] border-[#8967B3]
                 rounded-[15px]
-                text-[#8967B3]
-                text-[18px] lg:text-[22px]
+                text-[#8967B3] text-[18px] lg:text-[22px]
                 font-medium
               "
             >

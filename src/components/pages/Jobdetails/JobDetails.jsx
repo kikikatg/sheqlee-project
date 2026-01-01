@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import JobDetailsNavbar from "./JobDetailsNavbar";
 import Footer from "../../footer/Footer";
 import { mockJobs } from "../../../data/mockJobs";
 import { META_ICONS, JOB_ICONS } from "../../../constants/JobIcons";
-import { FaCode } from "react-icons/fa"; // icon for first tag
-import DeveloperCTA from"../../sections/DeveloperCTA";
+import DeveloperCTA from "../../sections/DeveloperCTA";
+
 const DEFAULT_TAGS = ["Java", "User Interface", "Python", "C++", "Flutter"];
 
 const JobDetails = () => {
@@ -21,16 +21,14 @@ const JobDetails = () => {
 
   const details = job.details;
 
-  // 🔹 Normalize tags → always 6 items
+  // 🔹 Normalize tags → always 6 items (1 icon + 5 tags)
   const normalizedTags = [
     "ICON",
     ...(details?.tags?.slice(0, 5) || []),
   ];
 
   while (normalizedTags.length < 6) {
-    normalizedTags.push(
-      DEFAULT_TAGS[normalizedTags.length - 1]
-    );
+    normalizedTags.push(DEFAULT_TAGS[normalizedTags.length - 1]);
   }
 
   return (
@@ -40,7 +38,11 @@ const JobDetails = () => {
       {/* ================= HEADER ================= */}
       <section className="max-w-7xl mx-auto px-4 pt-20 text-center">
         <div className="flex justify-center items-center gap-4 mb-8">
-          <img src={JOB_ICONS[job.title]} alt={job.title} className="w-16 h-16" />
+          <img
+            src={JOB_ICONS[job.title]}
+            alt={job.title}
+            className="w-16 h-16"
+          />
           <h1 className="text-4xl font-semibold">{job.title}</h1>
         </div>
 
@@ -65,15 +67,6 @@ const JobDetails = () => {
             <img src={META_ICONS.price} className="w-4 h-4" />
             {job.rate}
           </span>
-        </div>
-
-        <div className="flex flex-col items-center mb-28">
-          <button className="w-[450px] h-[85px] bg-[#8967B3] text-white text-[28px] font-semibold rounded-[15px]">
-            Apply now
-          </button>
-          <p className="mt-4 text-[18px] text-gray-500">
-            Please mention <span className="font-semibold">Sheqlee</span> when you apply.
-          </p>
         </div>
       </section>
 
@@ -115,11 +108,17 @@ const JobDetails = () => {
                 key={index}
                 className="w-[40px] h-[40px] bg-black rounded-[5px] flex items-center justify-center"
               >
-                <FaCode className="text-white text-lg" />
+                <img
+                  src="/icons/tags.svg"
+                  alt="Tags"
+                  className="w-5 h-5"
+                />
               </div>
             ) : (
-              <div
+              <Link
                 key={index}
+               to={`/tags/${encodeURIComponent(tag)}`}
+
                 className="
                   h-[40px]
                   px-4
@@ -128,46 +127,20 @@ const JobDetails = () => {
                   flex
                   items-center
                   text-[18px]
+                  cursor-pointer
+                  hover:bg-[#8967B3]
+                  hover:text-white
+                  transition
                 "
               >
                 {tag}
-              </div>
+              </Link>
             )
           )}
         </div>
       </section>
-      {/* ================= APPLY AGAIN ================= */}
-<section className="flex flex-col items-center pb-8">
-  <button
-    className="
-      w-[450px]
-      h-[85px]
-      bg-[#8967B3]
-      text-white
-      text-[28px]
-      font-semibold
-      rounded-[15px]
-      hover:opacity-90
-      transition
-    "
-  >
-    Apply now
-  </button>
 
-  <p className="mt-4 text-[18px] text-gray-500 text-center">
-    Please mention{" "}
-    <span className="font-semibold text-black">Sheqlee</span> when you apply.
-  </p>
-</section>
-      {/* ================= SHARE ================= */}
-      <section className="text-center pb-10">
-        <p className="text-[20px] font-medium mb-6">Share with others</p>
-        <div className="flex justify-center gap-6">
-          <img src="/icons/socials.svg" className="w-40 h-6 cursor-pointer" />
-        
-        </div>
-      </section>
-     <DeveloperCTA/>
+      <DeveloperCTA />
       <Footer />
     </main>
   );

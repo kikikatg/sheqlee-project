@@ -2,24 +2,24 @@ export const mockFooterLinks = [
   {
     title: "Links",
     links: [
-      { label: "Companies", href: "#" },
-      { label: "Categories", href: "#" },
-      { label: "Tags", href: "#" },
+      { label: "Companies", href: "/companies" },   // ✅ Companies page
+      { label: "Categories", href: "/categories" }, // ✅ Categories page
+      { label: "Tags", href: "/tags" },              // ✅ AllTags page
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Pricing", href: "#" },
+      { label: "About", href: "/about" },
+      { label: "Blog", href: "#" },      // can activate later
+      { label: "Pricing", href: "/pricing" },
     ],
   },
   {
     title: "Support",
     links: [
       { label: "Getting started", href: "#" },
-      { label: "Contact", href: "#" },
+      { label: "Contact", href: "/contact" },
       { label: "FAQ", href: "#" },
     ],
   },

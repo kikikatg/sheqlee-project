@@ -1,4 +1,6 @@
-const SubNavbar = ({ title = "All Jobs" }) => {
+import { Link } from "react-router-dom";
+
+const SubNavbar = ({ crumbs = [] }) => {
   return (
     <div className="w-full bg-[#FCFCFC]">
       <div
@@ -15,30 +17,43 @@ const SubNavbar = ({ title = "All Jobs" }) => {
           font-['Kantumruy_Pro']
         "
       >
-        <div className="flex items-center gap-4">
-          {/* LOCATION ICON */}
+        <div className="flex items-center gap-3 text-black">
+
+          {/* PLACEHOLDER ICON */}
           <img
             src="/icons/placeholder.svg"
-            alt="location"
+            alt="Sheqlee"
             className="w-[16px] h-[26px]"
           />
 
-          {/* BRAND */}
-          <span className="text-[18px] sm:text-[20px] lg:text-[22px] text-black">
+          {/* HOME */}
+          <Link
+            to="/"
+            className="text-[18px] sm:text-[20px] lg:text-[22px] hover:underline"
+          >
             Sheqlee
-          </span>
+          </Link>
 
-          {/* ARROW */}
-          <img
-            src="/icons/arrow-down.svg"
-            alt="next"
-            className="w-[7px] h-[10px] rotate-[-90deg]"
-          />
+          {/* DYNAMIC CRUMBS */}
+          {crumbs.map((crumb, index) => (
+            <div key={index} className="flex items-center gap-3">
+              <img
+                src="/icons/arrow-down.svg"
+                alt="next"
+                className="w-[7px] h-[10px] rotate-[-90deg]"
+              />
 
-          {/* DYNAMIC TITLE */}
-          <span className="text-[20px] sm:text-[20px] lg:text-[22px] text-black">
-            {title}
-          </span>
+              <Link
+                to={crumb.href}
+                className={`
+                  text-[18px] sm:text-[20px] lg:text-[22px]
+                  ${crumb.active ? "font-semibold" : "hover:underline"}
+                `}
+              >
+                {crumb.label}
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>

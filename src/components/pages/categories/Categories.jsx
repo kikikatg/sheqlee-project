@@ -1,59 +1,33 @@
-import React from "react";
 import SubNavbar from "../../all-jobs/SubNavbar";
 import Footer from "../../footer/Footer";
 import CategoryCard from "../../common/CategoryCard";
 import { mockCategories } from "../../../data/mockCategories";
-import DeveloperCTA from"../../sections/DeveloperCTA";
+import DeveloperCTA from "../../sections/DeveloperCTA";
+
 const Categories = () => {
   return (
     <main className="bg-white min-h-screen">
-      {/* ================= SUB NAVBAR ================= */}
-      <SubNavbar title="Categories" />
 
-      {/* ================= TITLE SECTION ================= */}
+      <SubNavbar
+        crumbs={[
+          { label: "Categories", href: "/categories", active: true },
+        ]}
+      />
+
       <section className="max-w-7xl mx-auto px-4 pt-20 text-center">
-        {/* ICON ABOVE TITLE */}
         <div className="flex justify-center mb-6">
-          <img
-            src="/icons/categories.svg"
-            alt="Categories"
-            className="w-[100px] h-[100px]"
-          />
+          <img src="/icons/categories.svg" className="w-[100px] h-[100px]" />
         </div>
 
-        {/* TITLE */}
-        <h1
-          className="
-            text-[38px]
-            md:text-[56px]
-            font-semibold
-            leading-[40px]
-            text-black
-          "
-          style={{ fontFamily: "Kantumruy Pro" }}
-        >
+        <h1 className="text-[38px] md:text-[56px] font-semibold">
           All Categories
         </h1>
 
-        {/* SUB HEADER */}
-        <p
-          className="
-            mt-6
-            max-w-[882px]
-            mx-auto
-            text-[20px]
-            md:text-[32px]
-            leading-[32px]
-            md:leading-[44px]
-            text-black
-          "
-          style={{ fontFamily: "Kantumruy Pro" }}
-        >
-          Job catgories along with thier respective number of   <br/>                                job posted and number of subscribers.
+        <p className="mt-6 max-w-[882px] mx-auto text-[20px] md:text-[32px]">
+          Job categories along with their respective number of jobs and subscribers.
         </p>
       </section>
 
-      {/* ================= CATEGORIES LIST ================= */}
       <section className="max-w-7xl mx-auto px-4 pt-24 pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {mockCategories.map((category) => (
@@ -61,7 +35,8 @@ const Categories = () => {
           ))}
         </div>
       </section>
-       <DeveloperCTA/>
+
+      <DeveloperCTA />
       <Footer />
     </main>
   );

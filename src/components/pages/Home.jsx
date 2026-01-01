@@ -14,9 +14,6 @@ const Home = () => {
   const isLoading = false;
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  // ✅ Show only latest 6 jobs on Home
-  const latestJobs = mockJobs.slice(0, 9);
-
   return (
     <>
       <Hero openAuthModal={() => setShowAuthModal(true)} />
@@ -31,10 +28,9 @@ const Home = () => {
         <LatestJobsSkeleton />
       ) : (
         <LatestJobs
-          jobs={latestJobs}
+          jobs={mockJobs}   // ✅ PASS ALL JOBS
+          limit={9}         // ✅ HOME PREVIEW ONLY
           showHeader={true}
-          isLoading={false}
-          hasSearched={false}
         />
       )}
 
