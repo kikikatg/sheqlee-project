@@ -20,7 +20,7 @@ export const mockFooterLinks = [
     links: [
       { label: "Getting started", href: "#" },
       { label: "Contact", href: "/contact" },
-      { label: "FAQ", href: "#" },
+      { label: "FAQ", href: "/faq" },
     ],
   },
   {

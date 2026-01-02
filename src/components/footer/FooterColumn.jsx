@@ -1,20 +1,28 @@
+import { Link } from "react-router-dom";
+
 const FooterColumn = ({ title, links }) => {
   return (
-    <div className="flex flex-col gap-6">
-      {/* Title */}
-      <h4 className="text-[22px] font-semibold text-white underline underline-offset-2">
+    <div className="space-y-6 text-center sm:text-left">
+      <h4 className="text-white font-semibold text-[20px] uppercase">
         {title}
       </h4>
 
-      <ul className="flex flex-col gap-1">
-        {links.map((link, index) => (
-          <li key={index}>
-            <a
-              href={link.href}
-              className="text-[20px] text-gray-400 hover:text-white transition-colors"
-            >
-              {link.label}
-            </a>
+      <ul className="space-y-3">
+        {links.map((link) => (
+          <li key={link.label}>
+            {link.href.startsWith("#") ? (
+              /* Disabled / future links */
+              <span className="text-gray-400 text-[17px] cursor-not-allowed">
+                {link.label}
+              </span>
+            ) : (
+              <Link
+                to={link.href}
+                className="text-gray-300 text-[17px] hover:text-white transition"
+              >
+                {link.label}
+              </Link>
+            )}
           </li>
         ))}
       </ul>

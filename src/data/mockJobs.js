@@ -317,11 +317,11 @@ export const mockJobs = [
     },
   },
    {
-    id: 1,
+    id: 14,
     title: "Product Designer",
     description:
       "KeplerLab is a VC-backed, stealth, application-only platform for senior product designers to team up with the best companies on their next big thing.",
-    company: "KeplerLab",
+    company: "Hotjar",
     type: "Full-Time",
     level: "Intermediate",
     rate: "$15/hr",
@@ -409,7 +409,7 @@ export const mockJobs = [
     title: "Senior Python Developer",
     description:
       "The ideal candidate will be responsible for helping us develop a wide variety of projects leveraging PostgreSQL, Django and Python.",
-    company: "Infosys",
+    company: "Hotjar",
     type: "Full-Time",
     level: "Intermediate",
     rate: "$20/hr",
@@ -449,10 +449,10 @@ export const mockJobs = [
   },
 
   {
-    id: 4,
+    id: 12,
     title: "Junior DevOps Engineer",
     description: "We need one to work with fellow DevOps engineers.",
-    company: "N9 IT SOLUTIONS",
+    company: "Hotjar",
     type: "Full-Time",
     level: "Intermediate",
     rate: "$15/hr",
@@ -660,11 +660,11 @@ export const mockJobs = [
   },
    
    {
-    id: 1,
+    id: 10,
     title: "Product Designer",
     description:
       "KeplerLab is a VC-backed, stealth, application-only platform for senior product designers to team up with the best companies on their next big thing.",
-    company: "KeplerLab",
+    company: "Keppa London",
     type: "Full-Time",
     level: "Intermediate",
     rate: "$15/hr",
@@ -704,11 +704,11 @@ export const mockJobs = [
   },
 
   {
-    id: 2,
+    id: 11,
     title: "UI/UX Designer",
     description:
       "We're looking for an experienced and talented UI designer to design and shape unique, user-centric design systems and experiences.",
-    company: "KeplerLab",
+    company: "Kappa London",
     type: "Part-Time",
     level: "Expert",
     rate: "$25-$30/hr",
@@ -746,6 +746,67 @@ export const mockJobs = [
       tags: ["UX", "UI", "Research", "Prototyping"],
     },
   },
+  {
+    id: 1,
+    title: "Product Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd", // ✅ MATCHES mockCompanies.slug
+    location: "Remote",
+    type: "Full-Time",
+    level: "Intermediate",
+    rate: "$15/hr",
+    postedAt: "30mins ago",
+    description: "KeplerLab is a VC-backed design platform...",
+    details: { /* unchanged */ },
+  },
+
+  {
+    id: 2,
+    title: "UI/UX Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd",
+    location: "Remote",
+    type: "Part-Time",
+    level: "Expert",
+    rate: "$25-$30/hr",
+    postedAt: "45mins ago",
+    details: { /* unchanged */ },
+  },
+
+  {
+    id: 14,
+    title: "Product Designer",
+    company: "Hotjar",
+    companySlug: "hotjar",
+    location: "Remote",
+    type: "Full-Time",
+    rate: "$15/hr",
+    postedAt: "30mins ago",
+    details: { /* unchanged */ },
+  },
+
+  {
+    id: 12,
+    title: "Junior DevOps Engineer",
+    company: "Hotjar",
+    companySlug: "hotjar",
+    location: "Remote",
+    type: "Full-Time",
+    postedAt: "2hrs ago",
+    details: { /* unchanged */ },
+  },
+
+  {
+    id: 11,
+    title: "UI/UX Designer",
+    company: "Kappa London",
+    companySlug: "kappa-london",
+    location: "London, UK",
+    type: "Part-Time",
+    postedAt: "45mins ago",
+    details: { /* unchanged */ },
+  },
+  
 
   {
     id: 3,

@@ -2,24 +2,24 @@ const StatCard = ({ icon, value, label }) => {
   return (
     <div className="flex flex-col items-center text-center px-4">
 
-      {/* 🔧 STEP 8: ICON — larger & dominant */}
+      {/* ICON — clearly larger */}
       <img
         src={icon}
         alt={label}
-        className="w-14 h-14 sm:w-16 sm:h-16 mb-4"
+        className="w-[150px] h-[110px] sm:w-[100px] sm:h-[100px] mb-4"
       />
 
-      {/* 🔧 STEP 8: VALUE — slightly reduced size */}
-      <p className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
+      {/* VALUE — VERY BIG & noticeable */}
+      <p className="text-[24px] sm:text-[30px] lg:text-[40px] font-semibold text-gray-900 mb-2">
         {value}
       </p>
 
-      {/* 🔧 STEP 8: LABEL — forced two-line hierarchy */}
-      <p className="text-sm sm:text-base text-gray-900 leading-tight max-w-[240px]">
-        <span className="block font-medium text-gray-9">
+      {/* LABEL — BIGGER & readable */}
+      <p className="text-[32px] sm:text-[20px] lg:text-[24px] text-gray-900 leading-tight max-w-[320px]">
+        <span className="block font-medium">
           {label.split(" ").slice(0, Math.ceil(label.split(" ").length / 2)).join(" ")}
         </span>
-        <span className="block text-gray-900">
+        <span className="block">
           {label.split(" ").slice(Math.ceil(label.split(" ").length / 2)).join(" ")}
         </span>
       </p>

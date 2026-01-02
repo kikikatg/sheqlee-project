@@ -9,8 +9,8 @@ import Footer from "../footer/Footer";
 import { mockJobs } from "../../data/mockJobs";
 
 /* -------------------------------
-   CATEGORY DERIVATION (TEMP)
-   → API WILL REPLACE THIS
+   TEMP CATEGORY DERIVATION
+   (API WILL REPLACE THIS)
 -------------------------------- */
 const getJobCategory = (job) => {
   const t = job.title.toLowerCase();
@@ -29,7 +29,7 @@ const AllJobs = () => {
   const [filteredJobs, setFilteredJobs] = useState(mockJobs);
 
   /* -------------------------------
-     PAGINATION (ONLY SLICE POINT)
+     PAGINATION (UNCHANGED)
   -------------------------------- */
   const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
 
@@ -40,28 +40,38 @@ const AllJobs = () => {
   }, [filteredJobs, page]);
 
   /* -------------------------------
-     FILTER HANDLER
+     APPLY FILTERS (FIXED)
   -------------------------------- */
   const handleApplyFilters = (filters) => {
     setHasSearched(true);
     setPage(1);
 
-    const search = filters.search.toLowerCase();
+    const search = filters.search.trim().toLowerCase();
 
     const results = mockJobs.filter((job) => {
+      const category = getJobCategory(job);
+      const type = job.type?.toLowerCase() || "";
+      const level = job.level?.toLowerCase() || "";
+
+      /* SEARCH */
       const matchesSearch =
         !search ||
-        job.title.toLowerCase().includes(search) ||
-        job.description.toLowerCase().includes(search) ||
-        job.company.toLowerCase().includes(search);
+        job.title?.toLowerCase().includes(search) ||
+        job.company?.toLowerCase().includes(search) ||
+        job.description?.toLowerCase().includes(search) ||
+        type.includes(search) ||
+        level.includes(search) ||
+        category.toLowerCase().includes(search);
 
+      /* CATEGORY */
       const matchesCategory =
-        !filters.category ||
-        getJobCategory(job) === filters.category;
+        !filters.category || category === filters.category;
 
+      /* TYPE */
       const matchesType =
         !filters.type || job.type === filters.type;
 
+      /* LEVEL */
       const matchesLevel =
         !filters.level || job.level === filters.level;
 
@@ -78,14 +88,9 @@ const AllJobs = () => {
 
   return (
     <main className="bg-white min-h-screen">
-      {/* ================= SUB NAVBAR ================= */}
       <SubNavbar
         crumbs={[
-          {
-            label: "All Jobs",
-            href: "/jobs",
-            active: true,
-          },
+          { label: "All Jobs", href: "/jobs", active: true },
         ]}
       />
 

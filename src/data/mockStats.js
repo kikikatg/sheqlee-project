@@ -13,7 +13,7 @@ export const mockStats = [
     id: "developers",
     value: "15K+",
     label: "Ethiopian professionals signed up so far",
-     icon: "/icons/user.svg", // 👤 developers
+     icon: "/icons/programmer.svg", // 👤 developers
   },
   {
     id: "companies",
