@@ -12,12 +12,10 @@ import TextInput from "../../auth/TextInput";
 import PasswordInput from "../../auth/PasswordInput";
 import ContinueWithGoogle from "../../auth/ContinueWithGoogle";
 
-const CompanyRegistration = () => {
+const ProfessionalRegistration = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    company: "",
-    domain: "",
     name: "",
     email: "",
     password: "",
@@ -41,49 +39,25 @@ const CompanyRegistration = () => {
 
   const handleRegister = () => {
     if (!validate()) return;
-    navigate("/company-signup");
+    console.log("Professional registered", form);
+    navigate("/professional-signup");
   };
 
   return (
     <main className="bg-white min-h-screen">
-      <SubNavbar crumbs={[{ label: "Company Signup", active: true }]} />
+      <SubNavbar crumbs={[{ label: "Professional Signup", active: true }]} />
 
       <InfoCard
-        text="If you are a freelancer, please visit"
-        linkText="freelancers registration"
-        to="/freelancer-signup"
+        text="If you are a company, please visit"
+        linkText="company registration"
+        to="/company-signup"
       />
 
-      {/* HEADER */}
       <section className="px-4 mt-16 max-w-5xl mx-auto flex gap-4">
-        <img src="/icons/building.svg" alt=""  className="w-16 h-16 " />
-        <h1 className="text-[50px] font-semibold">Company Registration</h1>
+        <img src="/icons/person.svg" alt="" />
+        <h1 className="text-[55px] font-semibold">Professional Registration</h1>
       </section>
 
-      {/* COMPANY INFO */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-        <TextInput
-          label="Company name"
-          required
-          value={form.company}
-          placeholder="Sheqlee Co.Ltd."
-          icon="/icons/company (1).svg"
-          onChange={(v) => setForm({ ...form, company: v })}
-        />
-
-        <TextInput
-          label="Domain"
-          required
-          value={form.domain}
-          placeholder="sheqlee.com"
-          prefix="https://"
-          onChange={(v) => setForm({ ...form, domain: v })}
-        />
-      </section>
-
-      <Divider text="COMPANY REPRESENTATIVE" />
-
-      {/* REPRESENTATIVE */}
       <section className="px-4 mt-16 max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
         <TextInput
           label="Full name"
@@ -102,7 +76,9 @@ const CompanyRegistration = () => {
           icon="/icons/email.svg"
           onChange={(v) => setForm({ ...form, email: v })}
         />
+      </section>
 
+      <section className="px-4 mt-16 max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
         <PasswordInput
           label="Password"
           required
@@ -120,25 +96,23 @@ const CompanyRegistration = () => {
         />
       </section>
 
-      {/* TERMS */}
-      <section className="px-4 mt-12 max-w-5xl mx-auto flex gap-4 bg-[#DFDFDF]items-start">
+      <section className="px-4 mt-12 max-w-5xl mx-auto flex gap-4">
         <input
           type="checkbox"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
           className="w-[30px] h-[30px]  bg-[#DFDFDF]"
         />
-        <p className="text-[22px]">
+        <p className="text-[22px] ">
           By creating an account, you agree to{" "}
           <Underline text="Terms and Conditions" to="/terms-and-conditions" />{" "}
           <Underline text="Privacy Policy" to="/privacy-policy" />.
         </p>
       </section>
 
-      {/* ACTION */}
-       <section className="px-4 mt-16 max-w-5xl mx-auto flex justify-end gap-6">
+      <section className="px-4 mt-16 max-w-5xl mx-auto flex justify-end gap-6">
         <p className="text-[22px]">
-          Already got an account? 
+          Already got an account?
           <Underline text="Login" bigger to="/login" />
         </p>
 
@@ -149,10 +123,10 @@ const CompanyRegistration = () => {
           Register
         </button>
       </section>
- <Divider text="OR CONTINUE WITH" />
 
-      {/* GOOGLE */}
-      <section className="px-4 mt-20 max-w-5xl mx-auto flex justify-center">
+      <Divider text="or CONTINUE WITH" />
+
+      <section className="px-4 mt-12 max-w-5xl mx-auto flex justify-center">
         <ContinueWithGoogle onClick={() => console.log("Google auth")} />
       </section>
 
@@ -165,4 +139,4 @@ const CompanyRegistration = () => {
   );
 };
 
-export default CompanyRegistration;
+export default ProfessionalRegistration;

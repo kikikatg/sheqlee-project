@@ -3,7 +3,7 @@ import SubNavbar from "../../all-jobs/SubNavbar";
 import Footer from "../../footer/Footer";
 import ClientStatCard from "./ClientStatCard";
 import { mockClientStats } from "../../../data/mockClientStats";
-
+import { Link } from "react-router-dom";
 const Clients = () => {
   const navigate = useNavigate();
 
@@ -33,6 +33,7 @@ const Clients = () => {
 
         {/* ================= ACTION BUTTONS ================= */}
         <div className="mt-20 flex flex-col sm:flex-row gap-6 sm:gap-8">
+        <Link to="/login">
           <button
             className="
               w-[140px] h-[70px]
@@ -46,6 +47,7 @@ const Clients = () => {
           >
             Log in
           </button>
+       </Link>
 
           <button
             onClick={() => navigate("/company-signup")}

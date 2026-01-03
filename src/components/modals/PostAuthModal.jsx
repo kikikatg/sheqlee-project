@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-
+import { Link } from "react-router-dom";
 const PostAuthModal = ({
   onClose,
   titleLines = [
@@ -83,6 +83,7 @@ const PostAuthModal = ({
               Sign up
             </button>
 
+        <Link to="/login" className="btn-primary">
             <button
               className="
                 w-[140px] h-[56px] lg:h-[70px]
@@ -94,6 +95,7 @@ const PostAuthModal = ({
             >
               Log in
             </button>
+            </Link>
           </div>
         </div>
       </div>

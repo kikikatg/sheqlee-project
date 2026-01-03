@@ -12,7 +12,8 @@ import CompanyDetails from "../pages/company-details/CompanyDetails";
 import Contact from "../pages/contacts/Contact";
 import FAQ from "../pages/faq/FAQ";
 import CompanyRegistration from "../pages/company-registration/CompanyRegistration";
-
+import ProfessionalRegistration from "../pages/professional-registration/ProfessionalRegistration";
+import Login from "../auth/Login";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -29,7 +30,8 @@ const AppRoutes = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/company-signup" element={<CompanyRegistration />} />
-
+      <Route path="/freelancer-signup" element={<ProfessionalRegistration />} />
+     <Route path="/login" element={<Login />} />
     </Routes>
   );
 };
