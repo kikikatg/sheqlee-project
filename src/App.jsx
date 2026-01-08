@@ -1,15 +1,10 @@
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./components/routes/AppRoutes";
-import Navbar from "./components/layout/Navbar";
-
-
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
       <AppRoutes />
-   
     </BrowserRouter>
   );
 }

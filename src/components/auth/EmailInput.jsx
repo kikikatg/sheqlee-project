@@ -11,7 +11,7 @@ const EmailInput = ({ value, onChange, required, label = "Email Address" }) => {
       <div className="relative flex items-center h-[85px] bg-[#DFDFDF] rounded-[15px]">
         {/* Left black accent */}
         <div className="w-[60px] h-full bg-black rounded-l-[15px] flex items-center justify-center">
-          <img src="/icons/person.svg" alt="email" className="w-5 h-5" />
+          <img src="/icons/email.svg" alt="email" className="w-5 h-5" />
         </div>
 
         {/* Input */}

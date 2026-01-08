@@ -12,10 +12,10 @@ const PasswordInput = ({ value, onChange, required, label = "Password" }) => {
       </label>
 
       {/* Input container */}
-      <div className="relative flex items-center h-[85px] bg-[#DFDFDF] rounded-[15px]">
+      <div className="relative flex items-center h-[95px] bg-[#DFDFDF] rounded-[15px] overflow-hidden">
         {/* Left black accent */}
-        <div className="w-[60px] h-full bg-black rounded-l-[15px] flex items-center justify-center">
-          <img src="/icons/key.svg" alt="password" className="w-5 h-5" />
+        <div className="w-[80px] h-full bg-black rounded-l-[15px] flex items-center justify-center">
+          <img src="/icons/key.svg" alt="password" className="w-6 h-5" />
         </div>
 
         {/* Input */}

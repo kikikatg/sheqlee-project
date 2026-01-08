@@ -26,7 +26,7 @@ export const mockFooterLinks = [
   {
     title: "Legal",
     links: [
-      { label: "Privacy Policy", href: "#" },
+      { label: "Privacy Policy", href: "privacy-policy" },
       { label: "Terms and Conditions", href: "#" },
       { label: "Cookie Policy", href: "#" },
     ],

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import SubNavbar from "../all-jobs/SubNavbar";
 import Footer from "../footer/Footer";
@@ -13,6 +13,15 @@ import DeveloperCTA from "../sections/DeveloperCTA";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate(); // ✅ ADD
+
+  const handleLogin = () => {
+    // 🔁 mock login (replace with API later)
+    console.log("Logging in:", { email, password });
+
+    navigate("/user"); // ✅ GO TO USER HOME
+  };
 
   return (
     <main className="bg-white min-h-screen flex flex-col overflow-x-hidden">
@@ -31,20 +40,11 @@ const Login = () => {
           </div>
 
           {/* Form */}
-          <div className="space-y-10 ">
+          <div className="space-y-10">
             {/* Inputs */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ">
-              <EmailInput
-                value={email}
-                onChange={setEmail}
-                required
-              />
-
-              <PasswordInput
-                value={password}
-                onChange={setPassword}
-                required
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <EmailInput value={email} onChange={setEmail} required />
+              <PasswordInput value={password} onChange={setPassword} required />
             </div>
 
             {/* Remember + Actions */}
@@ -68,19 +68,20 @@ const Login = () => {
                 <div className="flex text-[22px] items-center gap-2">
                   <p>Forgot password?</p>
                   <Link
-                    to="/reset"
+                    to="/reset-password"
                     className="underline decoration-[#8967B3] underline-offset-[4px] text-black"
                   >
                     Reset
                   </Link>
                 </div>
 
-                <Link
-                  to="/login"
+                {/* ✅ FIXED LOGIN BUTTON */}
+                <button
+                  onClick={handleLogin}
                   className="w-[150px] h-[70px] bg-[#8967B3] rounded-[15px] text-white text-[24px] flex items-center justify-center"
                 >
                   Login
-                </Link>
+                </button>
               </div>
             </div>
           </div>
