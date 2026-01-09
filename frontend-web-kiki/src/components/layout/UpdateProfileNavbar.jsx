@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { useUser } from "../../context/UserContext"; // adjust path
+
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
 import DownArrow from "/icons/arrow-down.svg";
@@ -9,7 +11,7 @@ const UpdateProfileNavbar = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, right: 0 });
   const [visible, setVisible] = useState(true);
-
+  const { user } = useUser();
   const profileTriggerRef = useRef(null);
   const lastScrollY = useRef(0);
   const navigate = useNavigate();
@@ -100,21 +102,30 @@ const UpdateProfileNavbar = () => {
                 </div>
               )}
             </div>
-            <Link
-              to="/account-setting"
-              className="w-[160px] h-[56px] bg-[#8967B3] text-white rounded-[15px] flex items-center justify-center text-[22px]"
+            <NavLink
+              to="/edit-profile"
+              className={({ isActive }) =>
+                `w-[160px] h-[56px] rounded-[15px] flex items-center justify-center text-[22px] 
+     ${isActive ? "bg-black text-white" : "bg-[#8967B3] text-white"}`
+              }
             >
-              {" "}
-              Edit profile{" "}
-            </Link>
+              Edit profile
+            </NavLink>
+
             {/* EDIT PROFILE DROPDOWN TRIGGER */}
             <div
               ref={profileTriggerRef}
               onClick={() => setProfileOpen((v) => !v)}
               className="flex items-center gap-3 cursor-pointer"
             >
-              <img src="/icons/set.svg" className="w-8 h-8" />
-              <span className="text-[22px] font-medium">Muruts Yifter</span>
+              <img
+                src={user.avatar || "/icons/set.svg"}
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="text-[22px] font-medium">
+                {user.fullName || "User"}
+              </span>
+
               <img src="/icons/arrow-down.svg" className="w-[10px]" />
             </div>
           </div>
@@ -140,7 +151,7 @@ const UpdateProfileNavbar = () => {
           </Link>
 
           <Link
-            to="/account-setting"
+            to="/user/account-setting"
             onClick={() => setProfileOpen(false)}
             className="flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
           >

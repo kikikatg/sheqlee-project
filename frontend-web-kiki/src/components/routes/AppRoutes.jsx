@@ -30,7 +30,10 @@ import AccountSetting from "../pages/account-setting/AccountSetting";
 import UpdateProfileLayout from "../layout/UpdateProfileLayout";
 import UpdateProfile from "../pages/update-profile/UpdateProfile";
 import DashboardUser from "../pages/dashboard/DashboardUser";
-
+import EditProfileDetails from "../pages/update-profile/EditProfileDetails";
+import UserAccountSetting from "../pages/account-setting/UserAccountSetting";
+import ProfilePreview from "../pages/update-profile/ProfilePreview";
+import PrintProfile from "../pages/update-profile/PrintProfile";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -73,7 +76,11 @@ const AppRoutes = () => {
       <Route element={<UpdateProfileLayout />}>
         <Route path="/update-profile" element={<UpdateProfile />} />
         <Route path="/dashboard-user" element={<DashboardUser />} />
+        <Route path="/edit-profile" element={<EditProfileDetails />} />
+        <Route path="/user/account-setting" element={<UserAccountSetting />} />
+        <Route path="/profile" element={<ProfilePreview />} />
       </Route>
+      <Route path="/print-profile" element={<PrintProfile />} />
     </Routes>
   );
 };
