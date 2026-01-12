@@ -14,12 +14,11 @@ const LatestJobs = ({
   const visibleJobs = limit ? jobs.slice(0, limit) : jobs;
 
   return (
-    <section className="bg-white py-12 sm:py-16 font-['Kantumruy_Pro'] gap-4">
-      <div className=" w-[1500px] mx-auto px-4 sm:px-6 md:px-8 gap-4">
-
+    <section className="bg-white py-12 sm:py-16 font-['Kantumruy_Pro']">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8">
         {/* ================= HEADER ================= */}
         {showHeader && (
-          <div className="flex items-center justify-between gap-8 mb-8 max-">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold">
               Latest job posts
             </h2>
@@ -66,7 +65,7 @@ const LatestJobs = ({
 
         {/* ================= JOB GRID ================= */}
         {!isLoading && hasResults && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleJobs.map((job) => (
               <JobCard key={job.id} job={job} />
             ))}

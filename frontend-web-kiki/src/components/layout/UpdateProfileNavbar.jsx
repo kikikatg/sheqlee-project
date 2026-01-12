@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useUser } from "../../context/UserContext"; // adjust path
-
+import { useUser } from "../../context/UserContext";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
 import DownArrow from "/icons/arrow-down.svg";
@@ -8,9 +7,11 @@ import { mockCategories } from "../../data/mockCategories";
 
 const UpdateProfileNavbar = () => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false); // desktop dropdown
+  const [mobileOpen, setMobileOpen] = useState(false); // mobile menu
   const [dropdownPos, setDropdownPos] = useState({ top: 0, right: 0 });
   const [visible, setVisible] = useState(true);
+
   const { user } = useUser();
   const profileTriggerRef = useRef(null);
   const lastScrollY = useRef(0);
@@ -30,7 +31,7 @@ const UpdateProfileNavbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Position dropdown */
+  /* Position desktop dropdown */
   useEffect(() => {
     if (profileOpen && profileTriggerRef.current) {
       const rect = profileTriggerRef.current.getBoundingClientRect();
@@ -50,31 +51,34 @@ const UpdateProfileNavbar = () => {
 
   return (
     <>
-      {/* ===== OVERLAY ===== */}
+      {/* ===== DESKTOP OVERLAY ===== */}
       {profileOpen && (
         <div
-          className="fixed top-0 left-0 w-[1920px] h-[1080px] bg-black opacity-50 z-40"
+          className="fixed inset-0 bg-black opacity-50 z-40"
           onClick={() => setProfileOpen(false)}
         />
       )}
 
       {/* ===== NAVBAR ===== */}
       <header
-        className={`relative z-20 bg-[#F7F7F7] h-[160px] transition-opacity ${
+        className={`relative z-20 bg-[#F7F7F7] h-[90px] md:h-[160px] transition-opacity ${
           visible ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <nav className="w-full max-w-[1920px] mx-auto flex items-center h-full px-4 md:px-[101px]">
+        <nav className="w-full max-w-[1920px] mx-auto flex items-center h-full px-4 md:px-[101px] gap-6">
           {/* LOGO */}
-          <div className="flex items-center gap-6">
-            <img src={Logo} className="w-[65px] h-[65px]" />
-            <Link to="/user" className="text-[40px] font-bold">
+          <div className="flex items-center gap-4 flex-shrink-0">
+            <img
+              src={Logo}
+              className="w-[40px] h-[40px] md:w-[65px] md:h-[65px]"
+            />
+            <Link to="/user" className="text-[24px] md:text-[40px] font-bold">
               Sheqlee
             </Link>
           </div>
 
-          {/* NAV LINKS */}
-          <div className="ml-auto hidden md:flex items-center gap-12">
+          {/* DESKTOP NAV */}
+          <div className="ml-auto hidden md:flex items-center gap-6 lg:gap-10 flex-nowrap min-w-0">
             <NavLink to="/all-jobs" className={navLinkClass}>
               All jobs
             </NavLink>
@@ -102,17 +106,20 @@ const UpdateProfileNavbar = () => {
                 </div>
               )}
             </div>
+
             <NavLink
               to="/edit-profile"
               className={({ isActive }) =>
-                `w-[160px] h-[56px] rounded-[15px] flex items-center justify-center text-[22px] 
-     ${isActive ? "bg-black text-white" : "bg-[#8967B3] text-white"}`
+                `w-[140px] md:w-[160px] h-[48px] md:h-[56px] text-[18px] md:text-[22px]
+                 rounded-[15px] flex items-center justify-center ${
+                   isActive ? "bg-black text-white" : "bg-[#8967B3] text-white"
+                 }`
               }
             >
               Edit profile
             </NavLink>
 
-            {/* EDIT PROFILE DROPDOWN TRIGGER */}
+            {/* PROFILE DROPDOWN */}
             <div
               ref={profileTriggerRef}
               onClick={() => setProfileOpen((v) => !v)}
@@ -122,17 +129,109 @@ const UpdateProfileNavbar = () => {
                 src={user.avatar || "/icons/set.svg"}
                 className="w-8 h-8 rounded-full object-cover"
               />
-              <span className="text-[22px] font-medium">
+              <span className="hidden xl:inline text-[22px] font-medium">
                 {user.fullName || "User"}
               </span>
-
               <img src="/icons/arrow-down.svg" className="w-[10px]" />
             </div>
           </div>
+
+          {/* MOBILE HAMBURGER */}
+          <button
+            className="ml-auto md:hidden flex items-center"
+            onClick={() => setMobileOpen(true)}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24">
+              <path d="M3 6h18M3 12h18M3 18h18" stroke="#000" strokeWidth="2" />
+            </svg>
+          </button>
         </nav>
       </header>
 
-      {/* ===== DROPDOWN CARD ===== */}
+      {/* ===== MOBILE MENU ===== */}
+      {mobileOpen && (
+        <div className="fixed inset-0 bg-white z-50 flex flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-4 border-b">
+            <div className="flex items-center gap-3">
+              <img src={Logo} className="w-10 h-10" />
+              <span className="text-[24px] font-bold">Sheqlee</span>
+            </div>
+            <button onClick={() => setMobileOpen(false)}>✕</button>
+          </div>
+
+          {/* Content */}
+          <nav className="flex flex-col gap-6 px-6 py-8 text-[20px]">
+            <NavLink to="/all-jobs" onClick={() => setMobileOpen(false)}>
+              All jobs
+            </NavLink>
+
+            {/* Categories */}
+            <div>
+              <button
+                onClick={() => setCategoriesOpen(!categoriesOpen)}
+                className="flex items-center gap-2"
+              >
+                Categories
+                <img src={DownArrow} className="w-3" />
+              </button>
+
+              {categoriesOpen && (
+                <div className="mt-4 flex flex-col gap-3 pl-4">
+                  {mockCategories.map((cat) => (
+                    <Link
+                      key={cat.id}
+                      to={`/categories/${cat.id}`}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <NavLink
+              to="/edit-profile"
+              onClick={() => setMobileOpen(false)}
+              className="bg-[#8967B3] text-white py-3 rounded-xl w-40 text-center"
+            >
+              Edit profile
+            </NavLink>
+
+            {/* User section */}
+            <div className="border-t pt-6 mt-6">
+              <div className="flex items-center gap-3 mb-4">
+                <img
+                  src={user.avatar || "/icons/set.svg"}
+                  className="w-10 h-10 rounded-full"
+                />
+                <span className="font-medium">{user.fullName || "User"}</span>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <Link to="/dashboard-user" onClick={() => setMobileOpen(false)}>
+                  Dashboard
+                </Link>
+                <Link
+                  to="/user/account-setting"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Account setting
+                </Link>
+                <button
+                  onClick={() => navigate("/login")}
+                  className="text-left"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </nav>
+        </div>
+      )}
+
+      {/* ===== DESKTOP PROFILE DROPDOWN ===== */}
       {profileOpen && (
         <div
           className="fixed z-[60] w-[220px] bg-white shadow-xl py-2 my-4 rounded-b-2xl rounded-t-none"

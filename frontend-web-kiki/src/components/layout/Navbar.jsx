@@ -36,15 +36,15 @@ const Navbar = ({ showAuthModal, closeAuthModal }) => {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   /** 🔹 ACTIVE LINK STYLE (UNCHANGED) */
   const navLinkClass = ({ isActive }) =>
     `
       relative
-      text-[22px]
+      text-[15px] sm:text-[16px] md:text-[18px] lg:text-[22px] py-10
+
       font-medium
       transition-colors
       ${
@@ -54,7 +54,7 @@ const Navbar = ({ showAuthModal, closeAuthModal }) => {
             after:absolute
             after:left-1/2
             after:-translate-x-1/2
-            after:-bottom-[42px]
+            after:-bottom-[16px]
             after:w-[60px]
             after:h-[8px]
             after:bg-[#8967B3]
@@ -66,51 +66,65 @@ const Navbar = ({ showAuthModal, closeAuthModal }) => {
   return (
     <header
       className={`
-        relative
-        bg-[#F7F7F7]
-        h-[160px]
-        transition-opacity duration-300
+       relative
+    bg-[#F7F7F7]
+    min-h-[80px]
+    sm:min-h-[120px]
+    transition-opacity duration-300
         ${visible ? "opacity-100" : "opacity-0 pointer-events-none"}
       `}
     >
       <nav
         className="
-          w-full
-          max-w-[1920px]
-          mx-auto
-          flex
-          items-center
-          h-full
-          px-4 sm:px-8 md:px-[101px]
-        "
+    w-full
+    flex
+    items-center
+    justify-between
+    min-h-full
+    px-4
+    sm:px-6
+    md:px-8
+    lg:px-12
+    xl:px-16
+  "
         style={{ fontFamily: "Kantumruy Pro" }}
       >
         {/* LOGO */}
-        <div className="flex items-center gap-6 shrink-0">
+        <div className="flex items-center gap-3 sm:gap-4 shrink-0 min-w-fit">
           <img
             src={Logo}
-            alt="Sheqlee Logo"
-            className="w-[65px] h-[65px] object-contain"
+            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[65px] lg:h-[65px]"
           />
+
           <Link
             to="/"
-            className="font-bold text-black text-[40px] leading-[48px]"
+            className="font-bold text-black
+  text-[22px]
+  sm:text-[26px]
+  lg:text-[40px]"
           >
             Sheqlee
           </Link>
         </div>
 
         {/* DESKTOP NAV */}
-        <div className="ml-auto hidden md:flex items-center gap-12">
+        <div
+          className="
+  hidden md:flex
+  items-center
+  gap-4
+  lg:gap-6
+  xl:gap-8
+  flex-1
+  justify-end
+"
+        >
           <NavLink to="/all-jobs" className={navLinkClass}>
             All jobs
           </NavLink>
 
           {/* Categories */}
-          <div
-            className="relative flex items-center gap-3"
-            ref={dropdownRef}
-          >
+          <div className="relative flex items-center gap-3" ref={dropdownRef}>
             <NavLink to="/categories" className={navLinkClass}>
               Categories
             </NavLink>
@@ -146,14 +160,19 @@ const Navbar = ({ showAuthModal, closeAuthModal }) => {
           {/* AUTH */}
           <Link
             to="/login"
-            className="w-[130px] h-[56px] flex items-center justify-center border-[3px] border-[#8967B3] rounded-[15px] text-[22px] font-semibold"
+            className=" min-w-[110px] h-[48px] lg:h-[56px]
+text-[14px] sm:text-[16px] lg:text-[22px]
+flex items-center justify-center border-[3px] border-[#8967B3] rounded-[15px]  font-semibold"
           >
             Login
           </Link>
 
           <Link
-            to="/signup"
-            className="w-[140px] h-[56px] flex items-center justify-center bg-[#8967B3] rounded-[15px] text-[22px] font-semibold text-white"
+            to="/company-signup"
+            className="min-w-[100px]
+h-[44px] lg:h-[56px]
+text-[14px] sm:text-[16px] lg:text-[20px]
+ flex items-center justify-center bg-[#8967B3] rounded-[15px]  font-semibold text-white"
           >
             Sign up
           </Link>
@@ -165,45 +184,86 @@ const Navbar = ({ showAuthModal, closeAuthModal }) => {
           onClick={() => setMobileOpen(true)}
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M3 6h18M3 12h18M3 18h18"
-              stroke="#000"
-              strokeWidth="2"
-            />
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="#000" strokeWidth="2" />
           </svg>
         </button>
 
         {/* MOBILE MENU */}
         {mobileOpen && (
-          <div className="fixed inset-0 bg-white z-50 flex flex-col p-8">
-            <button
-              className="self-end mb-8"
-              onClick={() => setMobileOpen(false)}
-            >
-              <img src={CloseIcon} className="w-7 h-7" />
-            </button>
+          <div className="fixed inset-0 z-50 bg-white flex flex-col">
+            {/* TOP BAR */}
+            <div className="flex items-center justify-between px-6 py-5 border-b">
+              <span className="text-[22px] font-semibold">Menu</span>
 
-            <NavLink to="/all-jobs" onClick={() => setMobileOpen(false)}>
-              All jobs
-            </NavLink>
-
-            <NavLink to="/categories" onClick={() => setMobileOpen(false)}>
-              Categories
-            </NavLink>
-
-            <NavLink to="/clients" onClick={() => setMobileOpen(false)}>
-              Clients
-            </NavLink>
-
-            <Link to="/login" >
-             <button className="mt-6">
-              Login
+              {/* KEEP THIS TYPE OF CLOSE BUTTON */}
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="text-[26px] font-medium"
+              >
+                ✕
               </button>
-            </Link>
+            </div>
 
-            <Link to="/signup" className="mt-4">
-              Sign up
-            </Link>
+            {/* LINKS */}
+            <div className="flex flex-col px-6 pt-8 gap-6 text-[20px] font-medium">
+              <NavLink
+                to="/all-jobs"
+                onClick={() => setMobileOpen(false)}
+                className="hover:text-[#8967B3]"
+              >
+                All jobs
+              </NavLink>
+
+              <NavLink
+                to="/categories"
+                onClick={() => setMobileOpen(false)}
+                className="hover:text-[#8967B3]"
+              >
+                Categories
+              </NavLink>
+
+              <NavLink
+                to="/clients"
+                onClick={() => setMobileOpen(false)}
+                className="hover:text-[#8967B3]"
+              >
+                Clients
+              </NavLink>
+            </div>
+
+            {/* AUTH BUTTONS */}
+            <div className="mt-auto px-6 pb-8 flex flex-col gap-4">
+              <Link
+                to="/login"
+                onClick={() => setMobileOpen(false)}
+                className="
+          h-[52px]
+          flex items-center justify-center
+          border-2 border-[#8967B3]
+          rounded-[14px]
+          text-[18px] w-40
+          font-semibold
+        "
+              >
+                Login
+              </Link>
+
+              <Link
+                to="/company-signup"
+                onClick={() => setMobileOpen(false)}
+                className="
+          h-[52px]
+          flex items-center justify-center
+          bg-[#8967B3]
+          rounded-[14px]
+          text-[18px]
+          font-semibold
+          text-white w-40
+        "
+              >
+                Sign up
+              </Link>
+            </div>
           </div>
         )}
 

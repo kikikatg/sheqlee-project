@@ -19,6 +19,8 @@ import Login from "../auth/Login";
 import ResetPassword from "../auth/ResetPassword";
 import SetNewPassword from "../auth/SetNewPassword";
 import PrivacyPolicy from "../pages/privacy-policy/PrivacyPolicy";
+import TermsAndConditions from "../pages/privacy-policy/TermsAndConditions";
+import CookiePolicy from "../pages/privacy-policy/CookiePolicy";
 import NotFound from "../pages/not-found/NotFound";
 import PostJob from "../pages/user/PostJob";
 import UserHome from "../pages/user/UserHome";
@@ -34,6 +36,9 @@ import EditProfileDetails from "../pages/update-profile/EditProfileDetails";
 import UserAccountSetting from "../pages/account-setting/UserAccountSetting";
 import ProfilePreview from "../pages/update-profile/ProfilePreview";
 import PrintProfile from "../pages/update-profile/PrintProfile";
+import VerifyEmail from "../auth/VerifyEmail";
+import JobTemplates from "../pages/user/JobTemplates";
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -60,6 +65,9 @@ const AppRoutes = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/set-new-password" element={<SetNewPassword />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
       </Route>
       {/* User Routes */}
       <Route element={<UserLayout />}>
@@ -71,6 +79,7 @@ const AppRoutes = () => {
         <Route path="/dashboard/detail" element={<DashboardDetail />} />
         <Route path="/company-profile" element={<CompanyProfile />} />
         <Route path="/account-setting" element={<AccountSetting />} />
+        <Route path="/job-templates" element={<JobTemplates />} />
       </Route>
       {/* Update Profile Route */}
       <Route element={<UpdateProfileLayout />}>

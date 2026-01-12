@@ -1,88 +1,117 @@
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import SubNavbar from "../../all-jobs/SubNavbar";
 import Footer from "../../footer/Footer";
 import { mockCategories } from "../../../data/mockCategories";
-import { META_ICONS, } from "../../../constants/JobIcons";
+import { META_ICONS } from "../../../constants/JobIcons";
 
 const ReviewPublish = () => {
+  const navigate = useNavigate();
+
   const { state } = useLocation();
-const jobTags = state?.details?.skills || [];
-const getCategoryIconByTitle = (title) => {
-  
-  if (!title) return "/icons/job.svg";
+  const companyName = state?.company || "Your Company";
+  const jobTags = state?.details?.skills || [];
 
-  const normalizedTitle = title.toLowerCase();
+  const handlePublish = () => {
+    const existingJobs =
+      JSON.parse(localStorage.getItem("publishedJobs")) || [];
 
-  // 1️⃣ Exact / partial name match
-  const directMatch = mockCategories.find((cat) =>
-    normalizedTitle.includes(cat.name.toLowerCase())
-  );
+    const newJob = {
+      id: Date.now(), // TEMP ID (API will replace)
+      title: state.title,
+      type: state.type,
+      level: state.level,
+      status: "Published",
+      fullData: state, // keep full job for future pages
+      publishedAt: new Date().toISOString(),
+    };
 
-  if (directMatch) return directMatch.icon;
+    localStorage.setItem(
+      "publishedJobs",
+      JSON.stringify([...existingJobs, newJob])
+    );
 
-  // 2️⃣ Keyword-based matching (SMART FALLBACK)
-  if (
-    normalizedTitle.includes("frontend") ||
-    normalizedTitle.includes("react") ||
-    normalizedTitle.includes("vue") ||
-    normalizedTitle.includes("html")
-  ) {
-    return mockCategories.find(c => c.slug === "web-frontend")?.icon;
-  }
+    navigate("/dashboard/detail");
+  };
 
-  if (
-    normalizedTitle.includes("backend") ||
-    normalizedTitle.includes("node") ||
-    normalizedTitle.includes("api") ||
-    normalizedTitle.includes("database")
-  ) {
-    return mockCategories.find(c => c.slug === "backend-database")?.icon;
-  }
+  const getCategoryIconByTitle = (title) => {
+    if (!title) return "/icons/job.svg";
 
-  if (
-    normalizedTitle.includes("design") ||
-    normalizedTitle.includes("ui") ||
-    normalizedTitle.includes("ux")
-  ) {
-    return mockCategories.find(c => c.slug === "ui-ux-product-design")?.icon;
-  }
+    const normalizedTitle = title.toLowerCase();
 
-  if (
-    normalizedTitle.includes("machine") ||
-    normalizedTitle.includes("ml") ||
-    normalizedTitle.includes("ai")
-  ) {
-    return mockCategories.find(c => c.slug === "machine-learning")?.icon;
-  }
+    // 1️⃣ Exact / partial name match
+    const directMatch = mockCategories.find((cat) =>
+      normalizedTitle.includes(cat.name.toLowerCase())
+    );
 
-  // 3️⃣ Final fallback
-  return "/icons/job.svg";
-};
-const jobIcon = getCategoryIconByTitle(state?.title);
+    if (directMatch) return directMatch.icon;
+
+    // 2️⃣ Keyword-based matching (SMART FALLBACK)
+    if (
+      normalizedTitle.includes("frontend") ||
+      normalizedTitle.includes("react") ||
+      normalizedTitle.includes("vue") ||
+      normalizedTitle.includes("html")
+    ) {
+      return mockCategories.find((c) => c.slug === "web-frontend")?.icon;
+    }
+
+    if (
+      normalizedTitle.includes("backend") ||
+      normalizedTitle.includes("node") ||
+      normalizedTitle.includes("api") ||
+      normalizedTitle.includes("database")
+    ) {
+      return mockCategories.find((c) => c.slug === "backend-database")?.icon;
+    }
+
+    if (
+      normalizedTitle.includes("design") ||
+      normalizedTitle.includes("ui") ||
+      normalizedTitle.includes("ux")
+    ) {
+      return mockCategories.find((c) => c.slug === "ui-ux-product-design")
+        ?.icon;
+    }
+
+    if (
+      normalizedTitle.includes("machine") ||
+      normalizedTitle.includes("ml") ||
+      normalizedTitle.includes("ai")
+    ) {
+      return mockCategories.find((c) => c.slug === "machine-learning")?.icon;
+    }
+
+    // 3️⃣ Final fallback
+    return "/icons/job.svg";
+  };
+
+  const jobIcon = getCategoryIconByTitle(state?.title);
 
   const details = state?.details || {};
-const requirementsList = details.requirements || [];
+  const requirementsList = details.requirements || [];
 
-const qualifications = requirementsList.filter((item) =>
-  /degree|bachelor|master|phd|diploma|certification/i.test(item)
-);
+  const qualifications = requirementsList.filter((item) =>
+    /degree|bachelor|master|phd|diploma|certification/i.test(item)
+  );
 
-const experience = requirementsList.filter((item) =>
-  /experience|years?|yr|yrs?/i.test(item)
-);
+  const experience = requirementsList.filter((item) =>
+    /experience|years?|yr|yrs?/i.test(item)
+  );
 
-const skillsAndKnowledge = requirementsList.filter((item) =>
-  /skill|knowledge|literate|communication|team|technology|software|tools/i.test(item)
-);
+  const skillsAndKnowledge = requirementsList.filter((item) =>
+    /skill|knowledge|literate|communication|team|technology|software|tools/i.test(
+      item
+    )
+  );
 
   const renderText = (content) => {
     if (!content) return null;
 
     if (typeof content === "string") {
       return (
-        <p className="text-[18px] leading-8 whitespace-pre-line">
-          {content}
-        </p>
+        <p className="text-[18px] leading-8 whitespace-pre-line">{content}</p>
       );
     }
 
@@ -98,67 +127,68 @@ const skillsAndKnowledge = requirementsList.filter((item) =>
   };
 
   const renderList = (items) =>
-  Array.isArray(items) &&
-  items.map((item, i) => (
-    <li key={i} className="text-[18px] flex gap-3">
-      <span>-</span>
-      <span>{item}</span>
-    </li>
-  ));
+    Array.isArray(items) &&
+    items.map((item, i) => (
+      <li key={i} className="text-[18px] flex gap-3">
+        <span>-</span>
+        <span>{item}</span>
+      </li>
+    ));
 
   const descriptionLines = (details.description || "")
-  .split(/\n+/)
-  .map(line => line.trim())
-  .filter(Boolean);
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean);
 
-const primaryPurposeItem = details.primaryPurpose;
-
+  // const primaryPurposeItem = details.primaryPurpose;
 
   /* ------------------------------------ */
 
   return (
     <main className="bg-white min-h-screen ">
       <SubNavbar crumbs={[{ label: "Vacancy", active: true }]} />
-{/* INFO CARD */}
+
+      {/* INFO CARD */}
       <div className="flex justify-center mt-20">
         <div className="w-[970px] h-[120px] bg-[#F7F7F7] rounded-[15px] flex">
           <div className="w-[120px] bg-black rounded-l-[15px] flex items-center justify-center">
             <img src="/icons/template.svg" className="w-[47px]" />
           </div>
           <div className="flex items-center px-10">
-           <p className="text-[22px] font-medium">
-  To speed up the process of posting a job, try using{" "}
-  <span
-    className="
+            <p className="text-[22px] font-medium">
+              To speed up the process of posting a job, try using{" "}
+              <span
+                className="
       text-[#8967B3]
       underline
       cursor-pointer
       hover:opacity-80
     "
-    onClick={() => {
-      // later: navigate to templates
-      
-    }}
-  >
-    job templates
-  </span>.
-</p>
+                onClick={() => navigate("/job-templates")}
+              >
+                job templates
+              </span>
+              .
+            </p>
           </div>
         </div>
       </div>
+
       {/* HEADER */}
-    <section className="text-center mt-20">
-  <h1 className="text-[56px] font-semibold">
-    Review & publish <span className="font-normal">[2/2]</span>
-  </h1>
-  <p className="mt-4 text-[22px] text-[#6B6B6B]">
-    Review job details before publishing
-  </p>
-</section>
-<div className="flex justify-center gap-6 mt-12">
-  {/* EDIT JOB */}
-  <button
-    className="
+      <section className="text-center mt-20">
+        <h1 className="text-[56px] font-semibold">
+          Review & publish <span className="font-normal">[2/2]</span>
+        </h1>
+        <p className="mt-4 text-[22px] text-[#6B6B6B]">
+          Review job details before publishing
+        </p>
+      </section>
+
+      <div className="flex justify-center gap-6 mt-12">
+        {/* EDIT JOB */}
+        <button
+          onClick={() => navigate("/user/post-job", { state })}
+          className="
       w-[140px]
       h-[85px]
       border-[5px]
@@ -173,13 +203,14 @@ const primaryPurposeItem = details.primaryPurpose;
       hover:bg-[#8967B3]/10
       transition
     "
-  >
-    Edit
-  </button>
+        >
+          Edit
+        </button>
 
-  {/* PUBLISH JOB */}
-  <button
-    className="
+        {/* PUBLISH JOB */}
+        <button
+          onClick={handlePublish}
+          className="
       w-[280px]
       h-[85px]
       bg-[#8967B3]
@@ -193,160 +224,155 @@ const primaryPurposeItem = details.primaryPurpose;
       hover:opacity-90
       transition
     "
-  >
-    Publish job
-  </button>
-</div>
-      {/* DIVIDER */}
-     <div className="flex items-center justify-center gap-8 mt-16">
+        >
+          Publish job
+        </button>
+      </div>
 
+      {/* DIVIDER */}
+      <div className="flex items-center justify-center gap-8 mt-16">
         <div className="w-[560px] h-[5px] bg-[#DFDFDF]" />
-        <span className="text-[20px] font-medium">
-          VACANCY PREVIEW
-        </span>
+        <span className="text-[20px] font-medium">VACANCY PREVIEW</span>
         <div className="w-[560px] h-[5px] bg-[#DFDFDF]" />
       </div>
 
       {/* JOB TITLE */}
       <div className="flex justify-center items-center gap-4 mt-14">
-  <img src={jobIcon} className="w-[36px]" />
-  <h2 className="text-[42px] font-medium">
-    {state?.title}
-  </h2>
-</div>
-
+        <img src={jobIcon} className="w-[36px]" />
+        <h2 className="text-[42px] font-medium">{state?.title}</h2>
+      </div>
 
       {/* STAT CARDS */}
-    <div className="flex justify-center gap-6 mt-10 flex-wrap">
+      <div className="flex justify-center gap-6 mt-10 flex-wrap">
+        {companyName && (
+          <div className="flex items-center gap-3 px-5 h-[45px] bg-[#DFDFDF] rounded-[8px]">
+            <img src={META_ICONS.company} className="w-[18px]" />
+            <span className="text-[16px]">{companyName}</span>
+          </div>
+        )}
 
-  {state?.type && (
-    <div className="flex items-center gap-3 px-5 h-[45px] bg-[#DFDFDF] rounded-[8px]">
-      <img src={META_ICONS.type} className="w-[18px]" />
-      <span className="text-[16px]">{state.type}</span>
-    </div>
-  )}
+        {state?.type && (
+          <div className="flex items-center gap-3 px-5 h-[45px] bg-[#DFDFDF] rounded-[8px]">
+            <img src={META_ICONS.type} className="w-[18px]" />
+            <span className="text-[16px]">{state.type}</span>
+          </div>
+        )}
 
-  {state?.level && (
-    <div className="flex items-center gap-3 px-5 h-[45px] bg-[#DFDFDF] rounded-[8px]">
-      <img src={META_ICONS.level} className="w-[18px]" />
-      <span className="text-[16px]">{state.level}</span>
-    </div>
-  )}
+        {state?.level && (
+          <div className="flex items-center gap-3 px-5 h-[45px] bg-[#DFDFDF] rounded-[8px]">
+            <img src={META_ICONS.level} className="w-[18px]" />
+            <span className="text-[16px]">{state.level}</span>
+          </div>
+        )}
 
-  {state?.rate && (
-    <div className="flex items-center gap-3 px-5 h-[45px] bg-[#DFDFDF] rounded-[8px]">
-      <img src={META_ICONS.price} className="w-[18px]" />
-      <span className="text-[16px]">
-        {state.rate} {state.currency}/{state.paymentUnit}
-      </span>
-    </div>
-  )}
-
-</div>
-
+        {state?.rate && (
+          <div className="flex items-center gap-3 px-5 h-[45px] bg-[#DFDFDF] rounded-[8px]">
+            <img src={META_ICONS.price} className="w-[18px]" />
+            <span className="text-[16px]">
+              {state.rate} {state.currency}
+              {state.paymentUnit}
+            </span>
+          </div>
+        )}
+      </div>
 
       {/* DESCRIPTION CONTAINER */}
       <div className="flex justify-center mt-20">
-    <div className="w-full max-w-[1280px] bg-[#F7F7F7] rounded-[20px] p-12 space-y-10">
+        <div className="w-full max-w-[1280px] bg-[#F7F7F7] rounded-[20px] p-12 space-y-10">
           <section>
-      <p className="text-[20px] leading-7 text-[#333]">
-  {state?.shortDescription}
-</p> 
+            <p className="text-[20px] leading-7 text-[#333]">
+              {state?.shortDescription}
+            </p>
           </section>
 
           <section>
-  <h3 className="text-[26px] font-semibold mb-4">
-    Qualifications
-  </h3>
-  <ul className="list-disc pl-6 space-y-2">
-    {renderList(qualifications)}
-  </ul>
-</section>
+            <h3 className="text-[26px] font-semibold mb-4">Qualifications</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              {renderList(qualifications)}
+            </ul>
+          </section>
 
-          <section> 
-  <h3 className="text-[26px] font-semibold mb-4">
-    Experience
-  </h3>
-  <ul className="list-disc pl-6 space-y-2">
-    {renderList(experience)}
-  </ul>
-</section>
           <section>
-  <h3 className="text-[26px] font-semibold mb-4">
-    Skills & Knowledge
-  </h3>
-  <ul className="list-disc pl-6 space-y-2">
-    {renderList(skillsAndKnowledge)}
-  </ul>
-</section>
- <section>
-  <h3 className="text-[26px] font-semibold mb-4">Description</h3>
+            <h3 className="text-[26px] font-semibold mb-4">Experience</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              {renderList(experience)}
+            </ul>
+          </section>
 
-  {descriptionLines.map((line, i) => (
-    <p key={i} className="text-[18px] leading-8 mb-2">
-      {line}
-    </p>
-  ))}
+          <section>
+            <h3 className="text-[26px] font-semibold mb-4">
+              Skills & Knowledge
+            </h3>
+            <ul className="list-disc pl-6 space-y-2">
+              {renderList(skillsAndKnowledge)}
+            </ul>
+          </section>
 
-  {details.primaryPurpose && (
-    <div className="mt-6">
-      <h4 className="text-[20px] font-semibold mb-2">
-        PRIMARY PURPOSE:
-      </h4>
-      <p className="text-[18px] leading-7">
-        {details.primaryPurpose}
-      </p>
-    </div>
-  )}
-</section>
- </div>
-</div>
+          <section>
+            <h3 className="text-[26px] font-semibold mb-4">Description</h3>
+
+            {descriptionLines.map((line, i) => (
+              <p key={i} className="text-[18px] leading-8 mb-2">
+                {line}
+              </p>
+            ))}
+
+            {details.primaryPurpose && (
+              <div className="mt-6">
+                <h4 className="text-[20px] font-semibold mb-2">
+                  PRIMARY PURPOSE:
+                </h4>
+                <p className="text-[18px] leading-7">
+                  {details.primaryPurpose}
+                </p>
+              </div>
+            )}
+          </section>
+        </div>
+      </div>
 
       {/* TAGS */}
-    {/* TAGS */}
-{jobTags.length > 0 && (
-  <div className="flex justify-center gap-3 mt-10 flex-wrap">
-    
-    {/* TAG ICON (FIRST) */}
-    <div
-      className="w-[40px] h-[40px] bg-black rounded-[5px] flex items-center justify-center"
-    >
-      <img
-        src="/icons/tags.svg"
-        alt="Tags"
-        className="w-5 h-5"
-      />
-    </div>
+      {jobTags.length > 0 && (
+        <div className="flex justify-center gap-3 mt-10 flex-wrap">
+          <div className="w-[40px] h-[40px] bg-black rounded-[5px] flex items-center justify-center">
+            <img src="/icons/tags.svg" alt="Tags" className="w-5 h-5" />
+          </div>
 
-    {/* TAG LIST */}
-    {jobTags.map((tag, index) => (
-      <div
-        key={index}
-        className="px-4 h-[40px] bg-[#DFDFDF] rounded-[5px] flex items-center"
-      >
-        {tag}
-      </div>
-    ))}
-  </div>
-)}
+          {jobTags.map((tag, index) => (
+            <div
+              key={index}
+              onClick={() =>
+                navigate("/jobs", {
+                  state: { tag, job: state },
+                })
+              }
+              className="px-4 h-[40px] bg-[#DFDFDF] rounded-[5px] flex items-center cursor-pointer hover:bg-[#E0E0E0]"
+            >
+              {tag}
+            </div>
+          ))}
+        </div>
+      )}
 
- {/* BOTTOM DIVIDER */}
-<div className="flex justify-center mt-20">
-  <div
-    className="
+      {/* BOTTOM DIVIDER */}
+      <div className="flex justify-center mt-20">
+        <div
+          className="
       w-[1449px]
       h-[5px]
       bg-[#DFDFDF]
       rounded-[15px]
       opacity-100
     "
-  />
-</div>
-{/* BOTTOM ACTION BUTTONS */}
-<div className="flex justify-center gap-6 mb-16 mt-14">
-  {/* EDIT JOB */}
-  <button
-    className="
+        />
+      </div>
+
+      {/* BOTTOM ACTION BUTTONS */}
+      <div className="flex justify-center gap-6 mb-16 mt-14">
+        {/* EDIT JOB */}
+        <button
+          onClick={() => navigate("/user/post-job", { state })}
+          className="
       w-[140px]
       h-[85px]
       border-[5px]
@@ -361,13 +387,14 @@ const primaryPurposeItem = details.primaryPurpose;
       hover:bg-[#8967B3]/10
       transition
     "
-  >
-    Edit
-  </button>
+        >
+          Edit
+        </button>
 
-  {/* PUBLISH JOB */}
-  <button
-    className="
+        {/* PUBLISH JOB */}
+        <button
+          onClick={handlePublish}
+          className="
       w-[280px]
       h-[85px]
       bg-[#8967B3]
@@ -381,10 +408,10 @@ const primaryPurposeItem = details.primaryPurpose;
       hover:opacity-90
       transition
     "
-  >
-    Publish job
-  </button>
-</div>
+        >
+          Publish job
+        </button>
+      </div>
       <Footer />
     </main>
   );

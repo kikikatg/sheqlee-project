@@ -2,10 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 const PostAuthModal = ({
   onClose,
-  titleLines = [
-    "Please register or login as a",
-    "client to post jobs.",
-  ],
+  titleLines = ["Please register or login as a", "client to post jobs."],
 }) => {
   // ESC CLOSE
   useEffect(() => {
@@ -19,23 +16,19 @@ const PostAuthModal = ({
   return (
     <div className="fixed inset-0 z-50">
       {/* Overlay */}
-      <div
-        className="absolute inset-0 bg-black/50"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
       {/* Close Button */}
       <button
         onClick={onClose}
         className="
-          absolute z-50
-          top-3 right-8
-          sm:top-6 sm:right-8
-          lg:top-[50px] lg:right-[61px]
-          w-[36px] h-[36px]
-          sm:w-[46px] sm:h-[46px]
-          lg:w-[100px] lg:h-[38px]
-        "
+    fixed z-50
+    top-4 right-4 
+    sm:top-20 sm:right-20
+    lg:top-12 lg:right-16  lg:mx-6
+    w-8 h-8
+    sm:w-10 sm:h-10
+  "
       >
         <img
           src="/icons/close.svg"
@@ -56,11 +49,19 @@ const PostAuthModal = ({
             lg:w-[530px]
             min-h-[220px]
             lg:h-[250px]
-            px-6
+            sm:px-6
           "
         >
           {/* Message */}
-          <p className="text-center font-medium text-black text-[18px] sm:text-[22px] lg:text-[26px] leading-[29px]">
+          <p
+            className="
+  text-center font-medium text-black
+  text-[16px]
+  sm:text-[20px]
+  lg:text-[26px]
+  leading-relaxed
+"
+          >
             {titleLines.map((line, i) => (
               <span key={i}>
                 {line}
@@ -71,30 +72,32 @@ const PostAuthModal = ({
 
           {/* Buttons */}
           <div className="mt-10 flex gap-6">
-            <button
-              className="
-                w-[140px] h-[56px] lg:h-[70px]
-                bg-[#8967B3]
-                rounded-[15px]
-                text-white text-[18px] lg:text-[22px]
-                font-medium
-              "
-            >
-              Sign up
-            </button>
+            <Link to="/freelancer-signup">
+              <button
+                className="
+      w-[140px] h-[56px] lg:h-[70px]
+      bg-[#8967B3]
+      rounded-[15px]
+      text-white text-[18px] lg:text-[22px]
+      font-medium
+    "
+              >
+                Sign up
+              </button>
+            </Link>
 
-        <Link to="/login" className="btn-primary">
-            <button
-              className="
+            <Link to="/login" className="btn-primary">
+              <button
+                className="
                 w-[140px] h-[56px] lg:h-[70px]
                 border-[3px] border-[#8967B3]
                 rounded-[15px]
                 text-[#8967B3] text-[18px] lg:text-[22px]
                 font-medium
               "
-            >
-              Log in
-            </button>
+              >
+                Log in
+              </button>
             </Link>
           </div>
         </div>

@@ -33,9 +33,9 @@ const Clients = () => {
 
         {/* ================= ACTION BUTTONS ================= */}
         <div className="mt-20 flex flex-col sm:flex-row gap-6 sm:gap-8">
-        <Link to="/login">
-          <button
-            className="
+          <Link to="/login">
+            <button
+              className="
               w-[140px] h-[70px]
               border-[4px] border-[#8967B3]
               rounded-[15px]
@@ -44,10 +44,10 @@ const Clients = () => {
               hover:bg-[#8967B3] hover:text-white
               transition
             "
-          >
-            Log in
-          </button>
-       </Link>
+            >
+              Log in
+            </button>
+          </Link>
 
           <button
             onClick={() => navigate("/company-signup")}
@@ -75,6 +75,7 @@ const Clients = () => {
       {/* ================= POST JOB CTA ================= */}
       <section className="mt-24 flex justify-center px-4">
         <button
+          onClick={() => navigate("/company-signup")}
           className="
             w-full max-w-[450px]
             h-[70px] sm:h-[100px]

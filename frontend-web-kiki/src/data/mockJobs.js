@@ -112,20 +112,14 @@ export const mockJobs = [
         "Experience with Django or Flask frameworks.",
       ],
 
-      skillsAndKnowledge: [
-        "Python",
-        "Django",
-        "PostgreSQL",
-        "REST APIs",
-      ],
+      skillsAndKnowledge: ["Python", "Django", "PostgreSQL", "REST APIs"],
 
       description: [
         "You will design, develop, and maintain backend services.",
         "You will mentor junior developers.",
       ],
 
-      primaryPurpose:
-        "To build reliable and scalable backend solutions.",
+      primaryPurpose: "To build reliable and scalable backend solutions.",
 
       tags: ["Python", "Django", "Backend", "APIs"],
     },
@@ -150,16 +144,9 @@ export const mockJobs = [
         "Basic knowledge of Linux systems.",
       ],
 
-      experience: [
-        "1–2 years experience in DevOps or system administration.",
-      ],
+      experience: ["1–2 years experience in DevOps or system administration."],
 
-      skillsAndKnowledge: [
-        "Linux",
-        "CI/CD",
-        "Docker",
-        "Cloud fundamentals",
-      ],
+      skillsAndKnowledge: ["Linux", "CI/CD", "Docker", "Cloud fundamentals"],
 
       description: [
         "You will assist in managing servers and deployment workflows.",
@@ -187,13 +174,9 @@ export const mockJobs = [
       intro:
         "We are seeking a Web Developer to build and maintain modern websites.",
 
-      qualifications: [
-        "Degree in Computer Science or equivalent experience.",
-      ],
+      qualifications: ["Degree in Computer Science or equivalent experience."],
 
-      experience: [
-        "2+ years experience in web development.",
-      ],
+      experience: ["2+ years experience in web development."],
 
       skillsAndKnowledge: [
         "HTML, CSS, JavaScript",
@@ -204,8 +187,7 @@ export const mockJobs = [
         "You will develop responsive and accessible web applications.",
       ],
 
-      primaryPurpose:
-        "To create and maintain high-quality web experiences.",
+      primaryPurpose: "To create and maintain high-quality web experiences.",
 
       tags: ["Web", "React", "Frontend"],
     },
@@ -226,13 +208,9 @@ export const mockJobs = [
       intro:
         "We are looking for a Quality Specialist to ensure software reliability.",
 
-      qualifications: [
-        "Background in QA or software testing.",
-      ],
+      qualifications: ["Background in QA or software testing."],
 
-      experience: [
-        "2+ years testing experience.",
-      ],
+      experience: ["2+ years testing experience."],
 
       skillsAndKnowledge: [
         "Manual testing",
@@ -240,12 +218,9 @@ export const mockJobs = [
         "Test documentation",
       ],
 
-      description: [
-        "You will test software and report issues.",
-      ],
+      description: ["You will test software and report issues."],
 
-      primaryPurpose:
-        "To ensure high-quality software releases.",
+      primaryPurpose: "To ensure high-quality software releases.",
 
       tags: ["QA", "Testing", "Quality"],
     },
@@ -262,8 +237,7 @@ export const mockJobs = [
     rate: "$15/hr",
     postedAt: "2hrs ago",
     details: {
-      intro:
-        "Support DevOps operations and infrastructure tasks.",
+      intro: "Support DevOps operations and infrastructure tasks.",
       qualifications: ["Basic IT knowledge."],
       experience: ["1+ year experience preferred."],
       skillsAndKnowledge: ["Linux", "CI/CD"],
@@ -284,8 +258,7 @@ export const mockJobs = [
     rate: "$15/hr",
     postedAt: "2hrs ago",
     details: {
-      intro:
-        "Build and maintain web applications.",
+      intro: "Build and maintain web applications.",
       qualifications: ["Web development background."],
       experience: ["2+ years experience."],
       skillsAndKnowledge: ["HTML", "CSS", "JS"],
@@ -306,8 +279,7 @@ export const mockJobs = [
     rate: "$15/hr",
     postedAt: "3hrs ago",
     details: {
-      intro:
-        "Ensure software quality and reliability.",
+      intro: "Ensure software quality and reliability.",
       qualifications: ["QA background."],
       experience: ["Testing experience."],
       skillsAndKnowledge: ["Testing tools"],
@@ -316,8 +288,8 @@ export const mockJobs = [
       tags: ["QA"],
     },
   },
-   {
-    id: 14,
+  {
+    id: 10,
     title: "Product Designer",
     description:
       "KeplerLab is a VC-backed, stealth, application-only platform for senior product designers to team up with the best companies on their next big thing.",
@@ -361,7 +333,7 @@ export const mockJobs = [
   },
 
   {
-    id: 2,
+    id: 11,
     title: "UI/UX Designer",
     description:
       "We're looking for an experienced and talented UI designer to design and shape unique, user-centric design systems and experiences.",
@@ -405,7 +377,7 @@ export const mockJobs = [
   },
 
   {
-    id: 3,
+    id: 12,
     title: "Senior Python Developer",
     description:
       "The ideal candidate will be responsible for helping us develop a wide variety of projects leveraging PostgreSQL, Django and Python.",
@@ -429,27 +401,21 @@ export const mockJobs = [
         "Experience with Django or Flask frameworks.",
       ],
 
-      skillsAndKnowledge: [
-        "Python",
-        "Django",
-        "PostgreSQL",
-        "REST APIs",
-      ],
+      skillsAndKnowledge: ["Python", "Django", "PostgreSQL", "REST APIs"],
 
       description: [
         "You will design, develop, and maintain backend services.",
         "You will mentor junior developers.",
       ],
 
-      primaryPurpose:
-        "To build reliable and scalable backend solutions.",
+      primaryPurpose: "To build reliable and scalable backend solutions.",
 
       tags: ["Python", "Django", "Backend", "APIs"],
     },
   },
 
   {
-    id: 12,
+    id: 13,
     title: "Junior DevOps Engineer",
     description: "We need one to work with fellow DevOps engineers.",
     company: "Hotjar",
@@ -467,16 +433,9 @@ export const mockJobs = [
         "Basic knowledge of Linux systems.",
       ],
 
-      experience: [
-        "1–2 years experience in DevOps or system administration.",
-      ],
+      experience: ["1–2 years experience in DevOps or system administration."],
 
-      skillsAndKnowledge: [
-        "Linux",
-        "CI/CD",
-        "Docker",
-        "Cloud fundamentals",
-      ],
+      skillsAndKnowledge: ["Linux", "CI/CD", "Docker", "Cloud fundamentals"],
 
       description: [
         "You will assist in managing servers and deployment workflows.",
@@ -490,7 +449,7 @@ export const mockJobs = [
   },
 
   {
-    id: 5,
+    id: 14,
     title: "Web Developer",
     description:
       "Entrust is seeking a Sitecore developer that will perform the accountabilities detailed below and other duties as assigned.",
@@ -504,13 +463,9 @@ export const mockJobs = [
       intro:
         "We are seeking a Web Developer to build and maintain modern websites.",
 
-      qualifications: [
-        "Degree in Computer Science or equivalent experience.",
-      ],
+      qualifications: ["Degree in Computer Science or equivalent experience."],
 
-      experience: [
-        "2+ years experience in web development.",
-      ],
+      experience: ["2+ years experience in web development."],
 
       skillsAndKnowledge: [
         "HTML, CSS, JavaScript",
@@ -521,14 +476,13 @@ export const mockJobs = [
         "You will develop responsive and accessible web applications.",
       ],
 
-      primaryPurpose:
-        "To create and maintain high-quality web experiences.",
+      primaryPurpose: "To create and maintain high-quality web experiences.",
 
       tags: ["Web", "React", "Frontend"],
     },
   },
-   {
-    id: 1,
+  {
+    id: 15,
     title: "Product Designer",
     description:
       "KeplerLab is a VC-backed, stealth, application-only platform for senior product designers to team up with the best companies on their next big thing.",
@@ -572,7 +526,7 @@ export const mockJobs = [
   },
 
   {
-    id: 2,
+    id: 16,
     title: "UI/UX Designer",
     description:
       "We're looking for an experienced and talented UI designer to design and shape unique, user-centric design systems and experiences.",
@@ -616,7 +570,7 @@ export const mockJobs = [
   },
 
   {
-    id: 3,
+    id: 17,
     title: "Senior Python Developer",
     description:
       "The ideal candidate will be responsible for helping us develop a wide variety of projects leveraging PostgreSQL, Django and Python.",
@@ -640,27 +594,21 @@ export const mockJobs = [
         "Experience with Django or Flask frameworks.",
       ],
 
-      skillsAndKnowledge: [
-        "Python",
-        "Django",
-        "PostgreSQL",
-        "REST APIs",
-      ],
+      skillsAndKnowledge: ["Python", "Django", "PostgreSQL", "REST APIs"],
 
       description: [
         "You will design, develop, and maintain backend services.",
         "You will mentor junior developers.",
       ],
 
-      primaryPurpose:
-        "To build reliable and scalable backend solutions.",
+      primaryPurpose: "To build reliable and scalable backend solutions.",
 
       tags: ["Python", "Django", "Backend", "APIs"],
     },
   },
-   
-   {
-    id: 10,
+
+  {
+    id: 18,
     title: "Product Designer",
     description:
       "KeplerLab is a VC-backed, stealth, application-only platform for senior product designers to team up with the best companies on their next big thing.",
@@ -704,7 +652,7 @@ export const mockJobs = [
   },
 
   {
-    id: 11,
+    id: 19,
     title: "UI/UX Designer",
     description:
       "We're looking for an experienced and talented UI designer to design and shape unique, user-centric design systems and experiences.",
@@ -747,7 +695,7 @@ export const mockJobs = [
     },
   },
   {
-    id: 1,
+    id: 20,
     title: "Product Designer",
     company: "KeplerLab",
     companySlug: "kepler-co-ltd", // ✅ MATCHES mockCompanies.slug
@@ -757,11 +705,13 @@ export const mockJobs = [
     rate: "$15/hr",
     postedAt: "30mins ago",
     description: "KeplerLab is a VC-backed design platform...",
-    details: { /* unchanged */ },
+    details: {
+      /* unchanged */
+    },
   },
 
   {
-    id: 2,
+    id: 21,
     title: "UI/UX Designer",
     company: "KeplerLab",
     companySlug: "kepler-co-ltd",
@@ -770,11 +720,13 @@ export const mockJobs = [
     level: "Expert",
     rate: "$25-$30/hr",
     postedAt: "45mins ago",
-    details: { /* unchanged */ },
+    details: {
+      /* unchanged */
+    },
   },
 
   {
-    id: 14,
+    id: 22,
     title: "Product Designer",
     company: "Hotjar",
     companySlug: "hotjar",
@@ -782,34 +734,108 @@ export const mockJobs = [
     type: "Full-Time",
     rate: "$15/hr",
     postedAt: "30mins ago",
-    details: { /* unchanged */ },
+    details: {
+      /* unchanged */
+    },
   },
 
   {
-    id: 12,
+    id: 23,
     title: "Junior DevOps Engineer",
     company: "Hotjar",
     companySlug: "hotjar",
     location: "Remote",
     type: "Full-Time",
     postedAt: "2hrs ago",
-    details: { /* unchanged */ },
+    details: {
+      /* unchanged */
+    },
   },
 
   {
-    id: 11,
+    id: 24,
     title: "UI/UX Designer",
     company: "Kappa London",
     companySlug: "kappa-london",
     location: "London, UK",
     type: "Part-Time",
     postedAt: "45mins ago",
-    details: { /* unchanged */ },
+    details: {
+      /* unchanged */
+    },
   },
-  
+  {
+    id: 25,
+    title: "Product Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd", // ✅ MATCHES mockCompanies.slug
+    location: "Remote",
+    type: "Full-Time",
+    level: "Intermediate",
+    rate: "$15/hr",
+    postedAt: "30mins ago",
+    description: "KeplerLab is a VC-backed design platform...",
+    details: {
+      /* unchanged */
+    },
+  },
 
   {
-    id: 3,
+    id: 29,
+    title: "UI/UX Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd",
+    location: "Remote",
+    type: "Part-Time",
+    level: "Expert",
+    rate: "$25-$30/hr",
+    postedAt: "45mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 28,
+    title: "Product Designer",
+    company: "Hotjar",
+    companySlug: "hotjar",
+    location: "Remote",
+    type: "Full-Time",
+    rate: "$15/hr",
+    postedAt: "30mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 27,
+    title: "Junior DevOps Engineer",
+    company: "Hotjar",
+    companySlug: "hotjar",
+    location: "Remote",
+    type: "Full-Time",
+    postedAt: "2hrs ago",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 26,
+    title: "UI/UX Designer",
+    company: "Kappa London",
+    companySlug: "kappa-london",
+    location: "London, UK",
+    type: "Part-Time",
+    postedAt: "45mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+  {
+    id: 30,
     title: "Senior Python Developer",
     description:
       "The ideal candidate will be responsible for helping us develop a wide variety of projects leveraging PostgreSQL, Django and Python.",
@@ -833,25 +859,184 @@ export const mockJobs = [
         "Experience with Django or Flask frameworks.",
       ],
 
-      skillsAndKnowledge: [
-        "Python",
-        "Django",
-        "PostgreSQL",
-        "REST APIs",
-      ],
+      skillsAndKnowledge: ["Python", "Django", "PostgreSQL", "REST APIs"],
 
       description: [
         "You will design, develop, and maintain backend services.",
         "You will mentor junior developers.",
       ],
 
-      primaryPurpose:
-        "To build reliable and scalable backend solutions.",
+      primaryPurpose: "To build reliable and scalable backend solutions.",
 
       tags: ["Python", "Django", "Backend", "APIs"],
     },
   },
-    
- 
+  {
+    id: 31,
+    title: "UI/UX Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd",
+    location: "Remote",
+    type: "Part-Time",
+    level: "Expert",
+    rate: "$25-$30/hr",
+    postedAt: "45mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 32,
+    title: "Product Designer",
+    company: "Hotjar",
+    companySlug: "hotjar",
+    location: "Remote",
+    type: "Full-Time",
+    rate: "$15/hr",
+    postedAt: "30mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 33,
+    title: "Junior DevOps Engineer",
+    company: "Hotjar",
+    companySlug: "hotjar",
+    location: "Remote",
+    type: "Full-Time",
+    postedAt: "2hrs ago",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 34,
+    title: "UI/UX Designer",
+    company: "Kappa London",
+    companySlug: "kappa-london",
+    location: "London, UK",
+    type: "Part-Time",
+    postedAt: "45mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+  {
+    id: 35,
+    title: "Product Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd", // ✅ MATCHES mockCompanies.slug
+    location: "Remote",
+    type: "Full-Time",
+    level: "Intermediate",
+    rate: "$15/hr",
+    postedAt: "30mins ago",
+    description: "KeplerLab is a VC-backed design platform...",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 36,
+    title: "UI/UX Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd",
+    location: "Remote",
+    type: "Part-Time",
+    level: "Expert",
+    rate: "$25-$30/hr",
+    postedAt: "45mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+  {
+    id: 37,
+    title: "UI/UX Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd",
+    location: "Remote",
+    type: "Part-Time",
+    level: "Expert",
+    rate: "$25-$30/hr",
+    postedAt: "45mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 38,
+    title: "Product Designer",
+    company: "Hotjar",
+    companySlug: "hotjar",
+    location: "Remote",
+    type: "Full-Time",
+    rate: "$15/hr",
+    postedAt: "30mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 39,
+    title: "Junior DevOps Engineer",
+    company: "Hotjar",
+    companySlug: "hotjar",
+    location: "Remote",
+    type: "Full-Time",
+    postedAt: "2hrs ago",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 40,
+    title: "UI/UX Designer",
+    company: "Kappa London",
+    companySlug: "kappa-london",
+    location: "London, UK",
+    type: "Part-Time",
+    postedAt: "45mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
+  {
+    id: 41,
+    title: "Product Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd", // ✅ MATCHES mockCompanies.slug
+    location: "Remote",
+    type: "Full-Time",
+    level: "Intermediate",
+    rate: "$15/hr",
+    postedAt: "30mins ago",
+    description: "KeplerLab is a VC-backed design platform...",
+    details: {
+      /* unchanged */
+    },
+  },
+
+  {
+    id: 42,
+    title: "UI/UX Designer",
+    company: "KeplerLab",
+    companySlug: "kepler-co-ltd",
+    location: "Remote",
+    type: "Part-Time",
+    level: "Expert",
+    rate: "$25-$30/hr",
+    postedAt: "45mins ago",
+    details: {
+      /* unchanged */
+    },
+  },
 ];
- 

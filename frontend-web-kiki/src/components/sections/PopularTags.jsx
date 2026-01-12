@@ -21,7 +21,7 @@ const PopularTags = () => {
           {/* dynamic total */}
           <Link
             to="/tags"
-              className="
+            className="
                 relative
                 flex items-center gap-2   /* ✅ FIX */
                 text-sm sm:text-[16px]
@@ -38,13 +38,13 @@ const PopularTags = () => {
                 after:h-[5px]
                 after:bg-[#8967B3]
               "
-            >
+          >
             <span> {mockTags.length - popularTags.length}+ more tags </span>
-             <img
-                src="/icons/arrow-right.svg"
-                alt="Next"
-                className="w-4 h-4 mt-[1px]"
-              />
+            <img
+              src="/icons/arrow-right.svg"
+              alt="Next"
+              className="w-4 h-4 mt-[1px]"
+            />
           </Link>
         </div>
 

@@ -11,6 +11,7 @@ import { mockJobs } from "../../data/mockJobs";
 import { getJobCategory } from "../../data/jobConstants";
 
 const JOBS_PER_PAGE = 18;
+const TOTAL_JOB_PAGES = 40;
 
 const AllJobs = () => {
   const [page, setPage] = useState(1);
@@ -18,10 +19,17 @@ const AllJobs = () => {
   const [filteredJobs, setFilteredJobs] = useState(mockJobs);
 
   /* -------------------------------
-     PAGINATION
+     SAFE PAGE CHANGE (🔥 FIX)
   -------------------------------- */
-  const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
+  const handlePageChange = (nextPage) => {
+    const maxPage = Math.max(1, Math.ceil(filteredJobs.length / JOBS_PER_PAGE));
 
+    setPage(Math.min(Math.max(1, nextPage), maxPage));
+  };
+
+  /* -------------------------------
+     JOBS TO RENDER
+  -------------------------------- */
   const jobsToRender = useMemo(() => {
     const start = (page - 1) * JOBS_PER_PAGE;
     return filteredJobs.slice(start, start + JOBS_PER_PAGE);
@@ -51,18 +59,11 @@ const AllJobs = () => {
       const matchesCategory =
         !filters.category || category === filters.category;
 
-      const matchesType =
-        !filters.type || job.type === filters.type;
+      const matchesType = !filters.type || job.type === filters.type;
 
-      const matchesLevel =
-        !filters.level || job.level === filters.level;
+      const matchesLevel = !filters.level || job.level === filters.level;
 
-      return (
-        matchesSearch &&
-        matchesCategory &&
-        matchesType &&
-        matchesLevel
-      );
+      return matchesSearch && matchesCategory && matchesType && matchesLevel;
     });
 
     setFilteredJobs(results);
@@ -73,23 +74,19 @@ const AllJobs = () => {
       <SubNavbar
         crumbs={[{ label: "All Jobs", href: "/jobs", active: true }]}
       />
-
       <JobsHeader />
       <JobsFilter onApply={handleApplyFilters} />
-
       <LatestJobs
         jobs={jobsToRender}
         showHeader={false}
         hasSearched={hasSearched}
       />
-
-      {filteredJobs.length > JOBS_PER_PAGE && (
-        <Pagination
-          currentPage={page}
-          totalPages={totalPages}
-          onPageChange={setPage}
-        />
-      )}
+      <Pagination
+        currentPage={page}
+        totalPages={TOTAL_JOB_PAGES}
+        onPageChange={handlePageChange}
+        variant="all"
+      />
 
       <DeveloperCTA />
       <Footer />

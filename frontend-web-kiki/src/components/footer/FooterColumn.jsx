@@ -3,7 +3,26 @@ import { Link } from "react-router-dom";
 const FooterColumn = ({ title, links }) => {
   return (
     <div className="space-y-6 text-center sm:text-left">
-      <h4 className="text-white font-semibold text-[20px] uppercase">
+      <h4
+        className="
+    relative
+    inline-block
+    text-white
+    font-semibold
+    text-[14px]
+    md:text-[20px]
+    lg:text-[24px]
+    sm:text-[16px]
+    pb-2
+    after:content-['']
+    after:absolute
+    after:left-0
+    after:bottom-0
+    after:w-36
+    after:h-[2px]
+    after:bg-white
+  "
+      >
         {title}
       </h4>
 
@@ -12,7 +31,7 @@ const FooterColumn = ({ title, links }) => {
           <li key={link.label}>
             {link.href.startsWith("#") ? (
               /* Disabled / future links */
-              <span className="text-gray-400 text-[17px] cursor-not-allowed">
+              <span className="text-gray-400 text-[13px] sm:text-[15px] cursor-not-allowed">
                 {link.label}
               </span>
             ) : (

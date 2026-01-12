@@ -12,11 +12,18 @@ const TOTAL_PAGES = 15; // design requirement
 const AllTags = () => {
   const [page, setPage] = useState(1);
 
+  // 🔹 how many pages actually contain data
+  const REAL_PAGES = Math.ceil(mockTags.length / TAGS_PER_PAGE);
+
   const tagsToRender = useMemo(() => {
+    // ✅ if page exceeds available data → render nothing
+    if (page > REAL_PAGES) return [];
+
     const start = (page - 1) * TAGS_PER_PAGE;
-    const end = page * TAGS_PER_PAGE;
+    const end = start + TAGS_PER_PAGE;
+
     return mockTags.slice(start, end);
-  }, [page]);
+  }, [page, REAL_PAGES]);
 
   return (
     <section className="w-full bg-white font-['Kantumruy_Pro']">
@@ -35,14 +42,14 @@ const AllTags = () => {
         <img
           src="/icons/tag.svg"
           alt="Tags"
-          className="w-[99px] h-[99px] mt-16"
+          className="w-[70px] h-[70px] md:w-[80px] md:h-[80px] sm:h-[80px] mt-16 lg:w-[100px] lg:h-[100px]"
         />
 
-        <h1 className="mt-8 text-[60px] leading-[40px] font-semibold text-black">
+        <h1 className="mt-8 sm:mt-2 text-[20px] sm:text-[30px] md:text-[40px] leading-[40px] lg:text-[50px] font-semibold text-black">
           All Tags
         </h1>
 
-        <p className="mt-10 max-w-[780px] text-[35px] leading-[44px] text-black">
+        <p className="mt-10 max-w-[780px] text-[18px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-[44px] text-black sm:mt-2 md:mt-8">
           Job tags along with their respective number of jobs posted and number
           of subscribers.
         </p>

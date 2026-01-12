@@ -31,24 +31,30 @@ const Hero = ({ openAuthModal }) => {
         >
           {/* LEFT CONTENT */}
           <div className="font-['Kantumruy_Pro'] text-center lg:text-left">
-            <h1 className="font-semibold text-black
+            <h1
+              className="font-semibold text-black
               text-[34px] leading-[44px]
               sm:text-[42px] sm:leading-[52px]
               md:text-[50px] md:leading-[60px]
-              lg:text-[58px] lg:leading-[68px]">
-              Recruit <span className="text-[#8967B3]">Affordable</span><br />
-              &amp; <span className="text-[#8967B3]">Skilled</span> Ethiopian<br />
+              lg:text-[58px] lg:leading-[68px]"
+            >
+              Recruit <span className="text-[#8967B3]">Affordable</span>
+              <br />
+              &amp; <span className="text-[#8967B3]">Skilled</span> Ethiopian
+              <br />
               Professional
             </h1>
 
-            <p className="
+            <p
+              className="
               mt-4 sm:mt-5 text-black
               text-[16px] leading-[26px]
               sm:text-[18px] sm:leading-[30px]
               md:text-[20px] md:leading-[34px]
               lg:text-[24px] lg:leading-[38px]
               max-w-[520px]
-              mx-auto lg:mx-0">
+              mx-auto lg:mx-0"
+            >
               Web frontend, mobile app, backend, database,
               <br />
               full-stack, data science, UI/UX &amp; product design,
@@ -70,10 +76,12 @@ const Hero = ({ openAuthModal }) => {
                 mx-auto lg:mx-0
                 hover:opacity-90 transition"
             >
-              <span className="
+              <span
+                className="
                 font-semibold text-white
                 text-[16px] sm:text-[20px]
-                md:text-[24px] lg:text-[28px]">
+                md:text-[24px] lg:text-[28px]"
+              >
                 Post your projects
               </span>
             </button>

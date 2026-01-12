@@ -1,40 +1,49 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../../footer/Footer";
 import SubNavbar from "../../all-jobs/SubNavbar";
+import { useEffect } from "react";
+
 const Dashboard = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const jobs = JSON.parse(localStorage.getItem("publishedJobs")) || [];
+
+    if (jobs.length > 0) {
+      navigate("/dashboard/detail");
+    }
+  }, [navigate]);
 
   return (
     <main className="bg-white min-h-screen flex flex-col ">
-     <SubNavbar crumbs={[{ label: "Dashboard", active: true }]} />
+      <SubNavbar crumbs={[{ label: "Dashboard", active: true }]} />
 
       {/* DASHBOARD ICON */}
       <div className="flex flex-col items-center mb-24">
+        <div className="mt-6">
+          <img
+            src="/icons/dashboard.svg"
+            alt="Dashboard"
+            className="w-[74px] h-[74px]"
+          />
+        </div>
 
-      <div className="mt-6">
-        <img
-          src="/icons/dashboard.svg"
-          alt="Dashboard"
-          className="w-[74px] h-[74px]"
-        />
-      </div>
-
-      {/* DASHBOARD TITLE */}
-      <h1
-        className="
+        {/* DASHBOARD TITLE */}
+        <h1
+          className="
           mt-[41px]
           text-[60px]
           font-semibold
           text-black
         "
-        style={{ fontFamily: "Kantumruy Pro" }}
-      >
-        Dashboard
-      </h1>
+          style={{ fontFamily: "Kantumruy Pro" }}
+        >
+          Dashboard
+        </h1>
 
-      {/* DESCRIPTION */}
-      <p
-        className="
+        {/* DESCRIPTION */}
+        <p
+          className="
           mt-[25px]
           max-w-[632px]
           text-center
@@ -42,16 +51,15 @@ const navigate = useNavigate();
           leading-[40px]
           text-black
         "
-        style={{ fontFamily: "Kantumruy Pro" }}
-      >
-       You have not posted any jobs yet.
-       Get started by posting a job.
-      </p>
+          style={{ fontFamily: "Kantumruy Pro" }}
+        >
+          You have not posted any jobs yet. Get started by posting a job.
+        </p>
 
-      {/* POST FIRST JOB BUTTON */}
-      <button
-  onClick={() => navigate("/dashboard/detail")}
-  className="
+        {/* POST FIRST JOB BUTTON */}
+        <button
+          onClick={() => navigate("/dashboard/detail")}
+          className="
     mt-[81px]
     w-[370px]
     h-[85px]
@@ -63,20 +71,19 @@ const navigate = useNavigate();
     hover:opacity-90
     transition
   "
->
-
-        <span
-          className="
+        >
+          <span
+            className="
             text-[35px]
             font-medium
             text-[#F8F8F8]
           "
-          style={{ fontFamily: "Kantumruy Pro" }}
-        >
-          Post your first job
-        </span>
-      </button>
-  </div>
+            style={{ fontFamily: "Kantumruy Pro" }}
+          >
+            Post your first job
+          </span>
+        </button>
+      </div>
       {/* FOOTER */}
       <Footer />
     </main>

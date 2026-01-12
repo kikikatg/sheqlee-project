@@ -2,16 +2,16 @@ export const mockFooterLinks = [
   {
     title: "Links",
     links: [
-      { label: "Companies", href: "/companies" },   // ✅ Companies page
+      { label: "Companies", href: "/companies" }, // ✅ Companies page
       { label: "Categories", href: "/categories" }, // ✅ Categories page
-      { label: "Tags", href: "/tags" },              // ✅ AllTags page
+      { label: "Tags", href: "/tags" }, // ✅ AllTags page
     ],
   },
   {
     title: "Company",
     links: [
       { label: "About", href: "/about" },
-      { label: "Blog", href: "#" },      // can activate later
+      { label: "Blog", href: "#" }, // can activate later
       { label: "Pricing", href: "/pricing" },
     ],
   },
@@ -26,9 +26,9 @@ export const mockFooterLinks = [
   {
     title: "Legal",
     links: [
-      { label: "Privacy Policy", href: "privacy-policy" },
-      { label: "Terms and Conditions", href: "#" },
-      { label: "Cookie Policy", href: "#" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms and Conditions", href: "/terms-and-conditions" },
+      { label: "Cookie Policy", href: "/cookie-policy" },
     ],
   },
 ];

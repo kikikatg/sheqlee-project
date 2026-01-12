@@ -1,11 +1,12 @@
-import { useNavigate } from "react-router-dom";
-
-const GoogleButton = ({ to = "/google-auth" }) => {
-  const navigate = useNavigate();
+const ContinueWithGoogle = ({ role }) => {
+  const handleGoogleAuth = () => {
+    // 🔐 Backend OAuth endpoint
+    window.location.href = `/api/auth/google?role=${role}`;
+  };
 
   return (
     <button
-      onClick={() => navigate(to)}
+      onClick={handleGoogleAuth}
       className="
         w-[554px] h-[80px]
         bg-[#4285F4]
@@ -24,4 +25,4 @@ const GoogleButton = ({ to = "/google-auth" }) => {
   );
 };
 
-export default GoogleButton;
+export default ContinueWithGoogle;

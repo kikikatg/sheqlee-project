@@ -6,7 +6,55 @@ import Footer from "../../footer/Footer";
 const MAX_CHARS = 512;
 
 const Contact = () => {
+  const [subject, setSubject] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async () => {
+    setError("");
+    setSuccess(false);
+
+    if (!subject || !email || !message) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // ✅ API-ready payload
+      const payload = {
+        subject,
+        email,
+        message,
+      };
+
+      /*
+      // 🔌 FUTURE BACKEND INTEGRATION
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      */
+
+      // TEMP success simulation
+      await new Promise((res) => setTimeout(res, 800));
+
+      setSuccess(true);
+      setSubject("");
+      setEmail("");
+      setMessage("");
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="bg-white min-h-screen">
@@ -25,24 +73,24 @@ const Contact = () => {
         </h1>
 
         <p className="mt-4 sm:mt-6 max-w-[720px] mx-auto text-[18px] sm:text-[22px] lg:text-[32px] leading-snug">
-          Please reach out to us if you have any questions or you need
-          our assistance with something.
+          Please reach out to us if you have any questions or you need our
+          assistance with something.
         </p>
       </section>
 
       {/* ================= FORM ================= */}
       <section className="mt-14 sm:mt-20 px-4">
         <div className="max-w-[1342px] mx-auto">
-
           {/* SUBJECT + EMAIL */}
           <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-
             {/* SUBJECT */}
             <div className="w-full md:max-w-[650px]">
               <Label text="Subject" />
               <InputBlock
                 icon="/icons/idea.svg"
                 placeholder="Regarding Posting a Job"
+                value={subject}
+                onChange={setSubject}
               />
             </div>
 
@@ -53,6 +101,8 @@ const Contact = () => {
                 icon="/icons/email.svg"
                 placeholder="abebe@gmail.com"
                 type="email"
+                value={email}
+                onChange={setEmail}
               />
             </div>
           </div>
@@ -62,9 +112,7 @@ const Contact = () => {
             <div className="relative w-full bg-[#DFDFDF] rounded-[15px] h-[260px] sm:h-[300px] lg:h-[357px]">
               <textarea
                 value={message}
-                onChange={(e) =>
-                  setMessage(e.target.value.slice(0, MAX_CHARS))
-                }
+                onChange={(e) => setMessage(e.target.value.slice(0, MAX_CHARS))}
                 placeholder="Write your message down..."
                 className="
                   w-full h-full bg-transparent
@@ -79,8 +127,19 @@ const Contact = () => {
               </span>
             </div>
 
+            {/* FEEDBACK */}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
+            {success && (
+              <p className="text-green-600 text-sm">
+                Message sent successfully.
+              </p>
+            )}
+
             <div className="flex justify-end">
               <button
+                onClick={handleSubmit}
+                disabled={loading}
                 className="
                   w-full sm:w-[220px] lg:w-[280px]
                   h-[60px] sm:h-[70px] lg:h-[85px]
@@ -89,9 +148,10 @@ const Contact = () => {
                   text-white
                   text-[18px] sm:text-[24px] lg:text-[30px]
                   font-medium hover:opacity-90 transition
+                  disabled:opacity-60
                 "
               >
-                Send message
+                {loading ? "Sending..." : "Send message"}
               </button>
             </div>
           </div>
@@ -112,27 +172,25 @@ const Label = ({ text }) => (
 );
 
 /* ================= INPUT BLOCK ================= */
-const InputBlock = ({ icon, placeholder, type = "text" }) => (
+const InputBlock = ({ icon, placeholder, type = "text", value, onChange }) => (
   <div
     className="
-      flex w-full
-      h-[60px] sm:h-[70px] lg:h-[85px]
-      bg-[#DFDFDF]
-      rounded-[15px]
-      overflow-hidden
-    "
+    flex w-full
+    h-[60px] sm:h-[70px] lg:h-[85px]
+    bg-[#DFDFDF]
+    rounded-[15px]
+    overflow-hidden
+  "
   >
     <div className="w-[60px] sm:w-[70px] lg:w-[85px] bg-black flex items-center justify-center rounded-l-[15px]">
-      <img
-        src={icon}
-        alt=""
-        className="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9"
-      />
+      <img src={icon} alt="" className="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9" />
     </div>
 
     <input
       type={type}
       placeholder={placeholder}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
       className="
         flex-1 bg-transparent
         px-4 sm:px-6 outline-none

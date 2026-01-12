@@ -18,25 +18,24 @@ const SubNavbar = ({ crumbs = [] }) => {
         "
       >
         <div className="flex items-center gap-3 text-black">
-
           {/* PLACEHOLDER ICON */}
           <img
             src="/icons/placeholder.svg"
             alt="Sheqlee"
-            className="w-[16px] h-[26px]"
+            className="w-[14px] h-[24px]"
           />
 
           {/* HOME */}
           <Link
             to="/"
-            className="text-[18px] sm:text-[20px] lg:text-[22px] hover:underline"
+            className="text-[20px] sm:text-[18px] lg:text-[22px] hover:underline"
           >
             Sheqlee
           </Link>
 
           {/* DYNAMIC CRUMBS */}
           {crumbs.map((crumb, index) => (
-            <div key={index} className="flex items-center gap-3">
+            <div key={index} className="flex items-center gap-4">
               <img
                 src="/icons/arrow-down.svg"
                 alt="next"
@@ -47,7 +46,9 @@ const SubNavbar = ({ crumbs = [] }) => {
                 to={crumb.href}
                 className={`
                   text-[18px] sm:text-[20px] lg:text-[22px]
-                  ${crumb.active ? "font-semibold" : "hover:underline"}
+                  ${
+                    crumb.active ? " font-['Kantumruy_Pro']" : "hover:underline"
+                  }
                 `}
               >
                 {crumb.label}

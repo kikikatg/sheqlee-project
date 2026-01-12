@@ -1,16 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const DeveloperCTA = () => {
   return (
     <section
       className="
-        w-full
-        bg-[#DFDFDF]
-        h-[200px]
-        flex
-        items-center
-        mt-10
-      "
+    w-full
+    bg-[#DFDFDF]
+    py-10 sm:py-14
+    flex
+    items-center
+    mt-10
+  "
     >
       <div
         className="
@@ -31,14 +32,15 @@ const DeveloperCTA = () => {
           <img
             src="/icons/celebration.png"
             alt="Celebration"
-            className="w-12 h-12"
+            className="w-8 h-8 sm:w-10 sm:h-10"
           />
 
           <p
             className="
-              text-[18px]
-              sm:text-[22px]
-              md:text-[28px]
+             text-[14px]
+sm:text-[18px]
+md:text-[22px]
+lg:text-[26px]
               font-medium
               text-black
               text-center
@@ -50,23 +52,28 @@ const DeveloperCTA = () => {
         </div>
 
         {/* BUTTON */}
-        <button
-          className="
+        <Link to="/freelancer-signup">
+          <button
+            className="
             bg-[#8967B3]
             text-white
-            text-[28px]
+            text-[16px]
+            sm:text-[18px]
+            md:text-[22px]
+            lg:text-[28px]
             font-medium
             px-8
-            h-[70px]
+            sm:h-[60px]
             rounded-[15px]
             hover:opacity-90
             transition
             w-full
-            md:w-auto
+            sm:w-[200px]
           "
-        >
-          Sign up
-        </button>
+          >
+            Sign up
+          </button>
+        </Link>
       </div>
     </section>
   );

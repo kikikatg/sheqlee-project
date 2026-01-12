@@ -2,55 +2,24 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SubNavbar from "../../all-jobs/SubNavbar";
 import Footer from "../../footer/Footer";
-import { JOB_CATEGORIES, JOB_TYPES } from "../../../data/jobConstants";
+import { useEffect } from "react";
+
+import {
+  JOB_CATEGORIES,
+  JOB_TYPES,
+  JOB_LEVELS,
+  SALARY_CURRENCIES,
+  SALARY_TYPES,
+  SKILLS,
+} from "../../../data/jobConstants";
+
 import RichTextToolbar from "../../shared/RichTextToolbar";
-const JOB_LEVELS = ["Intermediate", "Expert"];
-const SALARY_CURRENCIES = ["$", "€", "£"];
-const SALARY_TYPES = ["/hour", "/month", "/project"];
-const SKILLS = [
-  // Frontend
-  "React",
-  "Vue",
-  "Angular",
-  "Next.js",
-  "Tailwind CSS",
-  "Flutter",
-
-  // Backend
-  "Node.js",
-  "Express",
-  "NestJS",
-  "Django",
-  "Laravel",
-
-  // Databases
-  "PostgreSQL",
-  "MySQL",
-  "MongoDB",
-  "Firebase",
-
-  // Cloud / DevOps
-  "AWS",
-  "Docker",
-  "Kubernetes",
-
-  // Design
-  "UI Design",
-  "UX Design",
-  "Figma",
-  "Graphic Design",
-
-  // Other
-  "REST API",
-  "GraphQL",
-  "Testing",
-];
 
 const PostJob = () => {
   const [jobTitle, setJobTitle] = useState("");
-const [jobType, setJobType] = useState("");
-const [jobLevel, setJobLevel] = useState("");
-const [salary, setSalary] = useState("");
+  const [jobType, setJobType] = useState("");
+  const [jobLevel, setJobLevel] = useState("");
+  const [salary, setSalary] = useState("");
 
   const navigate = useNavigate();
   const [shortDescription, setShortDescription] = useState("");
@@ -59,15 +28,56 @@ const [salary, setSalary] = useState("");
 
   /* skills dropdown (ONLY addition) */
   const [showSkills, setShowSkills] = useState(false);
- const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
-const [description, setDescription] = useState("");
-const [requirements, setRequirements] = useState("");
-// const [experience, setExperience] = useState("");
-// const [skillsDesc, setSkillsDesc] = useState("");
-const [primaryPurpose, setPrimaryPurpose] = useState("");
-const [currency, setCurrency] = useState("$");
-const [paymentUnit, setPaymentUnit] = useState("/hour");
+  const [description, setDescription] = useState("");
+  const [requirements, setRequirements] = useState("");
+  // const [experience, setExperience] = useState("");
+  // const [skillsDesc, setSkillsDesc] = useState("");
+  const [primaryPurpose, setPrimaryPurpose] = useState("");
+  const [currency, setCurrency] = useState("$");
+  const [paymentUnit, setPaymentUnit] = useState("/hour");
+  const handleSaveDraft = () => {
+    if (!jobTitle || !jobType || !jobLevel || !shortDescription) {
+      alert("Please fill all required fields before saving draft.");
+      return;
+    }
+
+    const draft = {
+      jobTitle,
+      jobType,
+      jobLevel,
+      salary,
+      currency,
+      paymentUnit,
+      shortDescription,
+      description,
+      requirements,
+      skills: selectedSkills,
+      primaryPurpose,
+      savedAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem("jobDraft", JSON.stringify(draft));
+    alert("Draft saved successfully!");
+  };
+  useEffect(() => {
+    const savedDraft = localStorage.getItem("jobDraft");
+    if (savedDraft) {
+      const d = JSON.parse(savedDraft);
+      setJobTitle(d.jobTitle || "");
+      setJobType(d.jobType || "");
+      setJobLevel(d.jobLevel || "");
+      setSalary(d.salary || "");
+      setCurrency(d.currency || "$");
+      setPaymentUnit(d.paymentUnit || "/hour");
+      setShortDescription(d.shortDescription || "");
+      setDescription(d.description || "");
+      setRequirements(d.requirements || "");
+      setSelectedSkills(d.skills || []);
+      setPrimaryPurpose(d.primaryPurpose || "");
+    }
+  }, []);
 
   return (
     <main className="bg-white min-h-screen ">
@@ -81,23 +91,20 @@ const [paymentUnit, setPaymentUnit] = useState("/hour");
           </div>
           <div className="flex items-center px-10">
             <p className="text-[22px] font-medium">
-  To speed up the process of posting a job, try using{" "}
-  <span
-    className="
+              To speed up the process of posting a job, try using{" "}
+              <span
+                className="
       text-[#8967B3]
       underline
       cursor-pointer
       hover:opacity-80
     "
-    onClick={() => {
-      // later: navigate to templates
-      console.log("Go to job templates");
-    }}
-  >
-    job templates
-  </span>.
-</p>
-
+                onClick={() => navigate("/job-templates")}
+              >
+                job templates
+              </span>
+              .
+            </p>
           </div>
         </div>
       </div>
@@ -114,58 +121,62 @@ const [paymentUnit, setPaymentUnit] = useState("/hour");
 
       {/* FORM */}
       <section className="mt-12 px-[101px] max-w-[1200px] mx-auto space-y-16">
-
         {/* Job title */}
         <div className="space-y-3">
           <label className="text-[24px] font-medium">
             Job title <span className="text-red-500">*</span>
           </label>
           <input
-  value={jobTitle}
-  onChange={(e) => setJobTitle(e.target.value)}
-  placeholder="Enter job title"
-  className="w-full h-[80px] bg-[#DFDFDF] rounded-[15px] px-6 text-[22px]"
-/>
-
+            value={jobTitle}
+            onChange={(e) => setJobTitle(e.target.value)}
+            placeholder="Enter job title"
+            className="w-full h-[80px] bg-[#DFDFDF] rounded-[15px] px-6 text-[22px]"
+          />
         </div>
 
         {/* Category & Job Type */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {[{ label: "Category", data: JOB_CATEGORIES }, { label: "Job type", data: JOB_TYPES }].map(
-            ({ label, data }) => (
-              <div key={label} className="space-y-3">
-                <label className="text-[24px] font-medium">
-                  {label} <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <select onChange={(e) => setJobType(e.target.value)} className="w-full text-[24px] h-[80px] bg-[#DFDFDF]  cursor-pointer rounded-[15px] px-6 pr-14 appearance-none">
-                    <option disabled selected>
-                      Select {label.toLowerCase()}
-                    </option>
-                    {data.map((i) => (
-                      <option key={i}>{i}</option>
-                    ))}
-                  </select>
-                  <img
-                    src="/icons/arrow-down.svg"
-                    className="absolute right-6 top-1/2 -translate-y-1/2 w-[18px]"
-                  />
-                </div>
+          {[
+            { label: "Category", data: JOB_CATEGORIES },
+            { label: "Job type", data: JOB_TYPES },
+          ].map(({ label, data }) => (
+            <div key={label} className="space-y-3">
+              <label className="text-[24px] font-medium">
+                {label} <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <select
+                  onChange={(e) => setJobType(e.target.value)}
+                  className="w-full text-[24px] h-[80px] bg-[#DFDFDF]  cursor-pointer rounded-[15px] px-6 pr-14 appearance-none"
+                >
+                  <option disabled selected>
+                    Select {label.toLowerCase()}
+                  </option>
+                  {data.map((i) => (
+                    <option key={i}>{i}</option>
+                  ))}
+                </select>
+                <img
+                  src="/icons/arrow-down.svg"
+                  className="absolute right-6 top-1/2 -translate-y-1/2 w-[18px]"
+                />
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
 
         {/* Skill level & Salary */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
           {/* Skill level */}
           <div className="space-y-3">
             <label className="text-[24px] font-medium">
               Skill level <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-             <select onChange={(e) => setJobLevel(e.target.value)} className="w-full  cursor-pointer text-[24px] h-[80px] bg-[#DFDFDF] rounded-[15px] px-6 pr-14 appearance-none">
+              <select
+                onChange={(e) => setJobLevel(e.target.value)}
+                className="w-full  cursor-pointer text-[24px] h-[80px] bg-[#DFDFDF] rounded-[15px] px-6 pr-14 appearance-none"
+              >
                 <option disabled selected>
                   Select skill level
                 </option>
@@ -184,239 +195,221 @@ const [paymentUnit, setPaymentUnit] = useState("/hour");
           <div className="space-y-3">
             <label className="text-[24px] font-medium">Salary</label>
             <div className="flex">
+              {/* Currency */}
+              <div className="flex w-full">
+                {/* LEFT BLACK BAR — CURRENCY */}
+                {/* LEFT BLACK BAR — CURRENCY */}
+                <div className="w-[110px] bg-black rounded-l-[15px] relative flex items-center">
+                  {/* Visible selected value */}
+                  <span className="absolute left-6 text-white text-[24px] pointer-events-none">
+                    {currency}
+                  </span>
 
-           {/* Currency */}
-<div className="flex w-full">
+                  {/* Native select (invisible text, still clickable) */}
+                  <select
+                    value={currency}
+                    onChange={(e) => setCurrency(e.target.value)}
+                    className="w-full h-[80px] bg-transparent text-transparent pl-6 pr-12 appearance-none cursor-pointer"
+                  >
+                    {SALARY_CURRENCIES.map((c) => (
+                      <option key={c} className="text-black bg-white">
+                        {c}
+                      </option>
+                    ))}
+                  </select>
 
-  {/* LEFT BLACK BAR — CURRENCY */}
-  {/* LEFT BLACK BAR — CURRENCY */}
-<div className="w-[110px] bg-black rounded-l-[15px] relative flex items-center">
+                  {/* dropdown icon */}
+                  <img
+                    src="/icons/arrow-down-ws.svg"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-[14px]"
+                  />
+                </div>
 
-  {/* Visible selected value */}
-  <span className="absolute left-6 text-white text-[24px] pointer-events-none">
-    {currency}
-  </span>
+                {/* CENTER INPUT — PRICE */}
+                <input
+                  value={salary}
+                  onChange={(e) => setSalary(e.target.value)}
+                  placeholder="Enter price"
+                  className="w-full h-[80px] bg-[#DFDFDF] text-[24px] px-6 outline-none"
+                />
 
-  {/* Native select (invisible text, still clickable) */}
-  <select
-    value={currency}
-    onChange={(e) => setCurrency(e.target.value)}
-    className="w-full h-[80px] bg-transparent text-transparent pl-6 pr-12 appearance-none cursor-pointer"
-  >
-    {SALARY_CURRENCIES.map((c) => (
-      <option key={c} className="text-black bg-white">
-        {c}
-      </option>
-    ))}
-  </select>
+                {/* RIGHT BLACK BAR — PAYMENT UNIT */}
+                {/* RIGHT BLACK BAR — PAYMENT UNIT */}
+                <div className="w-[200px] bg-black rounded-r-[15px] relative flex items-center">
+                  {/* Visible selected value */}
+                  <span className="absolute left-6 text-white text-[20px] pointer-events-none">
+                    {paymentUnit}
+                  </span>
 
-  {/* dropdown icon */}
-  <img
-    src="/icons/arrow-down-ws.svg"
-    className="absolute right-4 top-1/2 -translate-y-1/2 w-[14px]"
-  />
-</div>
+                  {/* Native select */}
+                  <select
+                    value={paymentUnit}
+                    onChange={(e) => setPaymentUnit(e.target.value)}
+                    className="w-full h-[80px] bg-transparent text-transparent pl-8 pr-16   appearance-none cursor-pointer"
+                  >
+                    {SALARY_TYPES.map((t) => (
+                      <option key={t} className="text-black bg-white">
+                        {t}
+                      </option>
+                    ))}
+                  </select>
 
-
-  {/* CENTER INPUT — PRICE */}
-  <input
-    value={salary}
-    onChange={(e) => setSalary(e.target.value)}
-    placeholder="Enter price"
-    className="w-full h-[80px] bg-[#DFDFDF] text-[24px] px-6 outline-none"
-  />
-
-  {/* RIGHT BLACK BAR — PAYMENT UNIT */}
- {/* RIGHT BLACK BAR — PAYMENT UNIT */}
-<div className="w-[200px] bg-black rounded-r-[15px] relative flex items-center">
-
-  {/* Visible selected value */}
-  <span className="absolute left-6 text-white text-[20px] pointer-events-none">
-    {paymentUnit}
-  </span>
-
-  {/* Native select */}
-  <select
-    value={paymentUnit}
-    onChange={(e) => setPaymentUnit(e.target.value)}
-    className="w-full h-[80px] bg-transparent text-transparent pl-8 pr-16   appearance-none cursor-pointer"
-  >
-    {SALARY_TYPES.map((t) => (
-      <option key={t} className="text-black bg-white">
-        {t}
-      </option>
-    ))}
-  </select>
-
-  {/* dropdown icon */}
-  <img
-    src="/icons/arrow-down-wb.svg"
-    className="absolute right-1 top-1/2 -translate-y-1/2 w-[14px]"
-  />
-</div>
- </div>
-</div>
-
+                  {/* dropdown icon */}
+                  <img
+                    src="/icons/arrow-down-wb.svg"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 w-[14px]"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Short description */}
-       <div className="space-y-2">
-        <label className="text-[24px] font-medium">
-    Short description<span className="text-red-500">*</span>
-  </label>
-  <div className="relative">
-    <textarea
-      value={shortDescription}
-      onChange={(e) => setShortDescription(e.target.value)}
-      maxLength={128}
-      placeholder="Short job description"
-      className="w-full h-[200px] p-6 bg-[#DFDFDF] text-[22px] rounded-[15px]"
-    />
+        <div className="space-y-2">
+          <label className="text-[24px] font-medium">
+            Short description<span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <textarea
+              value={shortDescription}
+              onChange={(e) => setShortDescription(e.target.value)}
+              maxLength={128}
+              placeholder="Short job description"
+              className="w-full h-[200px] p-6 bg-[#DFDFDF] text-[22px] rounded-[15px]"
+            />
 
-    {/* 0/128 counter — INSIDE container */}
-    <span className="absolute bottom-4 right-6 text-[16px] text-gray-600">
-      {shortDescription.length}/128
-    </span>
-  </div>
+            {/* 0/128 counter — INSIDE container */}
+            <span className="absolute bottom-4 right-6 text-[16px] text-gray-600">
+              {shortDescription.length}/128
+            </span>
+          </div>
 
-  {/* Text BELOW textarea */}
-  <p className="text-[18px] text-gray-700">
-    Who are you looking for?
-  </p>
-</div>
-
+          {/* Text BELOW textarea */}
+          <p className="text-[18px] text-gray-700">Who are you looking for?</p>
+        </div>
 
         {/* Rich text sections (UNTOUCHED) */}
-     {/* Requirements */}
-{/* Requirements */}
-<div className="space-y-3">
-  <label className="text-[24px] font-medium">
-    Requirements <span className="text-red-500">*</span>
-  </label>
+        {/* Requirements */}
+        {/* Requirements */}
+        <div className="space-y-3">
+          <label className="text-[24px] font-medium">
+            Requirements <span className="text-red-500">*</span>
+          </label>
 
-  <div className="rounded-[15px] overflow-hidden">
-    <RichTextToolbar />
-    <textarea
-      value={requirements}
-      onChange={(e) => setRequirements(e.target.value)}
-      placeholder="List the job requirements here"
-      className="w-full h-[200px] p-6 bg-[#DFDFDF] text-[22px] rounded-b-[15px]"
-    />
-  </div>
-</div>
+          <div className="rounded-[15px] overflow-hidden">
+            <RichTextToolbar />
+            <textarea
+              value={requirements}
+              onChange={(e) => setRequirements(e.target.value)}
+              placeholder="List the job requirements here"
+              className="w-full h-[200px] p-6 bg-[#DFDFDF] text-[22px] rounded-b-[15px]"
+            />
+          </div>
+        </div>
 
-{/* Job description */}
-<div className="space-y-3">
-  <label className="text-[24px] font-medium">
-   Description
-  </label>
+        {/* Job description */}
+        <div className="space-y-3">
+          <label className="text-[24px] font-medium">Description</label>
 
-  <div className="rounded-[15px] overflow-hidden">
-    <RichTextToolbar />
-    <textarea
-      value={description}
-      onChange={(e) => setDescription(e.target.value)}
-      placeholder="Describe the job role and responsibilities"
-      className="w-full h-[200px] p-6 bg-[#DFDFDF] text-[22px] rounded-b-[15px]"
-    />
-  </div>
-</div>
+          <div className="rounded-[15px] overflow-hidden">
+            <RichTextToolbar />
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Describe the job role and responsibilities"
+              className="w-full h-[200px] p-6 bg-[#DFDFDF] text-[22px] rounded-b-[15px]"
+            />
+          </div>
+        </div>
 
-{/* How to apply */}
-<div className="space-y-3">
-  <label className="text-[24px] font-medium">
-    How to apply 
-  </label>
+        {/* How to apply */}
+        <div className="space-y-3">
+          <label className="text-[24px] font-medium">How to apply</label>
 
-  <div className="rounded-[15px] overflow-hidden">
-    <RichTextToolbar />
-    <textarea
-      value={primaryPurpose}
-      onChange={(e) => setPrimaryPurpose(e.target.value)}
-      placeholder="How can professionals apply..."
-      className="w-full h-[200px] p-6 bg-[#DFDFDF] text-[22px] rounded-b-[15px]"
-    />
-  </div>
-</div>
-
+          <div className="rounded-[15px] overflow-hidden">
+            <RichTextToolbar />
+            <textarea
+              value={primaryPurpose}
+              onChange={(e) => setPrimaryPurpose(e.target.value)}
+              placeholder="How can professionals apply..."
+              className="w-full h-[200px] p-6 bg-[#DFDFDF] text-[22px] rounded-b-[15px]"
+            />
+          </div>
+        </div>
 
         {/* Skills (FUNCTIONAL, SAME POSITION) */}
-       {/* Skills */}
-{/* Skills */}
-<div className="space-y-3 relative">
-  <label className="text-[24px] font-medium">
-    Skills{" "}
-    <span className="text-[18px] text-gray-500">
-      (technology names)
-    </span>
-    <span className="text-red-500">*</span>
-  </label>
+        {/* Skills */}
+        {/* Skills */}
+        <div className="space-y-3 relative">
+          <label className="text-[24px] font-medium">
+            Skills{" "}
+            <span className="text-[18px] text-gray-500">
+              (technology names)
+            </span>
+            <span className="text-red-500">*</span>
+          </label>
 
-  {/* Input / Tag container */}
-  <div
-    onClick={() => setShowSkills(!showSkills)}
-    className="relative min-h-[80px] bg-[#DFDFDF] rounded-[15px] px-6 pr-16 py-3 flex flex-wrap gap-3 items-center cursor-pointer"
-  >
-    {/* Placeholder */}
-    {selectedSkills.length === 0 && (
-      <span className="text-gray-500 text-[22px]">
-        Add required skills (e.g. React, AWS)
-      </span>
-    )}
+          {/* Input / Tag container */}
+          <div
+            onClick={() => setShowSkills(!showSkills)}
+            className="relative min-h-[80px] bg-[#DFDFDF] rounded-[15px] px-6 pr-16 py-3 flex flex-wrap gap-3 items-center cursor-pointer"
+          >
+            {/* Placeholder */}
+            {selectedSkills.length === 0 && (
+              <span className="text-gray-500 text-[22px]">
+                Add required skills (e.g. React, AWS)
+              </span>
+            )}
 
-    {/* Selected skill tags */}
-    {selectedSkills.map((skill) => (
-      <span
-        key={skill}
-        className="bg-black text-white px-4 py-2 rounded-full text-[18px] flex items-center gap-2"
-      >
-        {skill}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setSelectedSkills(
-              selectedSkills.filter((s) => s !== skill)
-            );
-          }}
-          className="text-white text-[16px]"
-        >
-          ✕
-        </button>
-      </span>
-    ))}
+            {/* Selected skill tags */}
+            {selectedSkills.map((skill) => (
+              <span
+                key={skill}
+                className="bg-black text-white px-4 py-2 rounded-full text-[18px] flex items-center gap-2"
+              >
+                {skill}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedSkills(
+                      selectedSkills.filter((s) => s !== skill)
+                    );
+                  }}
+                  className="text-white text-[16px]"
+                >
+                  ✕
+                </button>
+              </span>
+            ))}
 
-    {/* Arrow icon (RIGHT SIDE) */}
-    <img
-      src="/icons/arrow-down.svg"
-      className={`absolute right-6 top-1/2 -translate-y-1/2 w-[18px] transition-transform ${
-        showSkills ? "rotate-180" : ""
-      }`}
-      alt="dropdown"
-    />
-  </div>
+            {/* Arrow icon (RIGHT SIDE) */}
+            <img
+              src="/icons/arrow-down.svg"
+              className={`absolute right-6 top-1/2 -translate-y-1/2 w-[18px] transition-transform ${
+                showSkills ? "rotate-180" : ""
+              }`}
+              alt="dropdown"
+            />
+          </div>
 
-  {/* Dropdown */}
-  {showSkills && (
-    <div className="absolute w-full bg-white rounded-[15px] shadow mt-2 z-20 max-h-[260px] overflow-y-auto">
-      {SKILLS.filter(
-        (s) => !selectedSkills.includes(s)
-      ).map((s) => (
-        <div
-          key={s}
-          onClick={() => {
-            setSelectedSkills([...selectedSkills, s]);
-          }}
-          className="px-6 py-4 hover:bg-[#F7F7F7] cursor-pointer text-[22px]"
-        >
-          {s}
+          {/* Dropdown */}
+          {showSkills && (
+            <div className="absolute w-full bg-white rounded-[15px] shadow mt-2 z-20 max-h-[260px] overflow-y-auto">
+              {SKILLS.filter((s) => !selectedSkills.includes(s)).map((s) => (
+                <div
+                  key={s}
+                  onClick={() => {
+                    setSelectedSkills([...selectedSkills, s]);
+                  }}
+                  className="px-6 py-4 hover:bg-[#F7F7F7] cursor-pointer text-[22px]"
+                >
+                  {s}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      ))}
-    </div>
-  )}
-</div>
-
-
 
         {/* Apply link */}
         <div className="space-y-3">
@@ -444,35 +437,40 @@ const [paymentUnit, setPaymentUnit] = useState("/hour");
 
         {/* Buttons */}
         <div className="flex justify-center gap-10 mt-16">
-          <button className="w-[269px] h-[85px] bg-white border-[5px] border-[#8967B3] rounded-[15px] text-[28px]">
+          <button
+            onClick={handleSaveDraft}
+            className="w-[269px] h-[85px] bg-white border-[5px] border-[#8967B3] rounded-[15px] text-[28px]"
+          >
             Save draft
           </button>
+
           <button
-  onClick={() =>
-  navigate("/post-job/review", {
-    state: {
-      title: jobTitle,
-      type: jobType,
-      level: jobLevel,
-      rate: salary,
-      currency,
-      paymentUnit,
-      shortDescription,
-      details: {
-        description,
-        requirements: requirements.split("\n"),
-       skills: selectedSkills,
-        
-      },
-    },
-  })
-}
-
-  className="w-[462px] h-[85px] bg-[#8967B3] rounded-[15px] text-[30px] font-medium text-white"
->
-  Next <span className="text-[25px] text-gray-200">[preview & confirm]</span>
-</button>
-
+            onClick={() =>
+              navigate("/post-job/review", {
+                state: {
+                  title: jobTitle,
+                  type: jobType,
+                  level: jobLevel,
+                  rate: salary,
+                  currency,
+                  paymentUnit,
+                  shortDescription,
+                  details: {
+                    description,
+                    requirements: requirements.split("\n"),
+                    skills: selectedSkills,
+                    primaryPurpose,
+                  },
+                },
+              })
+            }
+            className="w-[462px] h-[85px] bg-[#8967B3] rounded-[15px] text-[30px] font-medium text-white"
+          >
+            Next{" "}
+            <span className="text-[25px] text-gray-200">
+              [preview & confirm]
+            </span>
+          </button>
         </div>
 
         {/* Divider */}

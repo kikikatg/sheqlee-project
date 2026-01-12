@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SubNavbar from "../../all-jobs/SubNavbar";
@@ -12,8 +12,14 @@ import TextInput from "../../auth/TextInput";
 import PasswordInput from "../../auth/PasswordInput";
 import ContinueWithGoogle from "../../auth/ContinueWithGoogle";
 
+import useRegister from "../../../data/useRegister";
+
 const CompanyRegistration = () => {
   const navigate = useNavigate();
+
+  const { register, loading, apiError, success } = useRegister({
+    role: "company",
+  });
 
   const [form, setForm] = useState({
     company: "",
@@ -27,22 +33,46 @@ const CompanyRegistration = () => {
   const [errors, setErrors] = useState({});
   const [agreed, setAgreed] = useState(false);
 
+  /* ---------------- VALIDATION ---------------- */
   const validate = () => {
     const e = {};
+
+    if (!form.company) e.company = true;
+    if (!form.domain) e.domain = true;
+    if (!form.name) e.name = true;
+    if (!form.email) e.email = true;
+
     if (form.password.length < 8)
       e.password = "Password must be at least 8 characters";
+
     if (form.password !== form.confirmPassword)
       e.confirmPassword = "Passwords do not match";
+
     if (!agreed) e.agreed = true;
 
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
+  /* ---------------- SUBMIT ---------------- */
   const handleRegister = () => {
     if (!validate()) return;
-    navigate("/company-signup");
+
+    register({
+      companyName: form.company,
+      domain: form.domain,
+      representativeName: form.name,
+      email: form.email,
+      password: form.password,
+    });
   };
+
+  /* ---------------- SUCCESS REDIRECT ---------------- */
+  useEffect(() => {
+    if (success) {
+      navigate("/company-dashboard");
+    }
+  }, [success, navigate]);
 
   return (
     <main className="bg-white min-h-screen">
@@ -56,7 +86,7 @@ const CompanyRegistration = () => {
 
       {/* HEADER */}
       <section className="px-4 mt-16 max-w-5xl mx-auto flex gap-4">
-        <img src="/icons/building.svg" alt=""  className="w-16 h-16 " />
+        <img src="/icons/building.svg" alt="" className="w-16 h-16" />
         <h1 className="text-[50px] font-semibold">Company Registration</h1>
       </section>
 
@@ -66,6 +96,7 @@ const CompanyRegistration = () => {
           label="Company name"
           required
           value={form.company}
+          error={errors.company}
           placeholder="Sheqlee Co.Ltd."
           icon="/icons/company (1).svg"
           onChange={(v) => setForm({ ...form, company: v })}
@@ -75,6 +106,7 @@ const CompanyRegistration = () => {
           label="Domain"
           required
           value={form.domain}
+          error={errors.domain}
           placeholder="sheqlee.com"
           prefix="https://"
           onChange={(v) => setForm({ ...form, domain: v })}
@@ -89,6 +121,7 @@ const CompanyRegistration = () => {
           label="Full name"
           required
           value={form.name}
+          error={errors.name}
           placeholder="Abebe Bekila"
           icon="/icons/person.svg"
           onChange={(v) => setForm({ ...form, name: v })}
@@ -98,6 +131,7 @@ const CompanyRegistration = () => {
           label="Email"
           required
           value={form.email}
+          error={errors.email}
           placeholder="abebe@gmail.com"
           icon="/icons/email.svg"
           onChange={(v) => setForm({ ...form, email: v })}
@@ -121,12 +155,12 @@ const CompanyRegistration = () => {
       </section>
 
       {/* TERMS */}
-      <section className="px-4 mt-12 max-w-5xl mx-auto flex gap-4 bg-[#DFDFDF]items-start">
+      <section className="px-4 mt-12 max-w-5xl mx-auto flex gap-4 items-start">
         <input
           type="checkbox"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
-          className="w-[30px] h-[30px]  bg-[#DFDFDF]"
+          className="w-[30px] h-[30px]"
         />
         <p className="text-[22px]">
           By creating an account, you agree to{" "}
@@ -135,25 +169,37 @@ const CompanyRegistration = () => {
         </p>
       </section>
 
+      {apiError && (
+        <p className="max-w-5xl mx-auto mt-4 text-red-500">{apiError}</p>
+      )}
+
       {/* ACTION */}
-       <section className="px-4 mt-16 max-w-5xl mx-auto flex justify-end gap-6">
+      <section className="px-4 mt-16 max-w-5xl mx-auto flex justify-end gap-6">
         <p className="text-[22px]">
-          Already got an account? 
+          Already got an account?
           <Underline text="Login" bigger to="/login" />
         </p>
 
         <button
           onClick={handleRegister}
-          className="w-[180px] h-[70px] bg-[#8967B3] rounded-[15px] text-white text-[24px]"
+          disabled={loading}
+          className="
+            w-[180px] h-[70px]
+            bg-[#8967B3]
+            rounded-[15px]
+            text-white text-[24px]
+            disabled:opacity-60
+          "
         >
-          Register
+          {loading ? "Registering..." : "Register"}
         </button>
       </section>
- <Divider text="OR CONTINUE WITH" />
+
+      <Divider text="OR CONTINUE WITH" />
 
       {/* GOOGLE */}
       <section className="px-4 mt-20 max-w-5xl mx-auto flex justify-center">
-        <ContinueWithGoogle onClick={() => console.log("Google auth")} />
+        <ContinueWithGoogle role="company" />
       </section>
 
       <section className="mt-20">

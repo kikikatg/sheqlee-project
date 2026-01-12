@@ -20,10 +20,58 @@ export const JOB_TYPES = [
   "Internship",
 ];
 
-export const JOB_LEVELS = [
-  "Junior",
-  "Intermediate",
-  "Expert",
+/* --------------------------------
+   JOB LEVELS
+-------------------------------- */
+export const JOB_LEVELS = ["Junior", "Intermediate", "Expert"];
+
+/* --------------------------------
+   SALARY CONFIG
+-------------------------------- */
+export const SALARY_CURRENCIES = ["$", "€", "£"];
+
+export const SALARY_TYPES = ["/hour", "/month", "/project"];
+
+/* --------------------------------
+   SKILLS
+-------------------------------- */
+export const SKILLS = [
+  // Frontend
+  "React",
+  "Vue",
+  "Angular",
+  "Next.js",
+  "Tailwind CSS",
+  "Flutter",
+
+  // Backend
+  "Node.js",
+  "Express",
+  "NestJS",
+  "Django",
+  "Laravel",
+
+  // Databases
+  "PostgreSQL",
+  "MySQL",
+  "MongoDB",
+  "Firebase",
+
+  // Cloud / DevOps
+  "AWS",
+  "Docker",
+  "Kubernetes",
+
+  // Design
+  "UI Design",
+  "UX Design",
+  "Figma",
+  "Graphic Design",
+
+  // Other
+  "REST API",
+  "GraphQL",
+  "Testing",
 ];
 
 /* --------------------------------
