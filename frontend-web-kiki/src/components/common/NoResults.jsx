@@ -1,6 +1,6 @@
 import React from "react";
 
-const NoResults = ({ message = "No results found" }) => {
+const NoResults = ({ message = "No results foundsdasdadadadasdadas" }) => {
   return (
     <div
       className="
@@ -16,14 +16,14 @@ const NoResults = ({ message = "No results found" }) => {
       <img
         src="/icons/error.svg"
         alt="No results"
-        className="w-[40px] h-[120px] mb-6"
+        className="w-[70px] h-[140px] mb-6"
       />
 
       {/* MESSAGE */}
       <p
         className="
           text-center
-          text-[28px]
+          text-[30px]
           leading-[40px]
           text-[#444444]
           font-normal

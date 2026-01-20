@@ -28,6 +28,37 @@ body {
     @apply flex items-center gap-1 text-xs text-gray-700 bg-[#E5E5E5] px-2.5 py-1 rounded-md;
   }
 }
+@font-face {
+  font-family: "Kantumruy Pro";
+  src: url("../assets/fonts/KantumruyPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kantumruy Pro";
+  src: url("../assets/fonts/KantumruyPro-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kantumruy Pro";
+  src: url("../assets/fonts/KantumruyPro-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kantumruy Pro";
+  src: url("../assets/fonts/KantumruyPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+body {
+  font-family: "Kantumruy Pro", sans-serif;
+}
+
 /* =========================
    GLOBAL RESPONSIVE SECTIONS
    ========================= */

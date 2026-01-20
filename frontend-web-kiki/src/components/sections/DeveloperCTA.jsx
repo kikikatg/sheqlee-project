@@ -37,10 +37,10 @@ const DeveloperCTA = () => {
 
           <p
             className="
-             text-[14px]
-sm:text-[18px]
-md:text-[22px]
-lg:text-[26px]
+             text-[20px]
+sm:text-[24px]
+md:text-[26px]
+lg:text-[28px]
               font-medium
               text-black
               text-center
@@ -57,18 +57,22 @@ lg:text-[26px]
             className="
             bg-[#8967B3]
             text-white
-            text-[16px]
-            sm:text-[18px]
-            md:text-[22px]
-            lg:text-[28px]
+                     text-[20px]
+sm:text-[24px]
+md:text-[26px]
+lg:text-[28px]
             font-medium
             px-8
             sm:h-[60px]
             rounded-[15px]
             hover:opacity-90
             transition
-            w-full
-            sm:w-[200px]
+            w-[180px] h-[60px]
+            md:w-[200px]
+            md:h-[70px]
+             lg:h-[80px]
+             lg:w-[200px]
+              sm:w-[200px]
           "
           >
             Sign up

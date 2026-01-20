@@ -2,18 +2,17 @@ import { useState, useMemo } from "react";
 import SubNavbar from "../../all-jobs/SubNavbar";
 import LatestJobs from "../../sections/LatestJobs";
 import Pagination from "../../common/Pagination";
-import Footer from "../../footer/Footer";
-import JobsFilterDashboard from "./JobsFilterDashboard";
+import FreelancerJobsFilterDashboard from "./FreelancerJobsFilterDashboard";
 import { mockJobs } from "../../../data/mockJobs";
-import NotFound from "../not-found/NotFound"; // reusable NotFound
+import NotFound from "../not-found/NotFound";
+import { getJobCategory } from "../../../data/jobConstants";
 
 const JOBS_PER_PAGE = 12;
 
-const DashboardUser = () => {
+const FreelancerDashboard = () => {
   const [page, setPage] = useState(1);
   const [filteredJobs, setFilteredJobs] = useState(mockJobs);
 
-  // recalc total pages dynamically
   const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
 
   const jobsToRender = useMemo(() => {
@@ -22,20 +21,28 @@ const DashboardUser = () => {
   }, [filteredJobs, page]);
 
   /* -------------------------------
-     APPLY FILTERS
+     APPLY FILTERS (FIXED)
   -------------------------------- */
   const handleApplyFilters = (filters) => {
     setPage(1);
 
     const results = mockJobs.filter((job) => {
+      /* CATEGORY */
       const matchesCategory =
-        !filters.category || job.category === filters.category;
+        !filters.category || getJobCategory(job) === filters.category;
 
+      /* TYPE */
       const matchesType = !filters.type || job.type === filters.type;
 
+      /* LEVEL */
       const matchesLevel = !filters.level || job.level === filters.level;
 
-      const matchesTag = !filters.tag || job.tags?.includes(filters.tag);
+      /* TAGS (FIXED ✅) */
+      const matchesTag =
+        !filters.tag ||
+        job.details?.tags?.some(
+          (tag) => tag.toLowerCase() === filters.tag.toLowerCase()
+        );
 
       return matchesCategory && matchesType && matchesLevel && matchesTag;
     });
@@ -43,47 +50,26 @@ const DashboardUser = () => {
     setFilteredJobs(results);
   };
 
-  // ----------------------- Render -----------------------
-  // if no jobs found, show NotFound WITHOUT breadcrumb or footer
-  if (filteredJobs.length === 0) {
-    return <NotFound message="No jobs found for the selected filters." />;
-  }
-
   return (
     <main className="bg-white mb-16 min-h-screen">
-      {/* ===== BREADCRUMB ===== */}
       <SubNavbar
         crumbs={[{ label: "Dashboard", href: "/dashboard", active: true }]}
       />
 
-      {/* ===== HEADER ===== */}
       <section className="w-full mt-16 md:mt-24">
         <div className="flex flex-col items-center text-center gap-4 max-w-[800px] mx-auto px-4">
-          <img
-            src="/icons/dashboard.svg"
-            alt="Dashboard"
-            className="w-8 h-8 mt-1"
-          />
-
-          <div>
-            <h1 className="text-black font-semibold text-[40px] leading-[1.1]">
-              Dashboard
-            </h1>
-
-            <p className="mt-4 text-black text-[20px] max-w-[800px]">
-              These are jobs for you based on your skills.
-            </p>
-          </div>
+          <img src="/icons/dashboard.svg" alt="Dashboard" className="w-8 h-8" />
+          <h1 className="text-black font-semibold text-[40px]">Dashboard</h1>
+          <p className="text-black text-[20px]">
+            These are jobs for you based on your skills.
+          </p>
         </div>
       </section>
 
-      {/* ===== FILTERS ===== */}
-      <JobsFilterDashboard onApply={handleApplyFilters} />
+      <FreelancerJobsFilterDashboard onApply={handleApplyFilters} />
 
-      {/* ===== JOBS ===== */}
       <LatestJobs jobs={jobsToRender} showHeader={false} />
 
-      {/* ===== PAGINATION ===== */}
       {totalPages > 1 && (
         <Pagination
           currentPage={page}
@@ -96,4 +82,4 @@ const DashboardUser = () => {
   );
 };
 
-export default DashboardUser;
+export default FreelancerDashboard;

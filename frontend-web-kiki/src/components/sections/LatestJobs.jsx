@@ -14,12 +14,12 @@ const LatestJobs = ({
   const visibleJobs = limit ? jobs.slice(0, limit) : jobs;
 
   return (
-    <section className="bg-white py-12 sm:py-16 font-['Kantumruy_Pro']">
+    <section className="bg-white py-12 sm:py-16 font-['Kantumruy_Pro'] lg:py-16 mx-12">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8">
         {/* ================= HEADER ================= */}
         {showHeader && (
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-            <h2 className="text-xl sm:text-2xl font-semibold">
+            <h2 className="lg:text-[32px] sm:text-[24px] mx-4 font-semibold">
               Latest job posts
             </h2>
 

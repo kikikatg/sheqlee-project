@@ -5,21 +5,15 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem("user");
-    return saved
-      ? JSON.parse(saved)
-      : {
-          fullName: "",
-          title: "",
-          avatar: "",
-          about: "",
-          skills: [],
-          links: [],
-          cv: null,
-        };
+    return saved ? JSON.parse(saved) : null;
   });
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(user));
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
   }, [user]);
 
   return (

@@ -64,7 +64,7 @@ const ProfessionalRegistration = () => {
   /* ---------------- SUCCESS REDIRECT ---------------- */
   useEffect(() => {
     if (success) {
-      navigate("/freelancer-dashboard");
+      navigate("/freelancer/homepage");
     }
   }, [success, navigate]);
 

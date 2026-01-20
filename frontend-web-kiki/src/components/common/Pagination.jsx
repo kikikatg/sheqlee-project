@@ -35,9 +35,9 @@ const Pagination = ({
   };
 
   return (
-    <div className="mt-16 max-w-7xl mx-auto px-4">
+    <div className="mt-16 max-w-7xl lg:mx-24 xl:mx-26 sm:mx-10 mx-14 md:mx">
       {/* DESKTOP */}
-      <div className="hidden md:flex justify-between items-start">
+      <div className="hidden lg:flex justify-between items-start">
         <div className="flex gap-4">
           {fixedPages.map((page) => (
             <button
@@ -63,7 +63,7 @@ const Pagination = ({
                 <button
                   key={`last-${page}`}
                   onClick={() => handlePageChange(page)}
-                  className={`w-[50px] h-[50px] rounded-[15px] text-[18px] font-medium
+                  className={`w-[50px] h-[50px] rounded-[15px] text-[18px]  font-medium
                     ${
                       currentPage === page
                         ? "bg-black text-white"
@@ -77,13 +77,13 @@ const Pagination = ({
           )}
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 ml-auto">
           <button
             disabled={isFirstPage}
             onClick={() => handlePageChange(currentPage - 1)}
             className={`w-[50px] h-[50px] rounded-[15px] flex items-center justify-center
               ${
-                isFirstPage ? "bg-[#DFDFDF] cursor-not-allowed" : "bg-[#8967B3]"
+                isFirstPage ? "bg-[#DFDFDF] cursor-not-allowed" : "bg-[#8967B3] ml-10"
               }`}
           >
             <img src="/icons/left-arrow.svg" alt="Prev" />
@@ -92,12 +92,62 @@ const Pagination = ({
           <button
             disabled={isLastPage}
             onClick={() => handlePageChange(currentPage + 1)}
-            className={`w-[50px] h-[50px] rounded-[15px] flex items-center justify-center
+            className={`w-[50px] h-[50px] rounded-[15px] flex items-center justify-center 
               ${
                 isLastPage ? "bg-[#DFDFDF] cursor-not-allowed" : "bg-[#8967B3]"
               }`}
           >
             <img src="/icons/arrow-next-2.svg" alt="Next" />
+          </button>
+        </div>
+      </div>
+      {/* TABLET (770px – 1023px) */}
+      <div className="hidden md:flex lg:hidden justify-between px-8 items-start">
+        {/* LEFT: pages */}
+        <div className="flex flex-wrap gap-2 max-w-full">
+          {fixedPages.slice(0, 6).map((page) => (
+            <button
+              key={`tablet-${page}`}
+              onClick={() => handlePageChange(page)}
+              className={`w-[40px] h-[40px] rounded-[12px] text-[16px] font-medium
+          ${currentPage === page ? "bg-black text-white" : "bg-[#DFDFDF]"}`}
+            >
+              {page}
+            </button>
+          ))}
+
+          <span className="flex items-center px-1 text-lg font-medium">…</span>
+
+          {lastPagesFiltered.map((page) => (
+            <button
+              key={`tablet-last-${page}`}
+              onClick={() => handlePageChange(page)}
+              className={`w-[40px] h-[40px] rounded-[12px] text-[16px] font-medium
+          ${currentPage === page ? "bg-black text-white" : "bg-[#DFDFDF]"}`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+
+        {/* RIGHT: arrows */}
+        <div className="flex gap-3">
+          <button
+            disabled={isFirstPage}
+            onClick={() => handlePageChange(currentPage - 1)}
+            className={`w-[40px] h-[40px] rounded-[12px] flex items-center justify-center
+        ${isFirstPage ? "bg-[#DFDFDF]" : "bg-[#8967B3]"}`}
+          >
+            <img src="/icons/left-arrow.svg" alt="Prev" className="w-4 h-4" />
+          </button>
+
+          <button
+            disabled={isLastPage}
+            onClick={() => handlePageChange(currentPage + 1)}
+            className={`w-[40px] h-[40px] rounded-[12px] flex items-center justify-center
+        ${isLastPage ? "bg-[#DFDFDF]" : "bg-[#8967B3]"}`}
+          >
+            <img src="/icons/arrow-next-2.svg" alt="Next" className="w-4 h-4" />
           </button>
         </div>
       </div>
@@ -107,7 +157,7 @@ const Pagination = ({
         <button
           disabled={isFirstPage}
           onClick={() => handlePageChange(currentPage - 1)}
-          className={`w-12 h-12 rounded-xl ${
+          className={`w-12 h-12 px-4 rounded-xl ${
             isFirstPage ? "bg-[#DFDFDF]" : "bg-[#8967B3]"
           }`}
         >
@@ -121,7 +171,7 @@ const Pagination = ({
         <button
           disabled={isLastPage}
           onClick={() => handlePageChange(currentPage + 1)}
-          className={`w-12 h-12 rounded-xl ${
+          className={`w-12 h-12 px-4 rounded-xl ${
             isLastPage ? "bg-[#DFDFDF]" : "bg-[#8967B3]"
           }`}
         >

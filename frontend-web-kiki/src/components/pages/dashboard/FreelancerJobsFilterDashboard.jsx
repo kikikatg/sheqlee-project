@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { mockTags } from "../../../data/mockTags";
+import {
+  JOB_CATEGORIES,
+  JOB_TYPES,
+  JOB_LEVELS,
+} from "../../../data/jobConstants";
 
-const JobsFilterDashboard = ({ onApply }) => {
+const FreelancerJobsFilterDashboard = ({ onApply }) => {
   const [filters, setFilters] = useState({
     category: "",
     type: "",
@@ -17,7 +22,6 @@ const JobsFilterDashboard = ({ onApply }) => {
     onApply?.(filters);
   };
 
-  // Ensure tags are unique
   const uniqueTags = Array.from(
     new Map(mockTags.map((t) => [t.name, t])).values()
   );
@@ -25,43 +29,41 @@ const JobsFilterDashboard = ({ onApply }) => {
   return (
     <section className="w-full mt-14">
       <div className="max-w-[1000px] mx-auto px-4">
-        {/* TOP FILTERS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <SelectBox
             value={filters.category}
             onChange={(v) => handleChange("category", v)}
-            options={["Design", "Development", "DevOps", "QA"]}
-            placeholder="Select categories"
+            options={JOB_CATEGORIES}
+            placeholder="Select category"
           />
 
           <SelectBox
             value={filters.type}
             onChange={(v) => handleChange("type", v)}
-            options={["Full-Time", "Part-Time"]}
+            options={JOB_TYPES}
             placeholder="Select type"
           />
 
           <SelectBox
             value={filters.level}
             onChange={(v) => handleChange("level", v)}
-            options={["Junior", "Intermediate", "Expert"]}
+            options={JOB_LEVELS}
             placeholder="Select level"
           />
         </div>
 
-        {/* TAGS + APPLY */}
         <div className="mt-4 grid grid-cols-1 md:grid-cols-[1fr_300px] gap-4">
           <SelectBox
             value={filters.tag}
             onChange={(v) => handleChange("tag", v)}
             options={uniqueTags}
-            placeholder="Select tags"
+            placeholder="Select tag"
             isObject
           />
 
           <button
             onClick={applyFilters}
-            className="h-[70px] bg-[#8967B3] rounded-[15px] text-white text-[22px] font-medium hover:opacity-90 transition"
+            className="h-[70px] bg-[#8967B3] rounded-[15px] text-white text-[22px]"
           >
             Apply filter
           </button>
@@ -71,9 +73,9 @@ const JobsFilterDashboard = ({ onApply }) => {
   );
 };
 
-export default JobsFilterDashboard;
+export default FreelancerJobsFilterDashboard;
 
-/* ================= COMPONENT ================= */
+/* ================= SELECT ================= */
 const SelectBox = ({
   value,
   onChange,

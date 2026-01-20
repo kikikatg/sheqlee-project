@@ -1,16 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+import { useUser } from "../../context/UserContext";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
 import DownArrow from "/icons/arrow-down.svg";
 import { mockCategories } from "../../data/mockCategories";
-import CloseIcon from "/icons/close.svg";
 
-const UserNavbar = () => {
+const FreelancerNavbar = () => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false); // desktop dropdown
+  const [mobileOpen, setMobileOpen] = useState(false); // mobile menu
   const [dropdownPos, setDropdownPos] = useState({ top: 0, right: 0 });
   const [visible, setVisible] = useState(true);
+
+  const { user } = useUser();
+
+  const name = user?.userProfile?.fullName || "User";
+  const avatar = user?.userProfile?.avatar || "/icons/set.svg";
 
   const profileTriggerRef = useRef(null);
   const lastScrollY = useRef(0);
@@ -30,7 +35,7 @@ const UserNavbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Position desktop profile dropdown */
+  /* Position desktop dropdown */
   useEffect(() => {
     if (profileOpen && profileTriggerRef.current) {
       const rect = profileTriggerRef.current.getBoundingClientRect();
@@ -50,7 +55,7 @@ const UserNavbar = () => {
 
   return (
     <>
-      {/* OVERLAY FOR DESKTOP DROPDOWN */}
+      {/* ===== DESKTOP OVERLAY ===== */}
       {profileOpen && (
         <div
           className="fixed inset-0 bg-black opacity-50 z-40"
@@ -58,7 +63,7 @@ const UserNavbar = () => {
         />
       )}
 
-      {/* NAVBAR */}
+      {/* ===== NAVBAR ===== */}
       <header
         className={`relative z-20 bg-[#F7F7F7] h-[90px] md:h-[160px] transition-opacity ${
           visible ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -69,7 +74,7 @@ const UserNavbar = () => {
           <div className="flex items-center gap-4 flex-shrink-0">
             <img
               src={Logo}
-              className="w-[45px] h-[45px] md:w-[65px] md:h-[65px]"
+              className="w-[40px] h-[40px] md:w-[65px] md:h-[65px]"
             />
             <Link to="/user" className="text-[24px] md:text-[40px] font-bold">
               Sheqlee
@@ -106,25 +111,30 @@ const UserNavbar = () => {
               )}
             </div>
 
-            {/* POST JOB */}
-            <Link
-              to="/user/post-job"
-              className="w-[140px] md:w-[160px] h-[48px] md:h-[56px]  text-[18px] md:text-[22px]
-              bg-[#8967B3] text-white rounded-[15px] flex items-center justify-center"
+            <NavLink
+              to="/freelancer/edit-profile"
+              className={({ isActive }) =>
+                `w-[140px] md:w-[160px] h-[48px] md:h-[56px] text-[18px] md:text-[22px]
+                 rounded-[15px] flex items-center justify-center ${
+                   isActive ? "bg-black text-white" : "bg-[#8967B3] text-white"
+                 }`
+              }
             >
-              Post a job
-            </Link>
+              Edit profile
+            </NavLink>
 
-            {/* USER PROFILE */}
+            {/* PROFILE DROPDOWN */}
             <div
               ref={profileTriggerRef}
               onClick={() => setProfileOpen((v) => !v)}
               className="flex items-center gap-3 cursor-pointer"
             >
-              <img src="/icons/set.svg" className="w-8 h-8" />
+              <img src={avatar} className="w-8 h-8 rounded-full object-cover" />
+
               <span className="hidden xl:inline text-[22px] font-medium">
-                Microsoft
+                {name}
               </span>
+
               <img src="/icons/arrow-down.svg" className="w-[10px]" />
             </div>
           </div>
@@ -141,53 +151,10 @@ const UserNavbar = () => {
         </nav>
       </header>
 
-      {/* DESKTOP PROFILE DROPDOWN */}
-      {profileOpen && (
-        <div
-          className="fixed z-[60] w-[220px] bg-white shadow-xl py-2 my-4 rounded-b-2xl rounded-t-none"
-          style={{
-            top: `${dropdownPos.top}px`,
-            right: `${dropdownPos.right}px`,
-          }}
-        >
-          <Link
-            to="/dashboard"
-            onClick={() => setProfileOpen(false)}
-            className="flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
-          >
-            <img src="/icons/dashboard.svg" className="w-5 h-5" />
-            Dashboard
-          </Link>
-          <Link
-            to="/company-profile"
-            onClick={() => setProfileOpen(false)}
-            className="flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
-          >
-            <img src="/icons/company (1).svg" className="w-5 h-5" />
-            Company profile
-          </Link>
-          <Link
-            to="/account-setting"
-            onClick={() => setProfileOpen(false)}
-            className="flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
-          >
-            <img src="/icons/account-setting.svg" className="w-5 h-5" />
-            Account setting
-          </Link>
-          <button
-            onClick={() => navigate("/login")}
-            className="w-full flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
-          >
-            <img src="/icons/logout.svg" className="w-5 h-5" />
-            Logout
-          </button>
-        </div>
-      )}
-
-      {/* MOBILE NAVBAR */}
+      {/* ===== MOBILE MENU ===== */}
       {mobileOpen && (
         <div className="fixed inset-0 bg-white z-50 flex flex-col">
-          {/* MOBILE HEADER */}
+          {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b">
             <div className="flex items-center gap-3">
               <img src={Logo} className="w-10 h-10" />
@@ -196,8 +163,8 @@ const UserNavbar = () => {
             <button onClick={() => setMobileOpen(false)}>✕</button>
           </div>
 
-          {/* MOBILE CONTENT */}
-          <div className="flex flex-col gap-6 px-6 py-8 text-[20px] font-medium">
+          {/* Content */}
+          <nav className="flex flex-col gap-6 px-6 py-8 text-[20px]">
             <NavLink to="/all-jobs" onClick={() => setMobileOpen(false)}>
               All jobs
             </NavLink>
@@ -227,33 +194,28 @@ const UserNavbar = () => {
               )}
             </div>
 
-            <Link
-              to="/user/post-job"
+            <NavLink
+              to="/freelancer/edit-profile"
               onClick={() => setMobileOpen(false)}
-              className="w-[120px] bg-[#8967B3] text-white py-3 rounded-xl text-center"
+              className="bg-[#8967B3] text-white py-3 rounded-xl w-40 text-center"
             >
-              Post a job
-            </Link>
+              Edit profile
+            </NavLink>
 
-            {/* USER PROFILE */}
+            {/* User section */}
             <div className="border-t pt-6 mt-6">
               <div className="flex items-center gap-3 mb-4">
-                <img src="/icons/set.svg" className="w-10 h-10 rounded-full" />
-                <span className="font-medium">Microsoft</span>
+                <img src={avatar} className="w-10 h-10 rounded-full" />
+
+                <span className="font-medium">{name}</span>
               </div>
 
               <div className="flex flex-col gap-4">
-                <Link to="/dashboard" onClick={() => setMobileOpen(false)}>
+                <Link to="/dashboard-user" onClick={() => setMobileOpen(false)}>
                   Dashboard
                 </Link>
                 <Link
-                  to="/company-profile"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Company profile
-                </Link>
-                <Link
-                  to="/account-setting"
+                  to="/freelancer/account-setting"
                   onClick={() => setMobileOpen(false)}
                 >
                   Account setting
@@ -266,11 +228,48 @@ const UserNavbar = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </nav>
+        </div>
+      )}
+
+      {/* ===== DESKTOP PROFILE DROPDOWN ===== */}
+      {profileOpen && (
+        <div
+          className="fixed z-[60] w-[220px] bg-white shadow-xl py-2 my-4 rounded-b-2xl rounded-t-none"
+          style={{
+            top: `${dropdownPos.top}px`,
+            right: `${dropdownPos.right}px`,
+          }}
+        >
+          <Link
+            to="/freelancer/dashboard"
+            onClick={() => setProfileOpen(false)}
+            className="flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
+          >
+            <img src="/icons/dashboard.svg" className="w-5 h-5" />
+            Dashboard
+          </Link>
+
+          <Link
+            to="/freelancer/account-setting"
+            onClick={() => setProfileOpen(false)}
+            className="flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
+          >
+            <img src="/icons/account-setting.svg" className="w-5 h-5" />
+            Account setting
+          </Link>
+
+          <button
+            onClick={() => navigate("/login")}
+            className="w-full flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
+          >
+            <img src="/icons/logout.svg" className="w-5 h-5" />
+            Logout
+          </button>
         </div>
       )}
     </>
   );
 };
 
-export default UserNavbar;
+export default FreelancerNavbar;

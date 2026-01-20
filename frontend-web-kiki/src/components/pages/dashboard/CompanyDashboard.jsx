@@ -10,7 +10,7 @@ const Dashboard = () => {
     const jobs = JSON.parse(localStorage.getItem("publishedJobs")) || [];
 
     if (jobs.length > 0) {
-      navigate("/dashboard/detail");
+      navigate("/company/dashboard/history");
     }
   }, [navigate]);
 

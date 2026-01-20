@@ -149,21 +149,42 @@ const ReviewPublish = () => {
       <SubNavbar crumbs={[{ label: "Vacancy", active: true }]} />
 
       {/* INFO CARD */}
-      <div className="flex justify-center mt-20">
-        <div className="w-[970px] h-[120px] bg-[#F7F7F7] rounded-[15px] flex">
-          <div className="w-[120px] bg-black rounded-l-[15px] flex items-center justify-center">
-            <img src="/icons/template.svg" className="w-[47px]" />
+      <div className="flex justify-center mt-10 sm:mt-16 lg:mt-20 px-4">
+        <div
+          className="
+      w-full max-w-[970px]
+      min-h-[120px]
+      bg-[#F7F7F7]
+      rounded-[15px]
+      flex
+      flex-col sm:flex-row
+      overflow-hidden
+    "
+        >
+          {/* Left Icon */}
+          <div
+            className="
+        w-full sm:w-[120px]
+        h-[80px] sm:h-auto
+        bg-black
+        flex
+        items-center
+        justify-center
+      "
+          >
+            <img
+              src="/icons/template.svg"
+              className="w-[36px] sm:w-[47px]"
+              alt="template"
+            />
           </div>
-          <div className="flex items-center px-10">
-            <p className="text-[22px] font-medium">
+
+          {/* Text */}
+          <div className="flex items-center px-4 sm:px-8 py-4 sm:py-0">
+            <p className="text-[16px] sm:text-[18px] lg:text-[22px] font-medium leading-snug">
               To speed up the process of posting a job, try using{" "}
               <span
-                className="
-      text-[#8967B3]
-      underline
-      cursor-pointer
-      hover:opacity-80
-    "
+                className="text-[#8967B3] underline cursor-pointer hover:opacity-80"
                 onClick={() => navigate("/job-templates")}
               >
                 job templates
@@ -175,27 +196,44 @@ const ReviewPublish = () => {
       </div>
 
       {/* HEADER */}
-      <section className="text-center mt-20">
-        <h1 className="text-[56px] font-semibold">
+      <section className="text-center mt-12 sm:mt-16 lg:mt-24 px-4">
+        <h1
+          className="
+      text-[28px]
+      sm:text-[40px]
+      lg:text-[60px]
+      font-semibold
+      leading-tight
+    "
+        >
           Review & publish <span className="font-normal">[2/2]</span>
         </h1>
-        <p className="mt-4 text-[22px] text-[#6B6B6B]">
+
+        <p
+          className="
+      mt-4 sm:mt-5 lg:mt-6
+      text-[16px]
+      sm:text-[22px]
+      lg:text-[35px]
+      leading-snug
+    "
+        >
           Review job details before publishing
         </p>
       </section>
 
-      <div className="flex justify-center gap-6 mt-12">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mt-8 sm:mt-12 px-4">
         {/* EDIT JOB */}
         <button
           onClick={() => navigate("/user/post-job", { state })}
           className="
-      w-[140px]
-      h-[85px]
-      border-[5px]
+      w-[160px] sm:w-[100px]
+      h-[60px] sm:h-[80px]
+      border-[4px] sm:border-[5px]
       border-[#8967B3]
-      rounded-[15px]
+      rounded-[12px] sm:rounded-[15px]
       text-[#8967B3]
-      text-[20px]
+      text-[16px] sm:text-[20px]
       font-medium
       flex
       items-center
@@ -211,12 +249,12 @@ const ReviewPublish = () => {
         <button
           onClick={handlePublish}
           className="
-      w-[280px]
-      h-[85px]
+      w-[240px] sm:w-[220px]
+      h-[60px] sm:h-[80px]
       bg-[#8967B3]
-      rounded-[15px]
+      rounded-[12px] sm:rounded-[15px]
       text-white
-      text-[20px]
+      text-[16px] sm:text-[20px]
       font-medium
       flex
       items-center
@@ -277,52 +315,85 @@ const ReviewPublish = () => {
       </div>
 
       {/* DESCRIPTION CONTAINER */}
-      <div className="flex justify-center mt-20">
-        <div className="w-full max-w-[1280px] bg-[#F7F7F7] rounded-[20px] p-12 space-y-10">
+      <div className="flex justify-center mt-10 sm:mt-16 lg:mt-20 px-4">
+        <div
+          className="
+    w-full
+    max-w-[1280px]
+    bg-[#F7F7F7]
+    rounded-[14px] sm:rounded-[20px]
+    p-6 sm:p-10 lg:p-12
+    space-y-8 sm:space-y-10
+  "
+        >
+          {/* SHORT DESCRIPTION */}
           <section>
-            <p className="text-[20px] leading-7 text-[#333]">
+            <p className="text-[16px] sm:text-[18px] lg:text-[20px] leading-6 sm:leading-7 text-[#333]">
               {state?.shortDescription}
             </p>
           </section>
 
+          {/* QUALIFICATIONS */}
           <section>
-            <h3 className="text-[26px] font-semibold mb-4">Qualifications</h3>
-            <ul className="list-disc pl-6 space-y-2">
+            <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-semibold mb-3 sm:mb-4">
+              Qualifications
+            </h3>
+            <ul className="list-disc pl-4 sm:pl-6 space-y-2 text-[15px] sm:text-[16px] lg:text-[18px]">
               {renderList(qualifications)}
             </ul>
           </section>
 
+          {/* EXPERIENCE */}
           <section>
-            <h3 className="text-[26px] font-semibold mb-4">Experience</h3>
-            <ul className="list-disc pl-6 space-y-2">
+            <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-semibold mb-3 sm:mb-4">
+              Experience
+            </h3>
+            <ul className="list-disc pl-4 sm:pl-6 space-y-2 text-[15px] sm:text-[16px] lg:text-[18px]">
               {renderList(experience)}
             </ul>
           </section>
 
+          {/* SKILLS */}
           <section>
-            <h3 className="text-[26px] font-semibold mb-4">
+            <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-semibold mb-3 sm:mb-4">
               Skills & Knowledge
             </h3>
-            <ul className="list-disc pl-6 space-y-2">
+            <ul className="list-disc pl-4 sm:pl-6 space-y-2 text-[15px] sm:text-[16px] lg:text-[18px]">
               {renderList(skillsAndKnowledge)}
             </ul>
           </section>
 
+          {/* DESCRIPTION */}
           <section>
-            <h3 className="text-[26px] font-semibold mb-4">Description</h3>
+            <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-semibold mb-3 sm:mb-4">
+              Description
+            </h3>
 
             {descriptionLines.map((line, i) => (
-              <p key={i} className="text-[18px] leading-8 mb-2">
+              <p
+                key={i}
+                className="text-[15px] sm:text-[16px] lg:text-[18px] leading-6 sm:leading-7 lg:leading-8 mb-2"
+              >
                 {line}
               </p>
             ))}
 
             {details.primaryPurpose && (
-              <div className="mt-6">
-                <h4 className="text-[20px] font-semibold mb-2">
+              <div className="mt-4 sm:mt-6">
+                <h4 className="text-[15px] sm:text-[18px] lg:text-[20px] font-semibold mb-2">
                   PRIMARY PURPOSE:
                 </h4>
-                <p className="text-[18px] leading-7">
+
+                <p
+                  className="
+        block
+        w-full
+        text-[14px] sm:text-[16px] lg:text-[18px]
+        leading-6 sm:leading-7
+        whitespace-normal
+        break-words
+      "
+                >
                   {details.primaryPurpose}
                 </p>
               </div>
@@ -367,19 +438,18 @@ const ReviewPublish = () => {
         />
       </div>
 
-      {/* BOTTOM ACTION BUTTONS */}
-      <div className="flex justify-center gap-6 mb-16 mt-14">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mt-8 sm:mt-12 mb-16 px-4">
         {/* EDIT JOB */}
         <button
           onClick={() => navigate("/user/post-job", { state })}
           className="
-      w-[140px]
-      h-[85px]
-      border-[5px]
+      w-[160px] sm:w-[100px]
+      h-[60px] sm:h-[80px]
+      border-[4px] sm:border-[5px]
       border-[#8967B3]
-      rounded-[15px]
+      rounded-[12px] sm:rounded-[15px]
       text-[#8967B3]
-      text-[20px]
+      text-[16px] sm:text-[20px]
       font-medium
       flex
       items-center
@@ -395,12 +465,12 @@ const ReviewPublish = () => {
         <button
           onClick={handlePublish}
           className="
-      w-[280px]
-      h-[85px]
+      w-[240px] sm:w-[220px]
+      h-[60px] sm:h-[80px]
       bg-[#8967B3]
-      rounded-[15px]
+      rounded-[12px] sm:rounded-[15px]
       text-white
-      text-[20px]
+      text-[16px] sm:text-[20px]
       font-medium
       flex
       items-center
@@ -412,6 +482,7 @@ const ReviewPublish = () => {
           Publish job
         </button>
       </div>
+
       <Footer />
     </main>
   );

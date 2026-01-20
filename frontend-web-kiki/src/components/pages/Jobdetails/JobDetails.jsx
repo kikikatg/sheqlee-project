@@ -32,7 +32,7 @@ const JobDetails = () => {
   }
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white  min-h-screen">
       <JobDetailsNavbar job={job} />
 
       {/* ================= HEADER ================= */}
@@ -69,10 +69,39 @@ const JobDetails = () => {
           </span>
         </div>
       </section>
+<div className="flex flex-col items-center gap-3 mb-10">
+  <Link
+    to="/apply"
+    className="
+     w-[350px] 
+      h-[60px]
+      bg-[#8967B3]
+      rounded-[15px]
+      flex
+      items-center
+      justify-center
+      text-white
+      text-[22px]
+      font-medium
+      hover:opacity-90
+      transition
+    "
+  >
+    Apply now
+  </Link>
+
+  <p className="text-[16px] text-[#555] flex items-center gap-2">
+    Please mention
+    <Link to="/" className="font-semibold text-black">
+      Sheqlee
+    </Link>
+    when you apply.
+  </p>
+</div>
 
       {/* ================= DESCRIPTION ================= */}
       {details && (
-        <section className="flex justify-center pb-32">
+        <section className="flex justify-center pb-10">
           <div className="w-full max-w-[1200px] bg-[#F7F7F7] rounded-[20px] px-14 py-16">
             <p className="text-[22px] leading-[32px] mb-14">
               {details.intro}
@@ -100,7 +129,7 @@ const JobDetails = () => {
       )}
 
       {/* ================= TAGS ================= */}
-      <section className="flex justify-center pb-14">
+      <section className="flex justify-center pb-10">
         <div className="flex gap-4 flex-wrap justify-center max-w-[1200px]">
           {normalizedTags.map((tag, index) =>
             index === 0 ? (
@@ -139,7 +168,47 @@ const JobDetails = () => {
           )}
         </div>
       </section>
+<div className="flex flex-col items-center gap-3 pb-6">
+  <Link
+    to="/apply"
+    className="
+      w-[350px] 
+      h-[60px]
+      bg-[#8967B3]
+      rounded-[15px]
+      flex
+      items-center
+      justify-center
+      text-white
+      text-[22px]
+      font-medium
+      hover:opacity-90
+      transition
+    "
+  >
+    Apply now
+  </Link>
+<div className="flex flex-col items-center gap-6 text-center">
+  {/* PLEASE MENTION TEXT */}
+  <p className="text-[16px] text-[#555]">
+    Please mention{" "}
+    <Link to="/" className="font-semibold text-black">
+      Sheqlee
+    </Link>{" "}
+    when you apply.
+  </p>
 
+  {/* SHARE TEXT */}
+  <p className="text-[18px] text-[#444444]">
+    Share with others
+  </p>
+
+  {/* SOCIAL ICONS */}
+  <div className="flex items-center justify-center gap-4">
+    <img src="/icons/socials.svg" alt="Socials" className="h-5 w-auto" />
+  </div>
+</div>
+</div>
       <DeveloperCTA />
       <Footer />
     </main>

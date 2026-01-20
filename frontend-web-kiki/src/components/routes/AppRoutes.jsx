@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import GuestLayout from "../layout/GuestLayout";
-import UserLayout from "../layout/UserLayout";
+import CompanyLayout from "../layout/CompanyLayout.jsx";
 import Home from "../pages/Home";
 import AllJobs from "../pages/AllJobs";
 import JobDetails from "../pages/Jobdetails/JobDetails";
@@ -23,19 +23,19 @@ import TermsAndConditions from "../pages/privacy-policy/TermsAndConditions";
 import CookiePolicy from "../pages/privacy-policy/CookiePolicy";
 import NotFound from "../pages/not-found/NotFound";
 import PostJob from "../pages/user/PostJob";
-import UserHome from "../pages/user/UserHome";
+import CompanyHomePage from "../pages/user/CompanyHomePage.jsx";
 import ReviewPublish from "../pages/user/ReviewPublish";
-import Dashboard from "../pages/dashboard/Dashboard";
-import DashboardDetail from "../pages/dashboard/DashboardDetail";
+import CompanyDashboard from "../pages/dashboard/CompanyDashboard";
+import CompanyDashboardHistory from "../pages/dashboard/CompanyDashboardHistory";
 import CompanyProfile from "../pages/company-profile/CompanyProfile";
-import AccountSetting from "../pages/account-setting/AccountSetting";
-import UpdateProfileLayout from "../layout/UpdateProfileLayout";
-import UpdateProfile from "../pages/update-profile/UpdateProfile";
-import DashboardUser from "../pages/dashboard/DashboardUser";
-import EditProfileDetails from "../pages/update-profile/EditProfileDetails";
-import UserAccountSetting from "../pages/account-setting/UserAccountSetting";
-import ProfilePreview from "../pages/update-profile/ProfilePreview";
-import PrintProfile from "../pages/update-profile/PrintProfile";
+import CompanyAccountSetting from "../pages/account-setting/CompanyAccountSetting.jsx";
+import FreelancerLayout from "../layout/FreelancerLayout.jsx";
+import FreelancerHomePage from "../pages/update-profile/FreelancerHomePage.jsx";
+import FreelancerDashboard from "../pages/dashboard/FreelancerDashboard.jsx";
+import FreelancerEditProfile from "../pages/update-profile/FreelancerEditProfile.jsx";
+import FreelancerAccountSetting from "../pages/account-setting/FreelancerAccountSetting.jsx";
+import FreelancerProfilePreview from "../pages/update-profile/FreelancerProfilePreview.jsx";
+import FreelancerPrintProfile from "../pages/update-profile/FreelancerPrintProfile.jsx";
 import VerifyEmail from "../auth/VerifyEmail";
 import JobTemplates from "../pages/user/JobTemplates";
 
@@ -70,26 +70,44 @@ const AppRoutes = () => {
         <Route path="/verify-email" element={<VerifyEmail />} />
       </Route>
       {/* User Routes */}
-      <Route element={<UserLayout />}>
-        <Route path="/user" element={<UserHome />} />
-        <Route path="/user/post-job" element={<PostJob />} />
+      <Route element={<CompanyLayout />}>
+        <Route path="/company/homepage" element={<CompanyHomePage />} />
+        <Route path="/company/post-job" element={<PostJob />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/post-job/review" element={<ReviewPublish />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/detail" element={<DashboardDetail />} />
-        <Route path="/company-profile" element={<CompanyProfile />} />
-        <Route path="/account-setting" element={<AccountSetting />} />
+        <Route path="/company/post-job/review" element={<ReviewPublish />} />
+        <Route path="/company/dashboard" element={<CompanyDashboard />} />
+        <Route
+          path="/company/dashboard/history"
+          element={<CompanyDashboardHistory />}
+        />
+        <Route path="/company/profile" element={<CompanyProfile />} />
+        <Route
+          path="/company/account-setting"
+          element={<CompanyAccountSetting />}
+        />
         <Route path="/job-templates" element={<JobTemplates />} />
       </Route>
       {/* Update Profile Route */}
-      <Route element={<UpdateProfileLayout />}>
-        <Route path="/update-profile" element={<UpdateProfile />} />
-        <Route path="/dashboard-user" element={<DashboardUser />} />
-        <Route path="/edit-profile" element={<EditProfileDetails />} />
-        <Route path="/user/account-setting" element={<UserAccountSetting />} />
-        <Route path="/profile" element={<ProfilePreview />} />
+      <Route element={<FreelancerLayout />}>
+        <Route path="/freelancer/homepage" element={<FreelancerHomePage />} />
+        <Route path="/freelancer/dashboard" element={<FreelancerDashboard />} />
+        <Route
+          path="/freelancer/edit-profile"
+          element={<FreelancerEditProfile />}
+        />
+        <Route
+          path="/freelancer/account-setting"
+          element={<FreelancerAccountSetting />}
+        />
+        <Route
+          path="freelancer/profile-preview"
+          element={<FreelancerProfilePreview />}
+        />
       </Route>
-      <Route path="/print-profile" element={<PrintProfile />} />
+      <Route
+        path="/freelancer/print-profile"
+        element={<FreelancerPrintProfile />}
+      />
     </Routes>
   );
 };

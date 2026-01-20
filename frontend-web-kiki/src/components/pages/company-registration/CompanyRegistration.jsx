@@ -13,9 +13,11 @@ import PasswordInput from "../../auth/PasswordInput";
 import ContinueWithGoogle from "../../auth/ContinueWithGoogle";
 
 import useRegister from "../../../data/useRegister";
+import { useUser } from "../../../context/UserContext";
 
 const CompanyRegistration = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const { register, loading, apiError, success } = useRegister({
     role: "company",
@@ -66,10 +68,24 @@ const CompanyRegistration = () => {
       password: form.password,
     });
   };
-
   /* ---------------- SUCCESS REDIRECT ---------------- */
   useEffect(() => {
     if (success) {
+      const newUser = {
+        role: "company",
+        fullName: form.name,
+        email: form.email,
+        avatar: "",
+        company: {
+          name: form.company,
+          domain: form.domain,
+        },
+      };
+
+      // ✅ persist user
+      localStorage.setItem("user", JSON.stringify(newUser));
+      setUser(newUser);
+
       navigate("/company-dashboard");
     }
   }, [success, navigate]);
@@ -85,13 +101,15 @@ const CompanyRegistration = () => {
       />
 
       {/* HEADER */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto flex gap-4">
+      <section className="px-4 mt-16 max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center gap-4">
         <img src="/icons/building.svg" alt="" className="w-16 h-16" />
-        <h1 className="text-[50px] font-semibold">Company Registration</h1>
+        <h1 className="text-4xl sm:text-[50px] font-semibold">
+          Company Registration
+        </h1>
       </section>
 
       {/* COMPANY INFO */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+      <section className="px-4 mt-16 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
         <TextInput
           label="Company name"
           required
@@ -116,7 +134,7 @@ const CompanyRegistration = () => {
       <Divider text="COMPANY REPRESENTATIVE" />
 
       {/* REPRESENTATIVE */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+      <section className="px-4 mt-16 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
         <TextInput
           label="Full name"
           required
@@ -155,14 +173,14 @@ const CompanyRegistration = () => {
       </section>
 
       {/* TERMS */}
-      <section className="px-4 mt-12 max-w-5xl mx-auto flex gap-4 items-start">
+      <section className="px-4 mt-12 max-w-5xl mx-auto flex flex-col sm:flex-row gap-4 sm:items-start">
         <input
           type="checkbox"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
-          className="w-[30px] h-[30px]"
+          className="w-6 h-6 sm:w-[30px] sm:h-[30px]"
         />
-        <p className="text-[22px]">
+        <p className="text-lg sm:text-[22px]">
           By creating an account, you agree to{" "}
           <Underline text="Terms and Conditions" to="/terms-and-conditions" />{" "}
           <Underline text="Privacy Policy" to="/privacy-policy" />.
@@ -174,22 +192,23 @@ const CompanyRegistration = () => {
       )}
 
       {/* ACTION */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto flex justify-end gap-6">
-        <p className="text-[22px]">
-          Already got an account?
-          <Underline text="Login" bigger to="/login" />
+      <section className="px-4 mt-16 max-w-5xl mx-auto flex flex-col sm:flex-row justify-end items-center gap-4">
+        <p className="text-lg sm:text-[22px]">
+          Already got an account? <Underline text="Login" bigger to="/login" />
         </p>
 
         <button
           onClick={handleRegister}
           disabled={loading}
           className="
-            w-[180px] h-[70px]
-            bg-[#8967B3]
-            rounded-[15px]
-            text-white text-[24px]
-            disabled:opacity-60
-          "
+    w-full sm:w-[180px] 
+    [@media(min-width:200px)_and_(max-width:700px)]:w-[140px]
+    h-[60px] sm:h-[70px] 
+    bg-[#8967B3] 
+    rounded-[15px] 
+    text-white text-lg sm:text-[24px] 
+    disabled:opacity-60
+  "
         >
           {loading ? "Registering..." : "Register"}
         </button>
@@ -198,7 +217,7 @@ const CompanyRegistration = () => {
       <Divider text="OR CONTINUE WITH" />
 
       {/* GOOGLE */}
-      <section className="px-4 mt-20 max-w-5xl mx-auto flex justify-center">
+      <section className="px-4 mt-12 max-w-5xl mx-auto flex justify-center ">
         <ContinueWithGoogle role="company" />
       </section>
 

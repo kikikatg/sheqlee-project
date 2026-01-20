@@ -1,24 +1,23 @@
-/**
- * Platform statistics
- * ⚠️ This will be replaced by API data later
- */
 export const mockStats = [
   {
     id: "jobs",
     value: "100K+",
-    label: "Total jobs posted on Sheqlee to date",
- icon: "/icons/handshake.svg", // 🤝 companies
+    labelLine1: "Total jobs posted on",
+    labelLine2: "Sheqlee to date",
+    icon: "/icons/handshake.svg",
   },
   {
     id: "developers",
     value: "15K+",
-    label: "Ethiopian professionals signed up so far",
-     icon: "/icons/programmer.svg", // 👤 developers
+    labelLine1: "Ethiopian professionals",
+    labelLine2: "signed up so far",
+    icon: "/icons/programmer.svg",
   },
   {
     id: "companies",
     value: "1K+",
-    label: "Korean companies posting jobs daily",
-    icon: "/icons/building.svg", // 🏢 jobs
+    labelLine1: "Korean companies",
+    labelLine2: "posting jobs daily",
+    icon: "/icons/building.svg",
   },
 ];

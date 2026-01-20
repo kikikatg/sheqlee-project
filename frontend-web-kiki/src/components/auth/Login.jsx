@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import SubNavbar from "../all-jobs/SubNavbar";
 import Footer from "../footer/Footer";
+import { useUser } from "../../context/UserContext";
 
 import EmailInput from "./EmailInput";
 import PasswordInput from "./PasswordInput";
@@ -13,14 +14,21 @@ import DeveloperCTA from "../sections/DeveloperCTA";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useUser();
 
   const navigate = useNavigate(); // ✅ ADD
 
   const handleLogin = () => {
-    // 🔁 mock login (replace with API later)
-    console.log("Logging in:", { email, password });
+    // mock login (API-ready)
+    const savedUser = JSON.parse(localStorage.getItem("user"));
 
-    navigate("/user"); // ✅ GO TO USER HOME
+    if (!savedUser || savedUser.email !== email) {
+      alert("Account not found. Please register.");
+      return;
+    }
+
+    setUser(savedUser);
+    navigate("/user");
   };
 
   return (

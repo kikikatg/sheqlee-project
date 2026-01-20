@@ -17,10 +17,10 @@ const JobsFilter = ({ onApply }) => {
   };
 
   return (
-    <section className="w-full mt-14">
+    <section className="w-full mt-10">
       <div className="max-w-[1000px] mx-auto px-4">
         {/* TOP FILTERS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <SelectBox
             value={filters.category}
             onChange={(v) => handleChange("category", v)}
@@ -44,7 +44,7 @@ const JobsFilter = ({ onApply }) => {
         </div>
 
         {/* SEARCH + APPLY */}
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-[1fr_300px] gap-4">
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-[1fr_310px] gap-6">
           <InputBox
             value={filters.search}
             onChange={(v) => handleChange("search", v)}

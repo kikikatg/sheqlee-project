@@ -5,7 +5,7 @@ import CloseIcon from "/icons/close.svg";
 import DownArrow from "/icons/arrow-down.svg";
 import { mockCategories } from "../../data/mockCategories";
 
-const Navbar = ({ showAuthModal, closeAuthModal }) => {
+const GuestNavbar = ({ showAuthModal, closeAuthModal }) => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -38,30 +38,32 @@ const Navbar = ({ showAuthModal, closeAuthModal }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  /** 🔹 ACTIVE LINK STYLE (UNCHANGED) */
+  /** 🔹 ACTIVE LINK STYLE (AUTO WIDTH) */
   const navLinkClass = ({ isActive }) =>
     `
-      relative
-      text-[15px] sm:text-[16px] md:text-[18px] lg:text-[22px] py-10
+    relative
+    inline-block
+    text-[15px] sm:text-[16px] md:text-[18px] lg:text-[25px]
+    py-10
+    font-medium
+    transition-colors
 
-      font-medium
-      transition-colors
-      ${
-        isActive
-          ? `
-            after:content-['']
-            after:absolute
-            after:left-1/2
-            after:-translate-x-1/2
-            after:-bottom-[16px]
-            after:w-[60px]
-            after:h-[8px]
-            after:bg-[#8967B3]
-          `
-          : "text-black hover:text-[#8967B3]"
-      }
-    `;
+    ${
+      isActive
+        ? `
+          text-black
+          after:content-['']
+          after:absolute
+          after:left-0
+          after:-bottom-[30px]
+          after:w-full
+          after:h-[8px]
+          after:bg-[#8967B3]
+          after:rounded-full
+        `
+        : "text-black hover:text-[#8967B3]"
+    }
+  `;
 
   return (
     <header
@@ -69,7 +71,7 @@ const Navbar = ({ showAuthModal, closeAuthModal }) => {
        relative
     bg-[#F7F7F7]
     min-h-[80px]
-    sm:min-h-[120px]
+    sm:min-h-[120px] lg:h-[178px]
     transition-opacity duration-300
         ${visible ? "opacity-100" : "opacity-0 pointer-events-none"}
       `}
@@ -90,10 +92,10 @@ const Navbar = ({ showAuthModal, closeAuthModal }) => {
         style={{ fontFamily: "Kantumruy Pro" }}
       >
         {/* LOGO */}
-        <div className="flex items-center gap-3 sm:gap-4 shrink-0 min-w-fit">
+        <div className="flex items-center gap-3 lg:gap-4 sm:gap-4 shrink-0 min-w-fit">
           <img
             src={Logo}
-            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[65px] lg:h-[65px]"
+            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[75px]  lg:h-[75px]"
           />
 
           <Link
@@ -160,8 +162,8 @@ const Navbar = ({ showAuthModal, closeAuthModal }) => {
           {/* AUTH */}
           <Link
             to="/login"
-            className=" min-w-[110px] h-[48px] lg:h-[56px]
-text-[14px] sm:text-[16px] lg:text-[22px]
+            className=" min-w-[110px] h-[48px] lg:h-[70px] lg:w-[130px] 
+text-[14px] sm:text-[16px] lg:text-[25px]
 flex items-center justify-center border-[3px] border-[#8967B3] rounded-[15px]  font-semibold"
           >
             Login
@@ -169,9 +171,8 @@ flex items-center justify-center border-[3px] border-[#8967B3] rounded-[15px]  f
 
           <Link
             to="/company-signup"
-            className="min-w-[100px]
-h-[44px] lg:h-[56px]
-text-[14px] sm:text-[16px] lg:text-[20px]
+            className=" min-w-[110px] h-[48px] lg:h-[70px] lg:w-[130px] 
+text-[14px] sm:text-[16px] lg:text-[25px]
  flex items-center justify-center bg-[#8967B3] rounded-[15px]  font-semibold text-white"
           >
             Sign up
@@ -281,4 +282,4 @@ text-[14px] sm:text-[16px] lg:text-[20px]
   );
 };
 
-export default Navbar;
+export default GuestNavbar;

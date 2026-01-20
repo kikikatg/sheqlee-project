@@ -13,7 +13,7 @@ const Hero = ({ openAuthModal }) => {
   };
 
   return (
-    <section className="bg-white overflow-hidden">
+    <section className="bg-white overflow-hidden mt-10">
       <div
         className="
           max-w-[1920px] mx-auto
@@ -52,7 +52,7 @@ const Hero = ({ openAuthModal }) => {
               sm:text-[18px] sm:leading-[30px]
               md:text-[20px] md:leading-[34px]
               lg:text-[24px] lg:leading-[38px]
-              max-w-[520px]
+              max-w-[580px]
               mx-auto lg:mx-0"
             >
               Web frontend, mobile app, backend, database,
@@ -88,20 +88,22 @@ const Hero = ({ openAuthModal }) => {
           </div>
 
           {/* RIGHT */}
-          <div className="flex justify-center lg:justify-start overflow-hidden">
-            <div className="lg:pr-[24px] xl:pr-[60px] w-full">
+          <div className="flex justify-center lg:justify-start">
+            <div className="w-full lg:pr-[48px] xl:pr-[72px]">
               <Player
                 autoplay
                 loop
                 speed={1}
                 src="/lottie/hero.json"
                 className="
-                  mx-auto max-w-[90vw]
-                  w-[260px] h-[200px]
-                  sm:w-[360px] sm:h-[280px]
-                  md:w-[420px] md:h-[320px]
-                  lg:w-[440px] lg:h-[330px]
-                  xl:w-[680px] xl:h-[480px]"
+        mx-auto
+        w-[260px]
+        sm:w-[360px]
+        md:w-[420px]
+        lg:w-[460px]
+        xl:w-[680px]
+        h-auto
+      "
               />
             </div>
           </div>

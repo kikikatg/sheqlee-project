@@ -81,12 +81,15 @@ const AllJobs = () => {
         showHeader={false}
         hasSearched={hasSearched}
       />
-      <Pagination
-        currentPage={page}
-        totalPages={TOTAL_JOB_PAGES}
-        onPageChange={handlePageChange}
-        variant="all"
-      />
+  {filteredJobs.length > 0 && (
+  <Pagination
+    currentPage={page}
+    totalPages={TOTAL_JOB_PAGES}
+    onPageChange={handlePageChange}
+    variant="all"
+  />
+)}
+
 
       <DeveloperCTA />
       <Footer />

@@ -1,7 +1,7 @@
 import Home from "../Home";
 
-const UserHome = () => {
+const CompanyHomePage = () => {
   return <Home showAuthModalEnabled={false} isUser />;
 };
 
-export default UserHome;
+export default CompanyHomePage;

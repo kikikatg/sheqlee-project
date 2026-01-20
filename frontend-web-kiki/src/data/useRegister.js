@@ -26,9 +26,9 @@ const useRegister = ({ role }) => {
       await new Promise((r) => setTimeout(r, 800));
 
       // ✅ ROLE-BASED NAVIGATION (FOR NOW)
-      if (role === "company") navigate("/user");
-      if (role === "freelancer") navigate("/update-profile");
-      if (role === "professional") navigate("/professional-dashboard");
+      if (role === "company") navigate("/company/homepage");
+      if (role === "freelancer") navigate("/freelancer/homepage");
+      if (role === "professional") navigate("/freelancer/dashboard");
     } catch (err) {
       setApiError("Registration failed. Please try again.");
     } finally {

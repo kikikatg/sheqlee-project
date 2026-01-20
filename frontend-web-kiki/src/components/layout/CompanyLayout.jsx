@@ -1,13 +1,11 @@
 import { Outlet } from "react-router-dom";
-import UserNavbar from "./UserNavbar";
-import Footer from "../footer/Footer";
+import CompanyNavbar from "./CompanyNavbar";
 
 const UserLayout = () => {
   return (
     <>
-      <UserNavbar />
+      <CompanyNavbar />
       <Outlet />
-     
     </>
   );
 };

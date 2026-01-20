@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import UpdateProfileNavbar from "../../layout/UpdateProfileNavbar";
 import LatestJobs from "../../sections/LatestJobs";
 import PopularTags from "../../sections/PopularTags";
-import Footer from "../../footer/Footer";
 import { mockJobs } from "../../../data/mockJobs";
+// import { useNavigate } from "react-router-dom";
 
 // first 6 jobs (omit last 3)
 const topSixJobs = mockJobs.slice(0, 6);
 
-const UpdateProfile = () => {
+const FreelancerHomePage = () => {
+  // const navigate = useNavigate();
   return (
     <>
       {/* <UpdateProfileNavbar /> */}
@@ -17,7 +17,7 @@ const UpdateProfile = () => {
         <section className="max-w-[1600px] mx-auto px-8 space-y-0">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <h2 className="text-[36px] mt-12 font-semibold">
+            <h2 className="text-[36px] mt-12 px-16 font-semibold">
               Latest job posts
             </h2>
             <Link
@@ -60,26 +60,26 @@ const UpdateProfile = () => {
         </section>
 
         <div className="flex justify-center mt-0 mb-14">
-          <button
+          <Link
+            to="/all-jobs"
             className="
-      w-[480px]
-      h-[75px]
-      bg-[#8967B3]
-      rounded-[15px]
-      text-white
-      text-[22px]
-      font-medium
-      hover:opacity-90
-    "
+    flex items-center justify-center
+    lg:w-[480px] sm:w-[400px] md:w-[440px] w-[280px]
+    h-[75px]
+    bg-[#8967B3]
+    rounded-[15px]
+    text-white
+    text-[22px]
+    font-medium
+    hover:opacity-90
+  "
           >
             View all job post
-          </button>
+          </Link>
         </div>
       </main>
-
-      <Footer />
     </>
   );
 };
 
-export default UpdateProfile;
+export default FreelancerHomePage;

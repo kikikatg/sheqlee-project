@@ -84,21 +84,42 @@ const PostJob = () => {
       <SubNavbar crumbs={[{ label: "Vacancy", active: true }]} />
 
       {/* INFO CARD */}
-      <div className="flex justify-center mt-20">
-        <div className="w-[970px] h-[120px] bg-[#F7F7F7] rounded-[15px] flex">
-          <div className="w-[120px] bg-black rounded-l-[15px] flex items-center justify-center">
-            <img src="/icons/template.svg" className="w-[47px]" />
+      <div className="flex justify-center mt-10 sm:mt-16 lg:mt-20 px-4">
+        <div
+          className="
+      w-full max-w-[970px]
+      min-h-[120px]
+      bg-[#F7F7F7]
+      rounded-[15px]
+      flex
+      flex-col sm:flex-row
+      overflow-hidden
+    "
+        >
+          {/* Left Icon */}
+          <div
+            className="
+        w-full sm:w-[120px]
+        h-[80px] sm:h-auto
+        bg-black
+        flex
+        items-center
+        justify-center
+      "
+          >
+            <img
+              src="/icons/template.svg"
+              className="w-[36px] sm:w-[47px]"
+              alt="template"
+            />
           </div>
-          <div className="flex items-center px-10">
-            <p className="text-[22px] font-medium">
+
+          {/* Text */}
+          <div className="flex items-center px-4 sm:px-8 py-4 sm:py-0">
+            <p className="text-[16px] sm:text-[18px] lg:text-[22px] font-medium leading-snug">
               To speed up the process of posting a job, try using{" "}
               <span
-                className="
-      text-[#8967B3]
-      underline
-      cursor-pointer
-      hover:opacity-80
-    "
+                className="text-[#8967B3] underline cursor-pointer hover:opacity-80"
                 onClick={() => navigate("/job-templates")}
               >
                 job templates
@@ -110,11 +131,28 @@ const PostJob = () => {
       </div>
 
       {/* HEADER */}
-      <section className="text-center mt-24">
-        <h1 className="text-[60px] font-semibold">
+      <section className="text-center mt-12 sm:mt-16 lg:mt-24 px-4">
+        <h1
+          className="
+      text-[28px]
+      sm:text-[40px]
+      lg:text-[60px]
+      font-semibold
+      leading-tight
+    "
+        >
           Add a vacancy <span className="font-normal">[1/2]</span>
         </h1>
-        <p className="mt-6 text-[35px]">
+
+        <p
+          className="
+      mt-4 sm:mt-5 lg:mt-6
+      text-[16px]
+      sm:text-[22px]
+      lg:text-[35px]
+      leading-snug
+    "
+        >
           Next and final step is preview and confirmation.
         </p>
       </section>
@@ -436,10 +474,27 @@ const PostJob = () => {
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-center gap-10 mt-16">
+        <div
+          className="
+    flex
+    flex-col sm:flex-row
+    justify-center
+    gap-6 sm:gap-10
+    mt-10 sm:mt-14 lg:mt-16
+    px-4
+  "
+        >
           <button
             onClick={handleSaveDraft}
-            className="w-[269px] h-[85px] bg-white border-[5px] border-[#8967B3] rounded-[15px] text-[28px]"
+            className="
+      w-full sm:w-[269px]
+      h-[65px] sm:h-[85px]
+      bg-white
+      border-[4px] sm:border-[5px]
+      border-[#8967B3]
+      rounded-[15px]
+      text-[18px] sm:text-[22px] lg:text-[28px]
+    "
           >
             Save draft
           </button>
@@ -464,10 +519,24 @@ const PostJob = () => {
                 },
               })
             }
-            className="w-[462px] h-[85px] bg-[#8967B3] rounded-[15px] text-[30px] font-medium text-white"
+            className="
+      w-full sm:w-[462px]
+      h-[65px] sm:h-[85px]
+      bg-[#8967B3]
+      rounded-[15px]
+      text-[18px] sm:text-[24px] lg:text-[30px]
+      font-medium
+      text-white
+      flex
+      items-center
+      justify-center
+      gap-2
+      text-center
+      flex-wrap
+    "
           >
-            Next{" "}
-            <span className="text-[25px] text-gray-200">
+            Next
+            <span className="text-[14px] sm:text-[18px] lg:text-[25px] text-gray-200">
               [preview & confirm]
             </span>
           </button>
@@ -479,7 +548,7 @@ const PostJob = () => {
         </div>
 
         {/* Required note */}
-        <p className="text-center 0 text-[22px]">
+        <p className="text-center 0 text-[22px] sm:text-[18px] md:text-[18px]">
           <span className="text-red-500">*</span> fields are required
         </p>
       </section>

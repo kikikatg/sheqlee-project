@@ -2,12 +2,14 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../footer/Footer";
 import SubNavbar from "../../all-jobs/SubNavbar";
 import { useState, useRef } from "react";
+import { useUser } from "../../../context/UserContext";
 
 const InputBox = ({
   label,
   value: initialValue,
   placeholder,
   type = "text",
+  onChange,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialValue || "");
@@ -20,6 +22,7 @@ const InputBox = ({
 
   const disableEdit = () => {
     setIsEditing(false);
+    onChange && onChange(value); // update parent state
   };
 
   return (
@@ -57,19 +60,26 @@ const InputBox = ({
     </div>
   );
 };
-const UserAccountSetting = () => {
+const CompanyAccountSetting = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useUser();
+
+  // local state for editable fields
+  const [fullName, setFullName] = useState(user?.fullName || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [password, setPassword] = useState(""); // new password input
+  const [confirmPassword, setConfirmPassword] = useState(""); // confirm new password
 
   return (
     <main className="bg-white min-h-screen flex flex-col ">
-      <SubNavbar crumbs={[{ label: "Account Setting", active: true }]} />
+      <SubNavbar crumbs={[{ label: "Dashboard", active: true }]} />
       <div className="w-full max-w-[1295px] mx-auto px-6">
         <div className="flex flex-col items-center mb-24">
           <div className="mt-6">
             <img
               src="/icons/account-setting.svg"
               alt="account-setting"
-              className="w-[74px] h-[74px]"
+              className="w-[54px] h-[54px]  md:w-[66px] md:h-[66x] lg:w-[74px] lg:h-[74px]"
             />
           </div>
 
@@ -77,7 +87,7 @@ const UserAccountSetting = () => {
           <h1
             className="
           mt-[41px]
-          text-[60px]
+          text-[40px] sm:text-[50px] lg:text-[60px] md:text-[55px]
           font-semibold
           text-black
         "
@@ -92,7 +102,7 @@ const UserAccountSetting = () => {
           mt-[25px]
           max-w-[632px]
           text-center
-          text-[35px]
+          lg:text-[35px]  sm:text-[26px]  md:text-[28px]  text-[24px]
           leading-[40px]
           text-black
         "
@@ -102,12 +112,24 @@ const UserAccountSetting = () => {
           </p>
         </div>
         <div className="flex  text-[22px]  gap-10 mt-12">
-          <InputBox label="Full name" value="Muruts Yifter" />
-          <InputBox label="Email" value="muruts.yifter@gmail.com" />
+          <InputBox label="Full name" value={fullName} onChange={setFullName} />
+          <InputBox label="Email" value={email} onChange={setEmail} />
         </div>
         <div className="flex gap-10 mt-14">
-          <InputBox label="Password" value="************" />
-          <InputBox label="Confirm password" value="************" />
+          <InputBox
+            label="Password"
+            value={password}
+            onChange={setPassword}
+            type="password"
+            // placeholder="*************"
+          />
+          <InputBox
+            label="Confirm password"
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            type="password"
+            // placeholder="*************"
+          />
         </div>
 
         <p className="mt-4 text-[21px]" style={{ fontFamily: "Kantumruy Pro" }}>
@@ -115,14 +137,29 @@ const UserAccountSetting = () => {
         </p>
         <div className="flex justify-end mt-10 w-full max-w-[1295px]">
           <button
-            onClick={() => navigate("/update-profile")}
+            onClick={() => {
+              // Validate password match
+              if (password && password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+              }
+
+              // Update user in context (future API ready)
+              setUser((prev) => ({
+                ...(prev || {}),
+                fullName,
+                email,
+                password: password || prev.password, // only update if filled
+              }));
+
+              alert("Account settings updated successfully!");
+            }}
             className="w-[286px] h-[85px] bg-[#8967B3] rounded-[15px] text-white text-[24px] font-medium"
-            style={{ fontFamily: "Kantumruy Pro" }}
           >
             Update setting
           </button>
         </div>
-        <div className="mt-20 w-[1295px] h-[5px] bg-[#DFDFDF] rounded-[15px]" />
+        <div className="mt-24 w-[1295px] h-[5px] bg-[#DFDFDF] rounded-[15px]" />
         <h2
           className="mt-12 text-3xl font-semibold"
           style={{ fontFamily: "Kantumruy Pro" }}
@@ -158,15 +195,31 @@ const UserAccountSetting = () => {
         </p>
         <div className="flex justify-end  mt-8 w-  [1295px]">
           <button
+            onClick={() => {
+              const reason = prompt(
+                "Please provide a reason for deleting your account:"
+              );
+              if (!reason) return;
+
+              localStorage.removeItem("user");
+
+              alert("Your account has been deleted.");
+              navigate("/login");
+            }}
             className="w-[327px] h-[85px] bg-[#EA4335] rounded-[15px] text-white text-[24px] font-medium"
-            style={{ fontFamily: "Kantumruy Pro" }}
           >
             Delete account
           </button>
         </div>
+        <div className="mt-20 w-[1295px] h-[5px] bg-[#DFDFDF] rounded-[15px]" />
+
+        <p className="mt-4 mb-16 text-[20px]">
+          <span className="text-red-500">*</span> Fields are required
+        </p>
       </div>
+      <Footer />
     </main>
   );
 };
 
-export default UserAccountSetting;
+export default CompanyAccountSetting;

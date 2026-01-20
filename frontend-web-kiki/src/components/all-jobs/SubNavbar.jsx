@@ -7,7 +7,7 @@ const SubNavbar = ({ crumbs = [] }) => {
         className="
           max-w-[1920px]
           mx-auto
-          h-[65px]
+          h-[60px]
           flex
           items-center
           px-6
@@ -35,11 +35,11 @@ const SubNavbar = ({ crumbs = [] }) => {
 
           {/* DYNAMIC CRUMBS */}
           {crumbs.map((crumb, index) => (
-            <div key={index} className="flex items-center gap-4">
+            <div key={index} className="flex items-center gap-2">
               <img
                 src="/icons/arrow-down.svg"
                 alt="next"
-                className="w-[7px] h-[10px] rotate-[-90deg]"
+                className="w-[10px] h-[10px] rotate-[-90deg]"
               />
 
               <Link
