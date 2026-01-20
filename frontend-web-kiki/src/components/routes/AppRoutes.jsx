@@ -70,23 +70,17 @@ const AppRoutes = () => {
         <Route path="/verify-email" element={<VerifyEmail />} />
       </Route>
       {/* User Routes */}
-      <Route element={<CompanyLayout />}>
-        <Route path="/company/homepage" element={<CompanyHomePage />} />
-        <Route path="/company/post-job" element={<PostJob />} />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/company/post-job/review" element={<ReviewPublish />} />
-        <Route path="/company/dashboard" element={<CompanyDashboard />} />
-        <Route
-          path="/company/dashboard/history"
-          element={<CompanyDashboardHistory />}
-        />
-        <Route path="/company/profile" element={<CompanyProfile />} />
-        <Route
-          path="/company/account-setting"
-          element={<CompanyAccountSetting />}
-        />
-        <Route path="/job-templates" element={<JobTemplates />} />
+      <Route path="/company" element={<CompanyLayout />}>
+        <Route path="homepage" element={<CompanyHomePage />} />
+        <Route path="post-job" element={<PostJob />} />
+        <Route path="post-job/review" element={<ReviewPublish />} />
+        <Route path="dashboard" element={<CompanyDashboard />} />
+        <Route path="dashboard/history" element={<CompanyDashboardHistory />} />
+        <Route path="profile" element={<CompanyProfile />} />
+        <Route path="account-setting" element={<CompanyAccountSetting />} />
+        <Route path="job-templates" element={<JobTemplates />} />
       </Route>
+
       {/* Update Profile Route */}
       <Route element={<FreelancerLayout />}>
         <Route path="/freelancer/homepage" element={<FreelancerHomePage />} />
@@ -108,6 +102,7 @@ const AppRoutes = () => {
         path="/freelancer/print-profile"
         element={<FreelancerPrintProfile />}
       />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

@@ -29,10 +29,10 @@ const ReviewPublish = () => {
 
     localStorage.setItem(
       "publishedJobs",
-      JSON.stringify([...existingJobs, newJob])
+      JSON.stringify([...existingJobs, newJob]),
     );
 
-    navigate("/dashboard/detail");
+    navigate("/company/dashboard/history");
   };
 
   const getCategoryIconByTitle = (title) => {
@@ -42,7 +42,7 @@ const ReviewPublish = () => {
 
     // 1️⃣ Exact / partial name match
     const directMatch = mockCategories.find((cat) =>
-      normalizedTitle.includes(cat.name.toLowerCase())
+      normalizedTitle.includes(cat.name.toLowerCase()),
     );
 
     if (directMatch) return directMatch.icon;
@@ -93,17 +93,17 @@ const ReviewPublish = () => {
   const requirementsList = details.requirements || [];
 
   const qualifications = requirementsList.filter((item) =>
-    /degree|bachelor|master|phd|diploma|certification/i.test(item)
+    /degree|bachelor|master|phd|diploma|certification/i.test(item),
   );
 
   const experience = requirementsList.filter((item) =>
-    /experience|years?|yr|yrs?/i.test(item)
+    /experience|years?|yr|yrs?/i.test(item),
   );
 
   const skillsAndKnowledge = requirementsList.filter((item) =>
     /skill|knowledge|literate|communication|team|technology|software|tools/i.test(
-      item
-    )
+      item,
+    ),
   );
 
   const renderText = (content) => {

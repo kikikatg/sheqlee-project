@@ -411,7 +411,7 @@ const PostJob = () => {
                   onClick={(e) => {
                     e.stopPropagation();
                     setSelectedSkills(
-                      selectedSkills.filter((s) => s !== skill)
+                      selectedSkills.filter((s) => s !== skill),
                     );
                   }}
                   className="text-white text-[16px]"
@@ -501,7 +501,7 @@ const PostJob = () => {
 
           <button
             onClick={() =>
-              navigate("/post-job/review", {
+              navigate("/company/post-job/review", {
                 state: {
                   title: jobTitle,
                   type: jobType,

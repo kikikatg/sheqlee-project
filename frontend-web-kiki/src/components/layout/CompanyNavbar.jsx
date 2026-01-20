@@ -7,9 +7,14 @@ import { useUser } from "../../context/UserContext";
 
 const CompanyNavbar = () => {
   const { user } = useUser();
+  const fallbackCompany = {
+    name: "Demo Company",
+    logo: "/icons/set.svg",
+  };
 
-  const name = user?.companyProfile?.name || "Company";
-  const logo = user?.companyProfile?.logo || "/icons/set.svg";
+  const company = user?.companyProfile || fallbackCompany;
+  const name = company.name;
+  const logo = company.logo;
 
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -45,7 +50,7 @@ const CompanyNavbar = () => {
       });
     }
   }, [profileOpen]);
-  if (!user?.companyProfile) return null;
+
   const navLinkClass = ({ isActive }) =>
     `relative text-[22px] font-medium transition-colors ${
       isActive

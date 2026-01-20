@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import CompanyNavbar from "./CompanyNavbar";
 
-const UserLayout = () => {
+const CompanyLayout = () => {
   return (
     <>
       <CompanyNavbar />
@@ -10,4 +10,4 @@ const UserLayout = () => {
   );
 };
 
-export default UserLayout;
+export default CompanyLayout;
