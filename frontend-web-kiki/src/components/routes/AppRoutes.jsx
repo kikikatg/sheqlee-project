@@ -17,7 +17,7 @@ import CompanyRegistration from "../pages/company-registration/CompanyRegistrati
 import ProfessionalRegistration from "../pages/professional-registration/ProfessionalRegistration";
 import Login from "../auth/Login";
 import ResetPassword from "../auth/ResetPassword";
-import SetNewPassword from "../auth/SetNewPassword";
+import SetNewPassword from "../auth/SetNewPassword.jsx";
 import PrivacyPolicy from "../pages/privacy-policy/PrivacyPolicy";
 import TermsAndConditions from "../pages/privacy-policy/TermsAndConditions";
 import CookiePolicy from "../pages/privacy-policy/CookiePolicy";

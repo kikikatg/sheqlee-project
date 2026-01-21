@@ -30,12 +30,11 @@ const SetNewPassword = () => {
     <main className="bg-white min-h-screen flex flex-col">
       {/* ✅ Breadcrumbs (ONLY VALID ROUTES) */}
       <SubNavbar
-  crumbs={[
-    { label: "Reset Password", href: "/reset-password" },
-    { label: "Set New Password", active: true },
-  ]}
-/>
-
+        crumbs={[
+          { label: "Reset Password", href: "/reset-password" },
+          { label: "Set New Password", active: true },
+        ]}
+      />
 
       <section className="flex-1 flex justify-center px-4 mt-16 mb-8">
         <form onSubmit={handleResetPassword} className="w-full max-w-[900px]">
@@ -46,9 +45,7 @@ const SetNewPassword = () => {
               alt="Set new password"
               className="w-10 h-10"
             />
-            <h1 className="text-3xl font-semibold">
-              Set new password
-            </h1>
+            <h1 className="text-3xl font-semibold">Set new password</h1>
           </div>
 
           {/* Enter code */}
@@ -129,7 +126,6 @@ const SetNewPassword = () => {
           </div>
         </form>
       </section>
-
       <DeveloperCTA />
       <Footer />
     </main>
