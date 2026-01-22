@@ -20,7 +20,8 @@ const JobsFilter = ({ onApply }) => {
     <section className="w-full mt-10">
       <div className="max-w-[1000px] mx-auto px-4">
         {/* TOP FILTERS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {/* CATEGORY */}
           <SelectBox
             value={filters.category}
             onChange={(v) => handleChange("category", v)}
@@ -28,23 +29,25 @@ const JobsFilter = ({ onApply }) => {
             placeholder="All Categories"
           />
 
-          <SelectBox
-            value={filters.type}
-            onChange={(v) => handleChange("type", v)}
-            options={["Full-Time", "Part-Time"]}
-            placeholder="All Types"
-          />
+          {/* TYPE + LEVEL */}
+          <div className="grid grid-cols-2 gap-4 sm:contents">
+            <SelectBox
+              value={filters.type}
+              onChange={(v) => handleChange("type", v)}
+              options={["Full-Time", "Part-Time"]}
+              placeholder="All Types"
+            />
 
-          <SelectBox
-            value={filters.level}
-            onChange={(v) => handleChange("level", v)}
-            options={["Intermediate", "Expert"]}
-            placeholder="All Levels"
-          />
+            <SelectBox
+              value={filters.level}
+              onChange={(v) => handleChange("level", v)}
+              options={["Intermediate", "Expert"]}
+              placeholder="All Levels"
+            />
+          </div>
         </div>
-
         {/* SEARCH + APPLY */}
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-[1fr_310px] gap-6">
+        <div className="mt-4 flex flex-col gap-6 sm:grid sm:grid-cols-[1fr_310px]">
           <InputBox
             value={filters.search}
             onChange={(v) => handleChange("search", v)}
@@ -53,7 +56,8 @@ const JobsFilter = ({ onApply }) => {
 
           <button
             onClick={applyFilters}
-            className="h-[70px] bg-[#8967B3] rounded-[15px] text-white text-[22px] font-medium hover:opacity-90 transition"
+            className="h-[70px] bg-[#8967B3] rounded-[15px] text-white mx-auto sm:mx-0
+ text-[22px] font-medium hover:opacity-90 transition"
           >
             Apply Filter
           </button>

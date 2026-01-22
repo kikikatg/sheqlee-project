@@ -10,8 +10,10 @@ const TagCard = ({ name, jobs, subscribers }) => {
           relative flex items-center
           bg-[#DFDFDF]
           rounded-xl
-          px-4 sm:px-5 md:px-6 py-6 sm:py-7 md:py-8
-          min-h-[120px]
+          px-3 sm:px-5 md:px-6
+py-4 sm:py-7 md:py-8
+min-h-[96px] sm:min-h-[120px]
+
           w-full
           cursor-pointer
           transition-all duration-200 ease-out
@@ -24,7 +26,10 @@ const TagCard = ({ name, jobs, subscribers }) => {
         <span className="absolute left-0 top-0 h-full w-4 bg-black rounded-l-xl" />
 
         <div className="pl-6">
-          <h3 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold  lg:text-[28px] text-gray-900 leading-tight">
+          <h3
+            className="text-[18px] sm:text-[22px] md:text-[24px] lg:text-[28px]
+ font-semibold   text-gray-900 leading-tight"
+          >
             {name}
           </h3>
 

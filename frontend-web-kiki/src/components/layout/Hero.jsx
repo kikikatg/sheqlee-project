@@ -24,13 +24,14 @@ const Hero = ({ openAuthModal }) => {
       >
         <div
           className="
-            grid grid-cols-1 lg:grid-cols-[550px_1fr]
-            items-center
-            gap-12 lg:gap-0
-          "
+    grid grid-cols-1 lg:grid-cols-[550px_1fr]
+    items-center
+    gap-12 lg:gap-0
+  "
         >
           {/* LEFT CONTENT */}
-          <div className="font-['Kantumruy_Pro'] text-center lg:text-left">
+          {/* LEFT CONTENT */}
+          <div className="font-['Kantumruy_Pro'] order-2 lg:order-1 text-left">
             <h1
               className="font-semibold text-black
               text-[34px] leading-[44px]
@@ -53,7 +54,8 @@ const Hero = ({ openAuthModal }) => {
               md:text-[20px] md:leading-[34px]
               lg:text-[24px] lg:leading-[38px]
               max-w-[580px]
-              mx-auto lg:mx-0"
+ml-0
+"
             >
               Web frontend, mobile app, backend, database,
               <br />
@@ -73,7 +75,8 @@ const Hero = ({ openAuthModal }) => {
                 bg-[#8967B3]
                 rounded-[14px] sm:rounded-[16px] lg:rounded-[18px]
                 flex items-center justify-center
-                mx-auto lg:mx-0
+ml-0
+
                 hover:opacity-90 transition"
             >
               <span
@@ -88,7 +91,8 @@ const Hero = ({ openAuthModal }) => {
           </div>
 
           {/* RIGHT */}
-          <div className="flex justify-center lg:justify-start">
+          {/* RIGHT */}
+          <div className="flex justify-center lg:justify-start order-1 lg:order-2">
             <div className="w-full lg:pr-[48px] xl:pr-[72px]">
               <Player
                 autoplay

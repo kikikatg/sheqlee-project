@@ -17,7 +17,7 @@ const SubNavbar = ({ crumbs = [] }) => {
           font-['Kantumruy_Pro']
         "
       >
-        <div className="flex items-center gap-3 text-black">
+        <div className="hidden sm:flex items-center gap-3 text-black">
           {/* PLACEHOLDER ICON */}
           <img
             src="/icons/placeholder.svg"

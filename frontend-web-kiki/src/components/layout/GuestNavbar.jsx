@@ -4,6 +4,7 @@ import Logo from "../../assets/images/logo.png";
 import CloseIcon from "/icons/close.svg";
 import DownArrow from "/icons/arrow-down.svg";
 import { mockCategories } from "../../data/mockCategories";
+import HamburgerIcon from "/icons/Group 3.svg";
 
 const GuestNavbar = ({ showAuthModal, closeAuthModal }) => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
@@ -38,6 +39,17 @@ const GuestNavbar = ({ showAuthModal, closeAuthModal }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   /** 🔹 ACTIVE LINK STYLE (AUTO WIDTH) */
   const navLinkClass = ({ isActive }) =>
     `
@@ -92,18 +104,18 @@ const GuestNavbar = ({ showAuthModal, closeAuthModal }) => {
         style={{ fontFamily: "Kantumruy Pro" }}
       >
         {/* LOGO */}
-        <div className="flex items-center gap-3 lg:gap-4 sm:gap-4 shrink-0 min-w-fit">
+        <div className="hidden md:flex items-center gap-3 lg:gap-4 sm:gap-4 shrink-0 min-w-fit">
           <img
             src={Logo}
-            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[75px]  lg:h-[75px]"
+            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[75px] lg:h-[75px]"
           />
 
           <Link
             to="/"
             className="font-bold text-black
-  text-[22px]
-  sm:text-[26px]
-  lg:text-[40px]"
+      text-[22px]
+      sm:text-[26px]
+      lg:text-[40px]"
           >
             Sheqlee
           </Link>
@@ -178,94 +190,78 @@ text-[14px] sm:text-[16px] lg:text-[25px]
             Sign up
           </Link>
         </div>
+        {/* MOBILE LEFT SECTION */}
+        <div className="flex items-center gap-3 md:hidden">
+          <button onClick={() => setMobileOpen(true)}>
+            <img src={HamburgerIcon} className="w-7 h-7" alt="menu" />
+          </button>
 
-        {/* MOBILE HAMBURGER */}
-        <button
-          className="ml-auto md:hidden"
-          onClick={() => setMobileOpen(true)}
-        >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <path d="M3 6h18M3 12h18M3 18h18" stroke="#000" strokeWidth="2" />
-          </svg>
-        </button>
-
-        {/* MOBILE MENU */}
-        {mobileOpen && (
-          <div className="fixed inset-0 z-50 bg-white flex flex-col">
-            {/* TOP BAR */}
-            <div className="flex items-center justify-between px-6 py-5 border-b">
-              <span className="text-[22px] font-semibold">Menu</span>
-
-              {/* KEEP THIS TYPE OF CLOSE BUTTON */}
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="text-[26px] font-medium"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* LINKS */}
-            <div className="flex flex-col px-6 pt-8 gap-6 text-[20px] font-medium">
-              <NavLink
-                to="/all-jobs"
-                onClick={() => setMobileOpen(false)}
-                className="hover:text-[#8967B3]"
-              >
-                All jobs
-              </NavLink>
-
-              <NavLink
-                to="/categories"
-                onClick={() => setMobileOpen(false)}
-                className="hover:text-[#8967B3]"
-              >
-                Categories
-              </NavLink>
-
-              <NavLink
-                to="/clients"
-                onClick={() => setMobileOpen(false)}
-                className="hover:text-[#8967B3]"
-              >
-                Clients
-              </NavLink>
-            </div>
-
-            {/* AUTH BUTTONS */}
-            <div className="mt-auto px-6 pb-8 flex flex-col gap-4">
-              <Link
-                to="/login"
-                onClick={() => setMobileOpen(false)}
-                className="
-          h-[52px]
-          flex items-center justify-center
-          border-2 border-[#8967B3]
-          rounded-[14px]
-          text-[18px] w-40
-          font-semibold
-        "
-              >
-                Login
-              </Link>
-
-              <Link
-                to="/company-signup"
-                onClick={() => setMobileOpen(false)}
-                className="
-          h-[52px]
-          flex items-center justify-center
-          bg-[#8967B3]
-          rounded-[14px]
-          text-[18px]
-          font-semibold
-          text-white w-40
-        "
-              >
-                Sign up
-              </Link>
-            </div>
+          <div className="flex items-center gap-2">
+            <img src={Logo} className="w-10 h-10" alt="logo" />
           </div>
+        </div>
+
+        {/* MOBILE AUTH RIGHT */}
+        <div className="ml-auto flex items-center gap-3 md:hidden">
+          <Link to="/login" className="text-[14px] max-[360px]:text-[12px]">
+            Login
+          </Link>
+
+          <Link
+            to="/company-signup"
+            className="bg-[#8967B3] text-white px-4 py-2 rounded-[10px] text-[14px] font-semibold"
+          >
+            Sign up
+          </Link>
+        </div>
+
+        {/* MOBILE OVERLAY + DROPDOWN */}
+        {mobileOpen && (
+          <>
+            {/* BLACK OVERLAY */}
+            <div
+              className="fixed top-0 left-0 z-40 md:hidden"
+              style={{
+                width: "414px",
+                height: "735px",
+                background: "#000000",
+                opacity: 0.5,
+              }}
+              onClick={() => setMobileOpen(false)}
+            />
+
+            {/* WHITE MENU CONTAINER */}
+            <div
+              className="fixed z-50 bg-white md:hidden"
+              style={{
+                top: "75px",
+                left: "25px",
+                width: "168px",
+                height: "116px",
+                borderRadius: "0px 0px 10px 10px",
+              }}
+            >
+              <div className="flex flex-col items-center text-center px-4 py-3 gap-3 text-[14px] max-[360px]:text-[12px] font-medium">
+                <NavLink to="/all-jobs" onClick={() => setMobileOpen(false)}>
+                  All jobs
+                </NavLink>
+
+                <div className="flex items-center gap-2">
+                  <NavLink
+                    to="/categories"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Categories
+                  </NavLink>
+                  <img src={DownArrow} className="w-[10px] h-[6px]" />
+                </div>
+
+                <NavLink to="/clients" onClick={() => setMobileOpen(false)}>
+                  Clients
+                </NavLink>
+              </div>
+            </div>
+          </>
         )}
 
         {/* AUTH MODAL CLOSE */}

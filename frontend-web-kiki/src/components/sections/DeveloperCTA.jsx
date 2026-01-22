@@ -28,7 +28,7 @@ const DeveloperCTA = () => {
         "
       >
         {/* ICON + TEXT */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
           <img
             src="/icons/celebration.png"
             alt="Celebration"
@@ -43,8 +43,7 @@ md:text-[26px]
 lg:text-[28px]
               font-medium
               text-black
-              text-center
-              md:text-left
+            
             "
           >
             Are you a software developer in Ethiopia?

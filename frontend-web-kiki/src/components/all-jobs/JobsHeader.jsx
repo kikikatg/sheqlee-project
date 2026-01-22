@@ -19,14 +19,15 @@ const JobsHeader = () => {
         {/* Subtitle */}
         <p
           className="
-            mt-6
-            text-black
-            text-[18px] lg:text-[26px]
-            md:text-[24px]
-            leading-[1.3]
-            max-w-[800px]
-            mx-auto
-          "
+  mt-6
+  text-black
+  text-[18px]
+  sm:text-[24px]
+  lg:text-[26px]
+  leading-[1.3]
+  max-w-[800px]
+  mx-auto
+"
         >
           Browse the latest jobs you can take up right now. Use filters to find
           the best jobs for your skillset.

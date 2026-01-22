@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { JOB_ICONS, META_ICONS } from "../../constants/JobIcons";
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job, isMobile = false }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -88,12 +88,18 @@ const JobCard = ({ job }) => {
           {/* META ROW 2 + APPLY BUTTON */}
           <div className="flex flex-wrap items-center gap-2 mt-0">
             <span className="meta-pill text-[18px] text-black gap-2 sm:text-[14px]">
-              <img src={META_ICONS.level} className="w-4 h-4" />
+              <img
+                src={isMobile ? "/icons/skill.svg" : META_ICONS.level}
+                className="w-4 h-4"
+              />
               {job.level}
             </span>
 
             <span className="meta-pill text-[18px] text-black gap-2 sm:text-[14px]">
-              <img src={META_ICONS.price} className="w-4 h-4" />
+              <img
+                src={isMobile ? "/icons/money.svg" : META_ICONS.price}
+                className="w-4 h-4"
+              />
               {job.rate}
             </span>
 

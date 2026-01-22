@@ -6,20 +6,16 @@ const clampPage = (page, min, max) => {
   return page;
 };
 
-const Pagination = ({
-  currentPage = 1,
-  totalPages,
-  onPageChange,
-  variant = "all", // "all" | "category"
-}) => {
-  const isAllJobs = variant === "all";
-  const REAL_MAX_PAGE = isAllJobs ? 40 : totalPages;
+const Pagination = ({ currentPage = 1, totalPages, onPageChange }) => {
+  const REAL_MAX_PAGE = totalPages;
 
-  const fixedPages = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const fixedPages = Array.from(
+    { length: Math.min(9, totalPages) },
+    (_, i) => i + 1,
+  );
 
-  const lastPages = isAllJobs
-    ? [39, 40]
-    : [Math.max(1, totalPages - 1), totalPages];
+  const lastPages =
+    totalPages > 9 ? [Math.max(1, totalPages - 1), totalPages] : [];
 
   // remove duplicates
   const lastPagesFiltered = lastPages.filter((p) => !fixedPages.includes(p));
@@ -83,7 +79,9 @@ const Pagination = ({
             onClick={() => handlePageChange(currentPage - 1)}
             className={`w-[50px] h-[50px] rounded-[15px] flex items-center justify-center
               ${
-                isFirstPage ? "bg-[#DFDFDF] cursor-not-allowed" : "bg-[#8967B3] ml-10"
+                isFirstPage
+                  ? "bg-[#DFDFDF] cursor-not-allowed"
+                  : "bg-[#8967B3] "
               }`}
           >
             <img src="/icons/left-arrow.svg" alt="Prev" />
@@ -153,27 +151,47 @@ const Pagination = ({
       </div>
 
       {/* MOBILE */}
-      <div className="flex md:hidden justify-center items-center gap-6">
+      <div className="flex md:hidden gap-2 justify-center flex-wrap items-center">
+        {fixedPages.map((page) => (
+          <button
+            key={`mobile-${page}`}
+            onClick={() => handlePageChange(page)}
+            className={`w-10 h-10 rounded-xl text-sm font-medium
+        ${currentPage === page ? "bg-black text-white" : "bg-[#DFDFDF]"}`}
+          >
+            {page}
+          </button>
+        ))}
+
+        {totalPages > 9 && <span className="px-2 text-lg">…</span>}
+
+        {lastPages.map((page) => (
+          <button
+            key={`mobile-last-${page}`}
+            onClick={() => handlePageChange(page)}
+            className={`w-10 h-10 rounded-xl text-sm font-medium
+        ${currentPage === page ? "bg-black text-white" : "bg-[#DFDFDF]"}`}
+          >
+            {page}
+          </button>
+        ))}
+
+        {/* PREVIOUS */}
         <button
-          disabled={isFirstPage}
           onClick={() => handlePageChange(currentPage - 1)}
-          className={`w-12 h-12 px-4 rounded-xl ${
-            isFirstPage ? "bg-[#DFDFDF]" : "bg-[#8967B3]"
-          }`}
+          disabled={currentPage === 1}
+          className={`w-10 h-10 rounded-xl flex items-center justify-center
+      ${currentPage === 1 ? "bg-[#DFDFDF]" : "bg-[#8967B3]"}`}
         >
           <img src="/icons/left-arrow.svg" alt="Prev" />
         </button>
 
-        <span className="text-lg font-semibold">
-          {currentPage} / {REAL_MAX_PAGE}
-        </span>
-
+        {/* NEXT */}
         <button
-          disabled={isLastPage}
           onClick={() => handlePageChange(currentPage + 1)}
-          className={`w-12 h-12 px-4 rounded-xl ${
-            isLastPage ? "bg-[#DFDFDF]" : "bg-[#8967B3]"
-          }`}
+          disabled={currentPage >= totalPages}
+          className={`w-10 h-10 rounded-xl flex items-center justify-center
+      ${currentPage >= totalPages ? "bg-[#DFDFDF]" : "bg-[#8967B3]"}`}
         >
           <img src="/icons/arrow-next-2.svg" alt="Next" />
         </button>
