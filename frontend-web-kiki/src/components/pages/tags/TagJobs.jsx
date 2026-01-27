@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import TagHeader from "./TagHeader";
-import LatestJobs from "../../sections/LatestJobs";
+import JobCard from "../../job/JobCard";
 import Pagination from "../../common/Pagination";
 import DeveloperCTA from "../../sections/DeveloperCTA";
 import Footer from "../../footer/Footer";
@@ -10,33 +10,42 @@ import Footer from "../../footer/Footer";
 import { mockJobs } from "../../../data/mockJobs";
 import { mockTags } from "../../../data/mockTags";
 
+const MOBILE_JOBS_PER_PAGE = 6;
+const DESKTOP_JOBS_PER_PAGE = 12;
+
 const TagJobs = () => {
   const { tagName } = useParams();
   const [page, setPage] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const jobsPerPage = 12;
+  // ================= MOBILE DETECTION =================
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const jobsPerPage = isMobile ? MOBILE_JOBS_PER_PAGE : DESKTOP_JOBS_PER_PAGE;
 
   const decodedTag = decodeURIComponent(tagName);
-
   const tag = mockTags.find(
-    (t) => t.name.toLowerCase() === decodedTag.toLowerCase()
+    (t) => t.name.toLowerCase() === decodedTag.toLowerCase(),
   );
 
   const tagJobs = useMemo(() => {
     if (!tag) return [];
-
     return mockJobs.filter((job) =>
       job.details?.tags?.some(
-        (t) => t.toLowerCase() === tag.name.toLowerCase()
-      )
+        (t) => t.toLowerCase() === tag.name.toLowerCase(),
+      ),
     );
   }, [tag]);
 
   const totalPages = Math.ceil(tagJobs.length / jobsPerPage);
-
   const jobsToRender = tagJobs.slice(
     (page - 1) * jobsPerPage,
-    page * jobsPerPage
+    page * jobsPerPage,
   );
 
   if (!tag) return null;
@@ -49,19 +58,86 @@ const TagJobs = () => {
         jobsCount={tag.jobs}
       />
 
-      {/* JOB LIST (4 x 3) */}
-      <section className="max-w-7xl mx-auto px-4 pt-24">
-        <LatestJobs jobs={jobsToRender} showHeader={false} />
+      {/* ================= JOB LIST ================= */}
+      <section className="max-w-[1400px] mx-auto pt-20 px-4">
+        <div
+          className={`
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+            gap-6 sm:gap-8 lg:gap-10
+          `}
+        >
+          {jobsToRender.map((job) => (
+            <div key={job.id} className="w-full">
+              {/* Force card aspect ratio to keep balanced width/height */}
+              <div className="aspect-[4/3]">
+                <JobCard job={job} isMobile={isMobile} />
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
+      {/* ================= MOBILE PAGINATION ================= */}
+      {isMobile && totalPages > 1 && (
+        <div className="mt-8 px-4 max-w-[520px] mx-auto">
+          <div className="flex justify-between items-center">
+            {/* Page numbers */}
+            <div className="flex gap-3">
+              {Array.from({ length: totalPages }).map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setPage(idx + 1)}
+                  className={`
+              px-3 py-1 rounded-[8px] text-[16px] font-medium
+              ${
+                page === idx + 1
+                  ? "bg-[#8967B3] text-white"
+                  : "bg-[#E0E0E0] text-black"
+              }
+            `}
+                >
+                  {idx + 1}
+                </button>
+              ))}
+            </div>
 
-      {/* PAGINATION */}
-      {totalPages >= 1 && (
-         <Pagination
-                currentPage={page}
-                totalPages={15}
-                onPageChange={setPage}
-                variant="category"
-              />
+            {/* Arrows */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => setPage(Math.max(page - 1, 1))}
+                className={`
+            w-8 h-8 rounded-[8px]
+            flex items-center justify-center
+            ${page > 1 ? "bg-[#8967B3]" : "bg-[#E0E0E0]"}
+          `}
+              >
+                <img src="/icons/left-arrow.svg" className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={() => setPage(Math.min(page + 1, totalPages))}
+                className={`
+            w-8 h-8 rounded-[8px]
+            flex items-center justify-center
+            ${page < totalPages ? "bg-[#8967B3]" : "bg-[#E0E0E0]"}
+          `}
+              >
+                <img src="/icons/arrow-next-2.svg" className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* ================= DESKTOP PAGINATION ================= */}
+      {!isMobile && totalPages > 1 && (
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+          variant="category"
+        />
       )}
 
       <DeveloperCTA />

@@ -2,34 +2,32 @@ const ClientStatCard = ({ stat }) => {
   const isRight = stat.accent === "right";
 
   return (
-    <div
-      className={`w-full  flex ${isRight ? "justify-end" : "justify-start"}`}
-    >
+    <div className={`w-full flex ${isRight ? "justify-end" : "justify-start"}`}>
       <div
         className={`
-    flex flex-col md:flex-row
-    md:h-[200px]
-    w-full max-w-[1100px]
-    rounded-[20px]
-    overflow-hidden
-    bg-[#F7F7F7]
-    mx-auto md:mx-14 lg:mx-24
-    ${isRight ? "md:flex-row-reverse" : ""}
-  `}
+          flex flex-row
+          h-[130px] sm:h-[200px]
+          w-full max-w-[900px] sm:max-w-[1100px]
+          rounded-[18px] sm:rounded-[20px]
+          overflow-hidden
+          bg-[#F7F7F7]
+          mx-auto md:mx-14 lg:mx-24
+          ${isRight ? "flex-row-reverse" : ""}
+        `}
       >
-        {/* ACCENT BAR */}
-        <div className="w-full md:w-[361px] h-[120px] md:h-full bg-black flex items-center justify-center">
-          <span className="text-white text-[32px] md:text-[48px] font-semibold">
+        {/* ACCENT */}
+        <div className="w-[110px] sm:w-[361px] h-full bg-black flex items-center justify-center">
+          <span className="text-white text-[22px] sm:text-[48px] font-semibold">
             {stat.value}
           </span>
         </div>
 
         {/* CONTENT */}
-        <div className="flex flex-col justify-center px-6 md:px-16 py-6 md:py-0">
-          <h3 className="text-[24px] md:text-[32px] font-semibold mb-3 md:mb-4">
+        <div className="flex flex-col justify-center px-4 sm:px-16">
+          <h3 className="text-[18px] sm:text-[32px] font-semibold mb-1 sm:mb-4">
             {stat.title}
           </h3>
-          <p className="text-[16px] md:text-[20px] max-w-full md:max-w-[700px]">
+          <p className="text-[13px] sm:text-[20px] leading-snug sm:leading-normal">
             {stat.description}
           </p>
         </div>

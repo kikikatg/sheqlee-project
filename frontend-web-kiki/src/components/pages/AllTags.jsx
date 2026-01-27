@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import TagCard from "../common/TagCard";
 import Pagination from "../common/Pagination";
 import DeveloperCTA from "../sections/DeveloperCTA";
@@ -6,36 +6,45 @@ import Footer from "../footer/Footer";
 import SubNavbar from "../all-jobs/SubNavbar";
 import { mockTags } from "../../data/mockTags";
 
-const TAGS_PER_PAGE = 24;
-const TOTAL_PAGES = 15; // design requirement
+const DESKTOP_TAGS_PER_PAGE = 24;
+const MOBILE_TAGS_PER_PAGE = 10;
 
 const AllTags = () => {
   const [page, setPage] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // 🔹 how many pages actually contain data
-  const REAL_PAGES = Math.ceil(mockTags.length / TAGS_PER_PAGE);
+  // ================= MOBILE DETECTION =================
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const tagsPerPage = isMobile ? MOBILE_TAGS_PER_PAGE : DESKTOP_TAGS_PER_PAGE;
+
+  // 🔹 Calculate pages based on tags per device
+  const totalPages = Math.ceil(mockTags.length / tagsPerPage);
 
   const tagsToRender = useMemo(() => {
-    // ✅ if page exceeds available data → render nothing
-    if (page > REAL_PAGES) return [];
-
-    const start = (page - 1) * TAGS_PER_PAGE;
-    const end = start + TAGS_PER_PAGE;
-
+    const start = (page - 1) * tagsPerPage;
+    const end = start + tagsPerPage;
     return mockTags.slice(start, end);
-  }, [page, REAL_PAGES]);
+  }, [page, tagsPerPage]);
 
   return (
     <section className="w-full bg-white font-['Kantumruy_Pro']">
       {/* ================= Breadcrumb ================= */}
-      <SubNavbar
-        crumbs={[
-          {
-            label: "Tags",
-            active: true,
-          },
-        ]}
-      />
+      {!isMobile && (
+        <SubNavbar
+          crumbs={[
+            {
+              label: "Tags",
+              active: true,
+            },
+          ]}
+        />
+      )}
 
       {/* ================= Header ================= */}
       <div className="max-w-[1920px] mx-auto px-6 flex flex-col items-center text-center">
@@ -49,14 +58,14 @@ const AllTags = () => {
           All Tags
         </h1>
 
-        <p className="mt-10 max-w-[780px] text-[18px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-[44px] text-black sm:mt-2 md:mt-8">
+        <p className="mt-4 max-w-[1000px] text-[18px] sm:text-[32px] md:text-[36px] lg:text-[40px] lg:mb-14 lg:leading-[54px] leading-[24px] text-black sm:mt-2 md:mt-6 md:leading-[34px]">
           Job tags along with their respective number of jobs posted and number
           of subscribers.
         </p>
       </div>
 
       {/* ================= Tags Grid ================= */}
-      <section className="flex justify-center pt-24">
+      <section className="flex justify-center pt-14">
         <div
           className="
             w-full
@@ -85,12 +94,16 @@ const AllTags = () => {
       </section>
 
       {/* ================= Pagination ================= */}
-      <Pagination
-        currentPage={page}
-        totalPages={TOTAL_PAGES}
-        onPageChange={setPage}
-        variant="category"
-      />
+      {totalPages > 1 && (
+        <div className={`mt-8 ${isMobile ? "px-4 max-w-[520px] mx-auto" : ""}`}>
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            variant="category"
+          />
+        </div>
+      )}
 
       {/* ================= Developer CTA ================= */}
       <DeveloperCTA />
