@@ -86,30 +86,43 @@ const CompanyRegistration = () => {
       localStorage.setItem("user", JSON.stringify(newUser));
       setUser(newUser);
 
-      navigate("/company-dashboard");
+      navigate("/company/homepage");
     }
   }, [success, navigate]);
 
   return (
     <main className="bg-white min-h-screen">
-      <SubNavbar crumbs={[{ label: "Company Signup", active: true }]} />
-
+      <div className="hidden sm:block">
+        <SubNavbar crumbs={[{ label: "Company Signup", active: true }]} />
+      </div>
       <InfoCard
-        text="If you are a freelancer, please visit"
-        linkText="freelancers registration"
+        text="If you're an employer, please visit "
+        linkText="freelancer registration"
+        suffix=" page."
         to="/freelancer-signup"
       />
 
-      {/* HEADER */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center gap-4">
-        <img src="/icons/building.svg" alt="" className="w-16 h-16" />
-        <h1 className="text-4xl sm:text-[50px] font-semibold">
+      {/* /* HEADER */}
+      <section
+        className="
+  px-4 mt-16 max-w-5xl mx-auto 
+  flex flex-col sm:flex-row 
+  items-center sm:items-center 
+  text-center sm:text-left 
+  gap-4
+"
+      >
+        <img
+          src="/icons/building.svg"
+          alt=""
+          className="w-14 h-14 sm:w-16 sm:h-16"
+        />
+        <h1 className="text-[28px] sm:text-[50px] font-semibold">
           Company Registration
         </h1>
       </section>
-
       {/* COMPANY INFO */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+      <section className="px-4 mt-6 lg:mt-16 md:mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
         <TextInput
           label="Company name"
           required
@@ -130,11 +143,9 @@ const CompanyRegistration = () => {
           onChange={(v) => setForm({ ...form, domain: v })}
         />
       </section>
-
       <Divider text="COMPANY REPRESENTATIVE" />
-
       {/* REPRESENTATIVE */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+      <section className="px-4 mt-6 lg:mt-16 md:mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
         <TextInput
           label="Full name"
           required
@@ -171,29 +182,34 @@ const CompanyRegistration = () => {
           onChange={(v) => setForm({ ...form, confirmPassword: v })}
         />
       </section>
-
       {/* TERMS */}
-      <section className="px-4 mt-12 max-w-5xl mx-auto flex flex-col sm:flex-row gap-4 sm:items-start">
+      <section className="px-4 mt-12 max-w-5xl mx-auto flex   gap-4 sm:items-start ">
         <input
           type="checkbox"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
-          className="w-6 h-6 sm:w-[30px] sm:h-[30px]"
+          className="w-6 h-6 sm:w-[30px] sm:h-[30px] "
         />
-        <p className="text-lg sm:text-[22px]">
+        <p className="text-[16px] sm:text-[22px] md:text-[24px] lg:text-[26px]  ">
           By creating an account, you agree to{" "}
           <Underline text="Terms and Conditions" to="/terms-and-conditions" />{" "}
           <Underline text="Privacy Policy" to="/privacy-policy" />.
         </p>
       </section>
-
       {apiError && (
         <p className="max-w-5xl mx-auto mt-4 text-red-500">{apiError}</p>
       )}
-
       {/* ACTION */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto flex flex-col sm:flex-row justify-end items-center gap-4">
-        <p className="text-lg sm:text-[22px]">
+      <section
+        className="
+  px-4 mt-16 max-w-5xl mx-auto 
+  flex flex-row sm:flex-row 
+  justify-between sm:justify-end 
+  items-center 
+  gap-4
+"
+      >
+        <p className="text-[16px] sm:text-[22px] md:text-[24px] lg:text-[26px] whitespace-nowrap">
           Already got an account? <Underline text="Login" bigger to="/login" />
         </p>
 
@@ -201,30 +217,25 @@ const CompanyRegistration = () => {
           onClick={handleRegister}
           disabled={loading}
           className="
-    w-full sm:w-[180px] 
-    [@media(min-width:200px)_and_(max-width:700px)]:w-[140px]
-    h-[60px] sm:h-[70px] 
-    bg-[#8967B3] 
-    rounded-[15px] 
-    text-white text-lg sm:text-[24px] 
-    disabled:opacity-60
-  "
+      w-[130px] sm:w-[180px]
+      h-[44px] sm:h-[70px]
+      bg-[#8967B3]
+      rounded-[12px] sm:rounded-[15px]
+      text-white text-[16px] sm:text-[22px] md:text-[24px] lg:text-[26px] 
+      disabled:opacity-60
+    "
         >
           {loading ? "Registering..." : "Register"}
         </button>
       </section>
-
       <Divider text="OR CONTINUE WITH" />
-
       {/* GOOGLE */}
       <section className="px-4 mt-12 max-w-5xl mx-auto flex justify-center ">
         <ContinueWithGoogle role="company" />
       </section>
-
       <section className="mt-20">
         <DeveloperCTA />
       </section>
-
       <Footer />
     </main>
   );

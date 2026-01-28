@@ -58,8 +58,9 @@ const Contact = () => {
 
   return (
     <main className="bg-white min-h-screen">
-      <SubNavbar crumbs={[{ label: "Contact", active: true }]} />
-
+      <div className="hidden sm:block">
+        <SubNavbar crumbs={[{ label: "Contact", active: true }]} />
+      </div>
       {/* ================= HEADER ================= */}
       <section className="pt-14 sm:pt-10 px-4 text-center">
         <img
@@ -71,11 +72,18 @@ const Contact = () => {
         <h1 className="mt-4 sm:mt-8 text-[30px] sm:text-[40px] lg:text-[56px] font-semibold">
           Contact
         </h1>
-
-        <p className="mt-4 sm:mt-6 max-w-[720px] mx-auto text-[18px] sm:text-[22px] lg:text-[32px] leading-snug">
-          Please reach out to us if you have any questions or you need our
-          assistance with something.
-        </p>
+        <div className="hidden sm:block">
+          <p className="mt-4 sm:mt-6 max-w-[720px] mx-auto text-[18px] sm:text-[22px] lg:text-[32px] leading-snug">
+            Please reach out to us if you have any questions or you need our
+            assistance with something.
+          </p>
+        </div>
+        <div className="block sm:hidden">
+          <p className="mt-4 sm:mt-6 max-w-[720px] mx-auto text-[18px] sm:text-[22px] lg:text-[32px] leading-snug">
+            Please reach out to us if you have any questions or you need our
+            assistance.
+          </p>
+        </div>
       </section>
 
       {/* ================= FORM ================= */}
@@ -108,7 +116,8 @@ const Contact = () => {
           </div>
 
           {/* MESSAGE + SEND */}
-          <div className="mt-10 sm:mt-12 flex flex-col gap-6">
+          <div className="mt-6 sm:mt-12 flex flex-col gap-2">
+            <Label text="Message " />
             <div className="relative w-full bg-[#DFDFDF] rounded-[15px] h-[260px] sm:h-[300px] lg:h-[357px]">
               <textarea
                 value={message}
@@ -136,12 +145,12 @@ const Contact = () => {
               </p>
             )}
 
-            <div className="flex justify-end">
+            <div className="flex lg:justify-end mt-8 justify-center md:justify-end  ">
               <button
                 onClick={handleSubmit}
                 disabled={loading}
                 className="
-                  w-full sm:w-[220px] lg:w-[280px]
+                  w-[240px]  sm:w-[220px] lg:w-[280px]
                   h-[60px] sm:h-[70px] lg:h-[85px]
                   bg-[#8967B3]
                   rounded-[15px]

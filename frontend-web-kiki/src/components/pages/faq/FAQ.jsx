@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import SubNavbar from "../../all-jobs/SubNavbar";
 import DeveloperCTA from "../../sections/DeveloperCTA";
 import Footer from "../../footer/Footer";
@@ -6,34 +6,38 @@ import FAQItem from "./FAQItem";
 import { freelancerFAQs, companyFAQs } from "../../../data/mockFAQ";
 import Pagination from "../../common/Pagination";
 
-const FAQS_PER_PAGE = 8;
 const MAX_PAGES = 15; // future API cap
 
 const FAQ = () => {
   const [activeTab, setActiveTab] = useState("freelancers");
   const [openId, setOpenId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640); // Tailwind 'sm' breakpoint
+    handleResize(); // check on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  const faqsPerPage = isMobile ? 6 : 8; // 6 for mobile, 8 for desktop
   const faqs = activeTab === "freelancers" ? freelancerFAQs : companyFAQs;
 
   /* ================= PAGINATION LOGIC ================= */
-  const totalPages = Math.min(
-    MAX_PAGES,
-    Math.ceil(faqs.length / FAQS_PER_PAGE)
-  );
+  const totalPages = Math.min(MAX_PAGES, Math.ceil(faqs.length / faqsPerPage));
 
   const faqsToRender = useMemo(() => {
-    const start = (currentPage - 1) * FAQS_PER_PAGE;
-    return faqs.slice(start, start + FAQS_PER_PAGE);
-  }, [faqs, currentPage]);
+    const start = (currentPage - 1) * faqsPerPage;
+    return faqs.slice(start, start + faqsPerPage);
+  }, [faqs, currentPage, faqsPerPage]);
 
   return (
     <main className="bg-white min-h-screen">
       {/* ================= BREADCRUMB ================= */}
-      <SubNavbar crumbs={[{ label: "FAQ", active: true }]} />
-
+      <div className="hidden sm:block">
+        <SubNavbar crumbs={[{ label: "FAQ", active: true }]} />
+      </div>
       {/* ================= HEADER ================= */}
-      <section className="pt-16 sm:pt-24 px-4 text-center">
+      <section className="pt-12 sm:pt-24 px-4 text-center">
         <img
           src="/icons/question.svg"
           alt="FAQ"
@@ -51,36 +55,39 @@ const FAQ = () => {
       </section>
 
       {/* ================= TOGGLE ================= */}
-      <section className="mt-10 px-4">
-        <div className="mx-auto w-full max-w-[500px] bg-[#DFDFDF] rounded-[15px] p-2 flex">
-          <button
-            onClick={() => {
-              setActiveTab("freelancers");
-              setOpenId(null);
-              setCurrentPage(1);
-            }}
-            className={`flex-1 h-[50px] rounded-[15px] text-sm sm:text-lg transition ${
-              activeTab === "freelancers" ? "bg-black text-white" : "text-black"
-            }`}
-          >
-            Freelancers
-          </button>
+      <div className="hidden sm:block">
+        <section className="mt-10 px-4">
+          <div className="mx-auto w-full max-w-[500px] bg-[#DFDFDF] rounded-[15px] p-2 flex">
+            <button
+              onClick={() => {
+                setActiveTab("freelancers");
+                setOpenId(null);
+                setCurrentPage(1);
+              }}
+              className={`flex-1 h-[50px] rounded-[15px] text-sm sm:text-lg transition ${
+                activeTab === "freelancers"
+                  ? "bg-black text-white"
+                  : "text-black"
+              }`}
+            >
+              Freelancers
+            </button>
 
-          <button
-            onClick={() => {
-              setActiveTab("companies");
-              setOpenId(null);
-              setCurrentPage(1);
-            }}
-            className={`flex-1 h-[50px] rounded-[15px] text-sm sm:text-lg transition ${
-              activeTab === "companies" ? "bg-black text-white" : "text-black"
-            }`}
-          >
-            Companies
-          </button>
-        </div>
-      </section>
-
+            <button
+              onClick={() => {
+                setActiveTab("companies");
+                setOpenId(null);
+                setCurrentPage(1);
+              }}
+              className={`flex-1 h-[50px] rounded-[15px] text-sm sm:text-lg transition ${
+                activeTab === "companies" ? "bg-black text-white" : "text-black"
+              }`}
+            >
+              Companies
+            </button>
+          </div>
+        </section>
+      </div>
       {/* ================= FAQ LIST ================= */}
       <section className="mt-12 px-4">
         <div className="max-w-[1188px] mx-auto space-y-6">
@@ -96,7 +103,7 @@ const FAQ = () => {
       </section>
 
       {/* ================= PAGINATION ================= */}
-      {faqs.length > FAQS_PER_PAGE && (
+      {faqs.length > faqsPerPage && (
         <section className="mt-16 px-4">
           <div className="max-w-[1188px] mx-auto">
             <Pagination

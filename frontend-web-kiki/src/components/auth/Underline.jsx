@@ -8,7 +8,7 @@ const Underline = ({ text, to, bigger }) => {
       onClick={() => to && navigate(to)}
       className={`
         relative cursor-pointer font-semibold inline-block
-        ${bigger ? "text-[24px]" : "text-[22px]"}
+        ${bigger ? "text-[16px] sm:text-[22px] md:text-[24px] lg:text-[26px]  " : "text-[16px] sm:text-[22px] md:text-[24px] lg:text-[26px] "}
         after:content-['']
         after:absolute
         after:left-0

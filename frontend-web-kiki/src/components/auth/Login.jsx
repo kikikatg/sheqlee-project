@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import SubNavbar from "../all-jobs/SubNavbar";
 import Footer from "../footer/Footer";
 import { useUser } from "../../context/UserContext";
-
 import EmailInput from "./EmailInput";
 import PasswordInput from "./PasswordInput";
 import ContinueWithGoogle from "./ContinueWithGoogle";
@@ -34,15 +33,37 @@ const Login = () => {
   return (
     <main className="bg-white min-h-screen flex flex-col overflow-x-hidden">
       {/* Breadcrumb */}
-      <SubNavbar crumbs={[{ label: "Login", active: true }]} />
-
+      <div className="hidden sm:block">
+        <SubNavbar crumbs={[{ label: "Login", active: true }]} />
+      </div>
       {/* Content */}
-      <section className="flex-grow flex justify-center px-4 md:px-8">
-        <div className="w-full max-w-5xl mt-16">
+      <section
+        className="
+  px-4 mt-4 max-w-5xl mx-auto 
+  flex flex-col sm:flex-row 
+  items-center sm:items-center 
+ sm:text-left 
+  gap-4
+"
+      >
+        <div className="w-full max-w-5xl mt-10">
           {/* Header */}
-          <div className="flex items-center gap-4 mb-12">
-            <img src="/icons/enter.svg" alt="login" className="w-12 h-12" />
-            <h1 className="text-[32px] md:text-[40px] font-semibold text-black">
+          <div
+            className="
+    flex flex-col sm:flex-row
+    items-center
+    gap-4
+    mb-12
+    text-center sm:text-left
+  "
+          >
+            <img
+              src="/icons/enter.svg"
+              alt="login"
+              className="w-12 h-12 mx-auto sm:mx-0"
+            />
+
+            <h1 className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold">
               Login to your account
             </h1>
           </div>
@@ -66,18 +87,33 @@ const Login = () => {
                     className="w-4 h-4"
                   />
                 </div>
-                <span className="text-[22px] text-gray-800">
+                <span className="text-[16px] lg:text-[26px] md:text-[22px] sm:text-[20px] text-gray-800">
                   Remember me next time.
                 </span>
               </label>
 
               {/* Right actions */}
               <div className="flex items-center gap-6">
-                <div className="flex text-[22px] items-center gap-2">
-                  <p>Forgot password?</p>
+                <div
+                  className="
+    flex flex-wrap
+    items-center
+    justify-center md:justify-end
+    gap-1
+    text-[14px] sm:text-[22px]
+  "
+                >
+                  <span>Forgot password?</span>
+
                   <Link
                     to="/reset-password"
-                    className="underline decoration-[#8967B3] underline-offset-[4px] text-black"
+                    className="
+      underline
+      decoration-[#8967B3]
+      underline-offset-2
+      text-black
+      font-medium
+    "
                   >
                     Reset
                   </Link>
@@ -86,7 +122,7 @@ const Login = () => {
                 {/* ✅ FIXED LOGIN BUTTON */}
                 <button
                   onClick={handleLogin}
-                  className="w-[150px] h-[70px] bg-[#8967B3] rounded-[15px] text-white text-[24px] flex items-center justify-center"
+                  className="w-[150px] lg:w-[180px]sm:w-[150px] md:w-[130px] h-[60px] bg-[#8967B3] rounded-[15px] text-white text-[24px] flex items-center justify-center"
                 >
                   Login
                 </button>

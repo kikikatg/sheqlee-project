@@ -70,22 +70,39 @@ const ProfessionalRegistration = () => {
 
   return (
     <main className="bg-white min-h-screen">
-      <SubNavbar crumbs={[{ label: "Professional Signup", active: true }]} />
+      <div className="hidden sm:block">
+        <SubNavbar crumbs={[{ label: "Professional Signup", active: true }]} />
+      </div>
 
       <InfoCard
-        text="If you are a company, please visit"
+        text="If you are a company, please visit "
         linkText="company registration"
+        suffix=" page."
         to="/company-signup"
       />
 
       {/* HEADER */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto flex gap-4">
-        <img src="/icons/person.svg" alt="" className="w-16 h-16" />
-        <h1 className="text-[55px] font-semibold">Professional Registration</h1>
+      <section
+        className="
+  px-4 mt-16 max-w-5xl mx-auto 
+  flex flex-col sm:flex-row 
+  items-center sm:items-center 
+  text-center sm:text-left 
+  gap-4
+"
+      >
+        <img
+          src="/icons/professional_registration (1).svg"
+          alt=""
+          className="w-14 h-14 sm:w-16 sm:h-16"
+        />
+        <h1 className="text-[28px] sm:text-[50px] font-semibold">
+          Professional Registration
+        </h1>
       </section>
 
-      {/* BASIC INFO */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+      {/* Professional INFO */}
+      <section className="px-4 mt-10 max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
         <TextInput
           label="Full name"
           required
@@ -134,7 +151,7 @@ const ProfessionalRegistration = () => {
           onChange={(e) => setAgreed(e.target.checked)}
           className="w-[30px] h-[30px]"
         />
-        <p className="text-[22px]">
+        <p className="text-[16px] sm:text-[22px] md:text-[24px] lg:text-[26px]">
           By creating an account, you agree to{" "}
           <Underline text="Terms and Conditions" to="/terms-and-conditions" />{" "}
           <Underline text="Privacy Policy" to="/privacy-policy" />.
@@ -146,17 +163,30 @@ const ProfessionalRegistration = () => {
       )}
 
       {/* ACTION */}
-      <section className="px-4 mt-16 max-w-5xl mx-auto flex justify-end">
+      <section
+        className="
+      px-4 mt-16 max-w-5xl mx-auto 
+      flex flex-row sm:flex-row 
+      justify-between sm:justify-end 
+      items-center 
+      gap-4
+    "
+      >
+        <p className="text-[16px] sm:text-[22px] md:text-[24px] lg:text-[26px] whitespace-nowrap">
+          Already got an account? <Underline text="Login" bigger to="/login" />
+        </p>
+
         <button
           onClick={handleRegister}
           disabled={loading}
           className="
-            w-[180px] h-[70px]
-            bg-[#8967B3]
-            rounded-[15px]
-            text-white text-[24px]
-            disabled:opacity-60
-          "
+      w-[130px] sm:w-[180px]
+      h-[44px] sm:h-[70px]
+      bg-[#8967B3]
+      rounded-[12px] sm:rounded-[15px]
+      text-white text-[16px] sm:text-[22px] md:text-[24px] lg:text-[26px] 
+      disabled:opacity-60
+    "
         >
           {loading ? "Registering..." : "Register"}
         </button>

@@ -24,7 +24,9 @@ const ResetPassword = () => {
   return (
     <main className="bg-white min-h-screen flex flex-col">
       {/* Sub Navbar + Breadcrumb */}
-      <SubNavbar crumbs={[{ label: "Reset Password", active: true }]} />
+      <div className="hidden sm:block">
+        <SubNavbar crumbs={[{ label: "Reset Password", active: true }]} />
+      </div>
 
       {/* Page Content */}
       <section className="flex-1 flex justify-center px-4 mt-16 mb-8">
@@ -33,45 +35,53 @@ const ResetPassword = () => {
           className="w-full max-w-[520px] flex flex-col"
         >
           {/* Icon + Title (LEFT aligned) */}
-          <div className="flex items-center gap-3 mb-10">
+          <div
+            className="
+    flex flex-col sm:flex-row
+    items-center
+    gap-4
+    mb-8
+    text-center sm:text-left
+  "
+          >
             <img
               src="/icons/padlock.svg"
               alt="Reset password"
               className="w-10 h-10"
             />
-            <h1 className="text-3xl font-semibold">
-              Reset password
-            </h1>
+            <h1 className="text-26 font-semibold">Reset password</h1>
           </div>
 
           {/* Email */}
           <div className="w-full mb-2">
-           <EmailInput
-  value={email}
-  onChange={setEmail}
-  placeholder="abebe@gmail.com"
-  required
-/>
-
+            <EmailInput
+              value={email}
+              onChange={setEmail}
+              placeholder="abebe@gmail.com"
+              required
+            />
           </div>
 
           {/* Helper text */}
-          <p className="text-[18px] text-gray-500 mt-2 mb-10">
+          <p className="text-[14px] text-gray-500 mt-2 mb-10">
             You will receive a password reset code in your email.
           </p>
 
           {/* Send Code Button (RIGHT aligned) */}
-          <div className="w-full flex mt-2  justify-end">
+          <div className="w-full flex   justify-end">
             <button
               type="submit"
               disabled={loading}
               className="
-                w-[216px]
-                h-[85px]
+                w-[180px]
+                h-[60px]  lg:w-[216px]
+                lg:h-[85px] md:w-[206px] sm:w-[200px]
+                sm:h-[80px]
+                md:h-[80px]
                 bg-[#8967B3]
                 rounded-[15px]
                 text-white
-                text-[28px]
+                text-[22px] lg:text-[28px] sm:text-[22px] md:text-[25px]
                 font-medium
                 flex
                 items-center

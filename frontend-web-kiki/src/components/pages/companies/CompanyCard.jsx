@@ -7,18 +7,24 @@ const CompanyCard = ({ company }) => {
     <button
       type="button"
       onClick={() => navigate(`/companies/${company.slug}`)}
-      className="relative flex w-full h-[145px] bg-[#F7F7F7] rounded-[20px] text-left
-                 hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-purple-400"
+      className="
+        relative flex w-full
+        h-auto sm:h-[145px]
+        bg-[#F7F7F7]
+        rounded-[16px] sm:rounded-[20px]
+        text-left
+        hover:shadow-lg transition-shadow
+        focus:outline-none focus:ring-2 focus:ring-purple-400
+      "
     >
-      {/* Left Accent Bar */}
-      <div className="w-[20px] bg-black rounded-l-[20px]" />
+      {/* Left Accent */}
+      <div className="w-[12px] sm:w-[20px] bg-black rounded-l-[16px] sm:rounded-l-[20px]" />
 
-      {/* Card Content */}
-      <div className="flex flex-col justify-center px-6 gap-3 flex-1 overflow-hidden">
-
-        {/* Company Name + Verified */}
+      {/* Content */}
+      <div className="flex flex-col justify-center px-4 sm:px-6 py-4 gap-2 flex-1 overflow-hidden">
+        {/* Name */}
         <div className="flex items-center gap-2">
-          <h3 className="text-[22px] font-semibold text-black truncate">
+          <h3 className="text-[16px] sm:text-[22px] font-semibold truncate">
             {company.name}
           </h3>
 
@@ -26,13 +32,13 @@ const CompanyCard = ({ company }) => {
             <img
               src="/icons/verify.svg"
               alt="Verified company"
-              className="w-[22px] h-[21px] shrink-0"
+              className="w-[18px] h-[18px] sm:w-[22px] sm:h-[21px] shrink-0"
             />
           )}
         </div>
 
-        {/* Meta Info */}
-        <div className="flex items-center gap-3 text-[20px] text-gray-600 flex-wrap">
+        {/* Meta */}
+        <div className="flex items-center gap-2 text-[14px] sm:text-[20px] text-gray-600 flex-wrap">
           <span>{company.jobsCount} jobs</span>
           <span>•</span>
           <span>{company.subscribers} subscribers</span>

@@ -87,22 +87,25 @@ const JobCard = ({ job, isMobile = false }) => {
 
           {/* META ROW 2 + APPLY BUTTON */}
           <div className="flex flex-wrap items-center gap-2 mt-0">
+            {/* LEVEL */}
             <span className="meta-pill text-[18px] text-black gap-2 sm:text-[14px]">
-              <img
-                src={isMobile ? "/icons/skill.svg" : META_ICONS.level}
-                className="w-4 h-4"
-              />
+              {/* DESKTOP & TABLET */}
+              <img src={META_ICONS.level} className="w-4 h-4 hidden sm:block" />
+              {/* MOBILE */}
+              <img src="/icons/skill.svg" className="w-4 h-4 block sm:hidden" />
               {job.level}
             </span>
 
+            {/* PRICE */}
             <span className="meta-pill text-[18px] text-black gap-2 sm:text-[14px]">
-              <img
-                src={isMobile ? "/icons/money.svg" : META_ICONS.price}
-                className="w-4 h-4"
-              />
+              {/* DESKTOP & TABLET */}
+              <img src={META_ICONS.price} className="w-4 h-4 hidden sm:block" />
+              {/* MOBILE */}
+              <img src="/icons/money.svg" className="w-4 h-4 block sm:hidden" />
               {job.rate}
             </span>
 
+            {/* APPLY BUTTON */}
             <button
               onClick={(e) => {
                 e.stopPropagation(); // prevent double navigation
