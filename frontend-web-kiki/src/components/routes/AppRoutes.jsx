@@ -38,6 +38,7 @@ import FreelancerProfilePreview from "../pages/update-profile/FreelancerProfileP
 import FreelancerPrintProfile from "../pages/update-profile/FreelancerPrintProfile.jsx";
 import VerifyEmail from "../auth/VerifyEmail";
 import JobTemplates from "../pages/user/JobTemplates";
+import DesktopOnlyRoute from "./DesktopOnlyRoute";
 
 const AppRoutes = () => {
   return (
@@ -70,16 +71,36 @@ const AppRoutes = () => {
         <Route path="/verify-email" element={<VerifyEmail />} />
       </Route>
       {/* User Routes */}
-      <Route path="/company" element={<CompanyLayout />}>
-        <Route path="homepage" element={<CompanyHomePage />} />
-        <Route path="post-job" element={<PostJob />} />
-        <Route path="post-job/review" element={<ReviewPublish />} />
-        <Route path="dashboard" element={<CompanyDashboard />} />
-        <Route path="dashboard/history" element={<CompanyDashboardHistory />} />
-        <Route path="profile" element={<CompanyProfile />} />
-        <Route path="account-setting" element={<CompanyAccountSetting />} />
-        <Route path="job-templates" element={<JobTemplates />} />
-      </Route>
+<Route path="/company" element={<CompanyLayout />}>
+  <Route path="homepage" element={<CompanyHomePage />} />
+
+  {/* DESKTOP ONLY */}
+  <Route
+    path="post-job"
+    element={
+      <DesktopOnlyRoute>
+        <PostJob />
+      </DesktopOnlyRoute>
+    }
+  />
+
+  <Route
+    path="post-job/review"
+    element={
+      <DesktopOnlyRoute>
+        <ReviewPublish />
+      </DesktopOnlyRoute>
+    }
+  />
+
+  <Route path="dashboard" element={<CompanyDashboard />} />
+  <Route path="dashboard/history" element={<CompanyDashboardHistory />} />
+  <Route path="profile" element={<CompanyProfile />} />
+  <Route path="account-setting" element={<CompanyAccountSetting />} />
+  <Route path="job-templates" element={<JobTemplates />} />
+</Route>
+
+
 
       {/* Update Profile Route */}
       <Route element={<FreelancerLayout />}>

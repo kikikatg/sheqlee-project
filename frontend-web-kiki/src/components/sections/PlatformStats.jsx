@@ -1,13 +1,12 @@
 import StatCard from "../platform/StatCard";
 import { mockStats } from "../../data/mockStats";
 import PlatformStatsSkeleton from "../skeletons/PlatformStatsSkeleton";
-import DeveloperCTA from "./DeveloperCTA";
+
 const PlatformStats = () => {
   const isLoading = false;
 
   return (
     <>
-      <DeveloperCTA />
       {/* ================= PLATFORM STATS ================= */}
       {/* 🔧 STEP 7: spacing + grid responsiveness */}
       <section className="bg-white py-12 sm:py-16 mb-10">

@@ -22,9 +22,34 @@ const PopularTags = () => {
           </h2>
           <Link
             to="/tags"
-            className="text-sm sm:text-[16px] font-medium text-black hover:text-[#8967B3] transition-colors"
+            className="
+    group
+    inline-flex
+    items-center
+    text-sm
+    sm:text-[16px]
+    font-medium
+    text-black
+    hover:text-[#8967B3]
+    transition-colors
+  "
           >
-            <span>{mockTags.length - popularTags.length}+ more tags</span>
+            <span className="relative inline-block">
+              {mockTags.length - popularTags.length}+ more tags
+              {/* underline */}
+              <span
+                className="
+        absolute
+        left-0
+        -bottom-[4px]
+        h-[4px]
+        w-14
+        bg-[#8967B3]
+        scale-x-100
+      "
+              />
+            </span>
+
             <img
               src="/icons/arrow-right.svg"
               alt="Next"

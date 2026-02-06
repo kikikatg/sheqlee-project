@@ -11,6 +11,7 @@ const LatestJobs = ({
   isLoading = false,
   hasSearched = false,
   disableMobileSlider = false,
+  applyVariant = "default", // ✅ ADDED
 }) => {
   const hasResults = jobs.length > 0;
   const [activeSlide, setActiveSlide] = useState(0);
@@ -29,14 +30,13 @@ const LatestJobs = ({
   const visibleJobs = limit ? jobs.slice(0, limit) : jobs;
 
   /* -------------------------------
-     MOBILE SLIDES (ONLY WHEN SLIDER ENABLED)
-     3 JOBS PER SLIDE
+     MOBILE SLIDES
   -------------------------------- */
   const mobileSlides = useMemo(() => {
     if (disableMobileSlider) return [];
 
     const slides = [];
-    const sliced = visibleJobs.slice(0, 9); // ONLY 9 FOR LATEST JOBS
+    const sliced = visibleJobs.slice(0, 9);
 
     for (let i = 0; i < sliced.length; i += 3) {
       slides.push(sliced.slice(i, i + 3));
@@ -45,7 +45,7 @@ const LatestJobs = ({
   }, [visibleJobs, disableMobileSlider]);
 
   return (
-    <section className="bg-white py-12 sm:py-16 font-['Kantumruy_Pro'] lg:py-16 mx-12">
+    <section className="bg-white py-12 sm:py-16 font-['Kantumruy_Pro'] lg:py-16">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8">
         {/* ================= HEADER ================= */}
         {showHeader && (
@@ -56,9 +56,32 @@ const LatestJobs = ({
 
             <Link
               to="/all-jobs"
-              className="flex items-center text-sm sm:text-[16px]"
+              className="
+                group
+                inline-flex
+                items-center
+                text-sm
+                sm:text-[16px]
+                font-medium
+                text-black
+                hover:text-[#8967B3]
+                transition-colors
+              "
             >
-              <span>{jobs.length}+ more jobs</span>
+              <span className="relative inline-block">
+                {jobs.length}+ more jobs
+                <span
+                  className="
+                    absolute
+                    left-0
+                    -bottom-[4px]
+                    h-[4px]
+                    w-14
+                    bg-[#8967B3]
+                  "
+                />
+              </span>
+
               <img
                 src="/icons/arrow-right.svg"
                 alt="Next"
@@ -68,10 +91,8 @@ const LatestJobs = ({
           </div>
         )}
 
-        {/* ================= LOADING ================= */}
         {isLoading && <LatestJobsSkeleton />}
 
-        {/* ================= NO RESULTS ================= */}
         {!isLoading && hasSearched && !hasResults && (
           <NoResults message="No results found" />
         )}
@@ -80,30 +101,44 @@ const LatestJobs = ({
         {!isLoading && hasResults && !isMobile && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleJobs.map((job) => (
-              <JobCard key={job.id} job={job} isMobile={false} />
+              <JobCard
+                key={job.id}
+                job={job}
+                isMobile={false}
+                applyVariant={applyVariant} // ✅ FIX
+              />
             ))}
           </div>
         )}
 
-        {/* ================= MOBILE GRID (ALL JOBS PAGE) ================= */}
+        {/* ================= MOBILE GRID ================= */}
         {!isLoading && hasResults && isMobile && disableMobileSlider && (
           <div className="grid grid-cols-1 gap-6 sm:hidden">
             {visibleJobs.map((job) => (
-              <JobCard key={job.id} job={job} isMobile />
+              <JobCard
+                key={job.id}
+                job={job}
+                isMobile
+                applyVariant={applyVariant} // ✅ FIX
+              />
             ))}
           </div>
         )}
 
-        {/* ================= MOBILE SLIDER (LATEST JOBS PAGE) ================= */}
+        {/* ================= MOBILE SLIDER ================= */}
         {!isLoading && hasResults && isMobile && !disableMobileSlider && (
           <div className="sm:hidden">
             <div className="flex flex-col gap-6">
               {mobileSlides[activeSlide]?.map((job) => (
-                <JobCard key={job.id} job={job} isMobile />
+                <JobCard
+                  key={job.id}
+                  job={job}
+                  isMobile
+                  applyVariant={applyVariant} // ✅ FIX
+                />
               ))}
             </div>
 
-            {/* SLIDER DOTS */}
             <div className="flex justify-center gap-3 mt-6">
               {mobileSlides.map((_, index) => (
                 <img

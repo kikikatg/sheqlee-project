@@ -1,38 +1,47 @@
 const RichTextToolbar = () => (
   <div className="h-[55px] bg-black rounded-t-[15px] flex items-center px-4 gap-4">
+    <img
+      src="/icons/bold.svg"
+      className="w-5 h-5 cursor-pointer invert brightness-0"
+    />
+    <img
+      src="/icons/italic.svg"
+      className="w-5 h-5 cursor-pointer invert brightness-0"
+    />
+    <img
+      src="/icons/strikethrough.svg"
+      className="w-5 h-5 cursor-pointer invert brightness-0"
+    />
 
-    {/* ICON 1 */}
-    <img src="/icons/bold.svg" className="w-5" />
-
-    {/* ICON 2 */}
-    <img src="/icons/italic.svg" className="w-5" />
-
-    {/* ICON 3 */}
-    <img src="/icons/underline.svg" className="w-5" />
-
-    {/* DIVIDER */}
     <div className="w-[1px] h-full bg-gray-500" />
 
-    {/* ICON 4 */}
-    <img src="/icons/list.svg" className="w-5" />
+    <img
+      src="/icons/list-bulleted.svg"
+      className="w-5 h-5 cursor-pointer invert brightness-0"
+    />
+    <img
+      src="/icons/list-numbered.svg"
+      className="w-5 h-5 cursor-pointer invert brightness-0"
+    />
 
-    {/* ICON 5 */}
-    <img src="/icons/ordered-list.svg" className="w-5" />
-
-    {/* DIVIDER */}
     <div className="w-[1px] h-full bg-gray-500" />
 
-    {/* ICON 6 */}
-    <img src="/icons/link.svg" className="w-5" />
+    <img
+      src="/icons/align-left.svg"
+      className="w-5 h-5 cursor-pointer invert brightness-0"
+    />
 
-    {/* DIVIDER */}
     <div className="w-[1px] h-full bg-gray-500" />
 
-    {/* ICON 7 */}
-    <img src="/icons/image.svg" className="w-5" />
-
-    {/* ICON 8 */}
-    <img src="/icons/code.svg" className="w-5" />
+    <img
+      src="/icons/text-increase.svg"
+      className="w-5 h-5 cursor-pointer invert brightness-0"
+    />
+    <img
+      src="/icons/text-decrease.svg"
+      className="w-5 h-5 cursor-pointer invert brightness-0"
+    />
   </div>
 );
+
 export default RichTextToolbar;

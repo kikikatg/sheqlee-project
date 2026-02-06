@@ -13,7 +13,7 @@ const Hero = ({ openAuthModal }) => {
   };
 
   return (
-    <section className="bg-white overflow-hidden mt-10">
+    <section className="bg-white overflow-hidden md:mt-8 sm:mt-6  lg:mt-10">
       <div
         className="
           max-w-[1920px] mx-auto
@@ -39,8 +39,7 @@ const Hero = ({ openAuthModal }) => {
               md:text-[50px] md:leading-[60px]
               lg:text-[58px] lg:leading-[68px]"
             >
-              Recruit <span className="text-[#8967B3]">Affordable</span>
-              <br />
+              Recruit <span className="text-[#8967B3]">Affordable </span>
               &amp; <span className="text-[#8967B3]">Skilled</span> Ethiopian
               <br />
               Professional
@@ -101,7 +100,7 @@ ml-0
                 src="/lottie/hero.json"
                 className="
         mx-auto
-        w-[260px]
+        w-[340px]
         sm:w-[360px]
         md:w-[420px]
         lg:w-[460px]

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { JOB_ICONS, META_ICONS } from "../../constants/JobIcons";
 
-const JobCard = ({ job, isMobile = false }) => {
+const JobCard = ({ job, applyVariant = "default" }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -9,123 +9,112 @@ const JobCard = ({ job, isMobile = false }) => {
   };
 
   return (
-    <div className="lg:mb-4 mb-0">
+    <div className="w-full">
       <div
         onClick={handleCardClick}
         className="
-        soft-card
-        bg-[#F7F7F7]
-        rounded-xl
-        flex flex-col
-        justify-between
-        h-full
-        p-8 sm:p-5 lg:p-6 lg:mx-4 mx-0  mt-8
-        cursor-pointer
-        transition-transform duration-200
-        hover:shadow-lg
-        hover:-translate-y-1
-      "
+          soft-card
+          bg-[#F7F7F7]
+          rounded-xl
+          flex flex-col
+          justify-between
+          w-full
+          cursor-pointer
+          transition-transform duration-200
+          hover:shadow-lg
+          hover:-translate-y-1
+          p-6 sm:p-5 lg:p-6
+          mt-8
+          min-h-[360px] sm:min-h-[380px] lg:min-h-[420px]
+        "
       >
-        {/* ================= TOP CONTENT: TITLE + DESCRIPTION ================= */}
+        {/* ================= TOP CONTENT ================= */}
         <div>
-          {/* TITLE ROW */}
-          <div className="flex items-center gap-2 mb-5">
+          <div className="flex items-center gap-2 mb-4">
             <img
               src={JOB_ICONS[job.title]}
               alt=""
-              className="w-8 h-8 sm:w-7 sm:h-7 flex-shrink-0"
+              className="w-7 h-7 flex-shrink-0"
             />
 
-            <h3
-              className="
-              text-black
-              font-semibold
-              text-[20px]
-              sm:text-[20px]
-              lg:text-[25px]
-              xl:text-[28px]
-              leading-snug
-            "
-            >
+            <h3 className="text-black font-semibold text-[20px] lg:text-[25px] xl:text-[28px] line-clamp-2">
               {job.title}
             </h3>
           </div>
 
-          {/* DESCRIPTION */}
-          <p
-            className="
-            text-black
-            text-[20px]
-            sm:text-[18px]
-            lg:text-[22px]
-            mb-4 leading-8
-          "
-          >
+          <p className="text-black text-[18px] leading-7 line-clamp-3">
             {job.description}
           </p>
         </div>
 
-        {/* ================= BOTTOM META ROWS (row1 + row2) ================= */}
-        <div className="flex flex-col gap-2">
-          {/* META ROW 1 */}
-          <div className="flex flex-wrap gap-1">
-            <span className="meta-pill text-[18px] md:text-[15px] text-black gap-2 sm:text-[14px]">
-              <img src={META_ICONS.time} className="w-4 h-4" />
+        {/* ================= META ================= */}
+        <div className="mt-6 flex flex-col gap-3">
+          <div className="grid grid-cols-3 gap-2 items-center">
+            <span className="meta-pill text-[12px] flex items-center gap-1">
+              <img src={META_ICONS.time} className="w-3 h-3" />
               {job.postedAt}
             </span>
 
-            <span className="meta-pill text-[18px] text-black gap-2 sm:text-[14px]">
-              <img src={META_ICONS.company} className="w-4 h-4" />
+            <span className="meta-pill text-[12px] flex items-center gap-1 ">
+              <img src={META_ICONS.company} className="w-3 h-3" />
               {job.company}
             </span>
 
-            <span className="meta-pill text-[18px] text-black gap-2 sm:text-[14px]">
-              <img src={META_ICONS.type} className="w-4 h-4" />
+            <span className="meta-pill text-[12px] flex items-center gap-1">
+              <img src={META_ICONS.type} className="w-3 h-3" />
               {job.type}
             </span>
           </div>
 
-          {/* META ROW 2 + APPLY BUTTON */}
-          <div className="flex flex-wrap items-center gap-2 mt-0">
-            {/* LEVEL */}
-            <span className="meta-pill text-[18px] text-black gap-2 sm:text-[14px]">
-              {/* DESKTOP & TABLET */}
-              <img src={META_ICONS.level} className="w-4 h-4 hidden sm:block" />
-              {/* MOBILE */}
-              <img src="/icons/skill.svg" className="w-4 h-4 block sm:hidden" />
+          <div className="grid grid-cols-[1fr_1fr_auto] gap-2 items-center">
+            <span className="meta-pill text-[12px] flex items-center gap-1">
+              <img src={META_ICONS.level} className="w-3 h-3 hidden sm:block" />
+              <img src="/icons/skill.svg" className="w-3 h-3 sm:hidden" />
               {job.level}
             </span>
 
-            {/* PRICE */}
-            <span className="meta-pill text-[18px] text-black gap-2 sm:text-[14px]">
-              {/* DESKTOP & TABLET */}
-              <img src={META_ICONS.price} className="w-4 h-4 hidden sm:block" />
-              {/* MOBILE */}
-              <img src="/icons/money.svg" className="w-4 h-4 block sm:hidden" />
+            <span className="meta-pill text-[12px] flex items-center gap-1">
+              <img src={META_ICONS.price} className="w-3 h-3 hidden sm:block" />
+              <img src="/icons/money.svg" className="w-3 h-3 sm:hidden" />
               {job.rate}
             </span>
 
-            {/* APPLY BUTTON */}
+            {/* ================= APPLY BUTTON ================= */}
             <button
               onClick={(e) => {
-                e.stopPropagation(); // prevent double navigation
+                e.stopPropagation();
                 navigate(`/jobs/${job.id}`);
               }}
               className="
-              sm:ml-0 ml-0
-              mt-2 sm:mt-0
-              bg-[#8967B3]
-              text-white
-              font-medium
-              px-4 
-              py-1
-              rounded-md
-              hover:bg-purple-700
-              transition
-              text-[18px] sm:text-[14px]
-            "
+    bg-[#8967B3]
+    px-4
+    py-1
+    rounded-md
+    hover:bg-purple-700
+    transition
+    whitespace-nowrap
+    flex items-center justify-center
+  "
             >
-              Apply
+              {applyVariant === "freelancer" ? (
+                <>
+                  {/* MOBILE */}
+                  <img
+                    src="/icons/Apply.svg"
+                    alt="Apply"
+                    className="h-4 w-auto md:hidden"
+                  />
+
+                  {/* DESKTOP */}
+                  <span className="hidden md:block text-white text-[12px] font-medium">
+                    Apply
+                  </span>
+                </>
+              ) : (
+                <span className="text-white text-[12px] font-medium">
+                  Apply
+                </span>
+              )}
             </button>
           </div>
         </div>

@@ -80,7 +80,7 @@ const GuestNavbar = ({ showAuthModal, closeAuthModal }) => {
   return (
     <header
       className={`
-       relative
+       relative 
     bg-[#F7F7F7]
     min-h-[80px]
     sm:min-h-[120px] lg:h-[178px]
@@ -104,7 +104,7 @@ const GuestNavbar = ({ showAuthModal, closeAuthModal }) => {
         style={{ fontFamily: "Kantumruy Pro" }}
       >
         {/* LOGO */}
-        <div className="hidden md:flex items-center gap-3 lg:gap-4 sm:gap-4 shrink-0 min-w-fit">
+        <div className="hidden md:flex items-center gap-3 lg:gap-4 sm:gap-4  shrink-0 min-w-fit">
           <img
             src={Logo}
             className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[75px] lg:h-[75px]"
@@ -150,19 +150,31 @@ const GuestNavbar = ({ showAuthModal, closeAuthModal }) => {
             >
               <img src={DownArrow} className="w-[10px] h-[6px]" />
             </button>
-
+            {/* Categories Dropdown – DESKTOP/TABLET ONLY */}
             {categoriesOpen && (
               <div className="absolute top-full mt-6 w-[280px] bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] py-4 z-50">
-                {mockCategories.map((cat) => (
-                  <Link
-                    key={cat.id}
-                    to={`/categories/${cat.id}`}
-                    onClick={() => setCategoriesOpen(false)}
-                    className="block px-6 py-3 text-[18px] font-medium hover:bg-[#F4F1FA]"
-                  >
-                    {cat.name}
-                  </Link>
-                ))}
+                {/* Scrollable container */}
+                <div
+                  className="
+        max-h-[320px]
+        overflow-y-auto
+        py-2
+        scrollbar-thin
+        scrollbar-thumb-[#C7B8E6]
+        scrollbar-track-transparent
+      "
+                >
+                  {mockCategories.map((cat) => (
+                    <Link
+                      key={cat.id}
+                      to={`/categories/${cat.id}`}
+                      onClick={() => setCategoriesOpen(false)}
+                      className="block px-6 py-3 text-[18px] font-medium hover:bg-[#F4F1FA]"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -190,19 +202,23 @@ text-[14px] sm:text-[16px] lg:text-[25px]
             Sign up
           </Link>
         </div>
+
         {/* MOBILE LEFT SECTION */}
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex  items-center gap-3 md:hidden">
           <button onClick={() => setMobileOpen(true)}>
-            <img src={HamburgerIcon} className="w-7 h-7" alt="menu" />
+            <img src={HamburgerIcon} className="w-3 h-3" alt="menu" />
           </button>
 
           <div className="flex items-center gap-2">
-            <img src={Logo} className="w-10 h-10" alt="logo" />
+            <img
+              src={Logo}
+              className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[65px] lg:h-[65px]"
+            />
           </div>
         </div>
 
         {/* MOBILE AUTH RIGHT */}
-        <div className="ml-auto flex items-center gap-3 md:hidden">
+        <div className="ml-auto flex  items-center gap-3 md:hidden">
           <Link to="/login" className="text-[14px] max-[360px]:text-[12px]">
             Login
           </Link>
@@ -234,19 +250,19 @@ text-[14px] sm:text-[16px] lg:text-[25px]
             <div
               className="fixed z-50 bg-white md:hidden"
               style={{
-                top: "75px",
-                left: "25px",
-                width: "168px",
-                height: "116px",
+                top: "50px",
+                left: "15px",
+                width: "120px",
+                height: "100px",
                 borderRadius: "0px 0px 10px 10px",
               }}
             >
-              <div className="flex flex-col items-center text-center px-4 py-3 gap-3 text-[14px] max-[360px]:text-[12px] font-medium">
+              <div className="flex flex-col px-4 py-1 gap-2 text-[14px]  font-medium">
                 <NavLink to="/all-jobs" onClick={() => setMobileOpen(false)}>
                   All jobs
                 </NavLink>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <NavLink
                     to="/categories"
                     onClick={() => setMobileOpen(false)}

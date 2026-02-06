@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 
 const FooterColumn = ({ title, links }) => {
   return (
-    <div className="space-y-6 text-left sm:text-left">
+    <div className="space-y-6 text-left sm:text-left mx-6">
       <h4
         className="
           relative
           inline-block
           text-gray-100
           font-semibold
-          text-[14px]
+          text-[18px]
           md:text-[20px]
           lg:text-[28px]
           sm:text-[16px]

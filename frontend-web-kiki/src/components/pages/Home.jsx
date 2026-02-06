@@ -6,27 +6,36 @@ import PlatformStats from "../sections/PlatformStats";
 import Footer from "../footer/Footer";
 import PostAuthModal from "../modals/PostAuthModal";
 import { mockJobs } from "../../data/mockJobs";
+import DeveloperCTA from "../sections/DeveloperCTA";
 
-const Home = ({ showAuthModalEnabled = true }) => {
+const Home = ({
+  showAuthModalEnabled = true,
+  showDeveloperCTA = true,
+  showPlatformStats = true,
+  applyVariant = "default", // NEW
+}) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   return (
     <>
       <Hero
         openAuthModal={
-          showAuthModalEnabled
-            ? () => setShowAuthModal(true)
-            : undefined
+          showAuthModalEnabled ? () => setShowAuthModal(true) : undefined
         }
       />
-
       {showAuthModalEnabled && showAuthModal && (
         <PostAuthModal onClose={() => setShowAuthModal(false)} />
       )}
-
       <PopularTags />
-      <LatestJobs jobs={mockJobs} limit={9} showHeader />
-      <PlatformStats />
+      <LatestJobs
+        jobs={mockJobs}
+        limit={9}
+        showHeader
+        applyVariant={applyVariant}
+      />{" "}
+      {/* pass down */}
+      {showDeveloperCTA && <DeveloperCTA />}
+      {showPlatformStats && <PlatformStats />}
       <Footer />
     </>
   );

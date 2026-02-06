@@ -1,24 +1,38 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import SubNavbar from "../../all-jobs/SubNavbar";
 import LatestJobs from "../../sections/LatestJobs";
 import Pagination from "../../common/Pagination";
 import FreelancerJobsFilterDashboard from "./FreelancerJobsFilterDashboard";
 import { mockJobs } from "../../../data/mockJobs";
-import NotFound from "../not-found/NotFound";
+import NotResults from "../../common/NoResults";
 import { getJobCategory } from "../../../data/jobConstants";
+import NoResults from "../../common/NoResults";
 
-const JOBS_PER_PAGE = 12;
+const DESKTOP_JOBS_PER_PAGE = 12;
+const MOBILE_JOBS_PER_PAGE = 6;
 
 const FreelancerDashboard = () => {
   const [page, setPage] = useState(1);
   const [filteredJobs, setFilteredJobs] = useState(mockJobs);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
+  const jobsPerPage = isMobile ? MOBILE_JOBS_PER_PAGE : DESKTOP_JOBS_PER_PAGE;
+
+  const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+  const hasNoResults = filteredJobs.length === 0;
 
   const jobsToRender = useMemo(() => {
-    const start = (page - 1) * JOBS_PER_PAGE;
-    return filteredJobs.slice(start, start + JOBS_PER_PAGE);
-  }, [filteredJobs, page]);
+    const start = (page - 1) * jobsPerPage;
+    return filteredJobs.slice(start, start + jobsPerPage);
+  }, [filteredJobs, page, jobsPerPage]);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   /* -------------------------------
      APPLY FILTERS (FIXED)
@@ -41,7 +55,7 @@ const FreelancerDashboard = () => {
       const matchesTag =
         !filters.tag ||
         job.details?.tags?.some(
-          (tag) => tag.toLowerCase() === filters.tag.toLowerCase()
+          (tag) => tag.toLowerCase() === filters.tag.toLowerCase(),
         );
 
       return matchesCategory && matchesType && matchesLevel && matchesTag;
@@ -52,9 +66,11 @@ const FreelancerDashboard = () => {
 
   return (
     <main className="bg-white mb-16 min-h-screen">
-      <SubNavbar
-        crumbs={[{ label: "Dashboard", href: "/dashboard", active: true }]}
-      />
+      <div className="hidden md:block">
+        <SubNavbar
+          crumbs={[{ label: "Dashboard", href: "/dashboard", active: true }]}
+        />
+      </div>
 
       <section className="w-full mt-16 md:mt-24">
         <div className="flex flex-col items-center text-center gap-4 max-w-[800px] mx-auto px-4">
@@ -68,15 +84,26 @@ const FreelancerDashboard = () => {
 
       <FreelancerJobsFilterDashboard onApply={handleApplyFilters} />
 
-      <LatestJobs jobs={jobsToRender} showHeader={false} />
+      {hasNoResults ? (
+        <NoResults />
+      ) : (
+        <>
+          <LatestJobs
+            jobs={jobsToRender}
+            showHeader={false}
+            disableMobileSlider
+            applyVariant="freelancer"
+          />
 
-      {totalPages > 1 && (
-        <Pagination
-          currentPage={page}
-          totalPages={totalPages}
-          onPageChange={setPage}
-          variant="dashboard"
-        />
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+              variant="dashboard"
+            />
+          )}
+        </>
       )}
     </main>
   );

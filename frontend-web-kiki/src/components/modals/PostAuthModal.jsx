@@ -24,16 +24,16 @@ const PostAuthModal = ({
         onClick={onClose}
         className="
           fixed z-50
-          top-4 right-3
+          top-0 right-3
           sm:top-20 sm:right-12
           lg:top-12 lg:right-18
-          w-8 h-8 sm:w-10 sm:h-10
+          w-6 h-6 sm:w-10 sm:h-10
         "
       >
         <img
           src="/icons/close.svg"
           alt="Close modal"
-          className="w-full h-full object-contain"
+          className="lg:w-full lg:h-full sm:h-7 sm:w-7 w-6 h-6 object-contain"
         />
       </button>
 

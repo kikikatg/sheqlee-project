@@ -18,6 +18,7 @@ const Footer = () => {
               links={column.links}
             />
           ))}
+          <div className="block sm:hidden my-6 border-t-2 mx-4 border-white opacity-100"></div>
 
           {/* ================= LOGO + ADDRESS ================= */}
           <div className="space-y-6 max-w-sm text-center sm:text-left">
@@ -42,14 +43,13 @@ const Footer = () => {
 
         {/* ================= BOTTOM BAR ================= */}
         <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
-          {/* Copyright */}
-          <span className="text-[12px] lg:text-[18px] sm:text-[14px] text-gray-400 text-center sm:text-left">
-            © {new Date().getFullYear()} Sheqlee Co.Ltd. All rights reserved.
-          </span>
-
           {/* Social icons */}
           <div className="flex flex-col items-center sm:flex-row sm:justify-end gap-4">
             <FooterSocials />
+            {/* Copyright */}
+            <span className="text-[12px] lg:text-[18px] sm:text-[14px] text-gray-400 text-center sm:text-left mt-8">
+              © {new Date().getFullYear()} Sheqlee Co.Ltd. All rights reserved.
+            </span>
           </div>
         </div>
       </div>

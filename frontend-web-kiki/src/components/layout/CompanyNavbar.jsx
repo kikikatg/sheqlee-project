@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
+import HamburgerIcon from "/icons/Group 3.svg";
 import DownArrow from "/icons/arrow-down.svg";
 import { mockCategories } from "../../data/mockCategories";
 import { useUser } from "../../context/UserContext";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const CompanyNavbar = () => {
   const { user } = useUser();
+  const navigate = useNavigate();
+const isMobile = useIsMobile();
+
   const fallbackCompany = {
     name: "Demo Company",
     logo: "/icons/set.svg",
@@ -18,13 +23,19 @@ const CompanyNavbar = () => {
 
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [dropdownPos, setDropdownPos] = useState({ top: 0, right: 0 });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileProfileOpen, setMobileProfileOpen] = useState(false);
+  const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
   const [visible, setVisible] = useState(true);
+
+  const [dropdownPos, setDropdownPos] = useState({
+    top: 0,
+    left: 0,
+    width: 0,
+  });
 
   const profileTriggerRef = useRef(null);
   const lastScrollY = useRef(0);
-  const navigate = useNavigate();
 
   /* Hide navbar on scroll */
   useEffect(() => {
@@ -40,249 +51,358 @@ const CompanyNavbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Position desktop profile dropdown */
+  /* Desktop / Tablet dropdown positioning (FIXED) */
   useEffect(() => {
     if (profileOpen && profileTriggerRef.current) {
       const rect = profileTriggerRef.current.getBoundingClientRect();
+      const minWidth = 240;
+      const width = Math.max(rect.width, minWidth);
+
+      const viewportWidth = window.innerWidth;
+      const padding = 16;
+
+      let left = rect.left;
+
+      if (left + width + padding > viewportWidth) {
+        left = viewportWidth - width - padding;
+      }
+
+      if (left < padding) {
+        left = padding;
+      }
+
       setDropdownPos({
-        top: rect.bottom,
-        right: window.innerWidth - rect.right - 12,
+        top: rect.bottom + 8,
+        left,
+        width,
       });
     }
   }, [profileOpen]);
 
+  const closeAllDropdowns = () => {
+    setProfileOpen(false);
+    setCategoriesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileProfileOpen(false);
+    setMobileCategoriesOpen(false);
+  };
+
   const navLinkClass = ({ isActive }) =>
-    `relative text-[22px] font-medium transition-colors ${
-      isActive
-        ? "after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[42px] after:w-[60px] after:h-[8px] after:bg-[#8967B3]"
-        : "text-black hover:text-[#8967B3]"
-    }`;
+    `
+      relative
+      text-[16px] md:text-[18px] lg:text-[20px]
+      font-medium
+      transition-colors
+      ${
+        isActive
+          ? "after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[28px] after:w-[45px] after:h-[5px] after:bg-[#8967B3]"
+          : "text-black hover:text-[#8967B3]"
+      }
+    `;
 
   return (
     <>
-      {/* OVERLAY FOR DESKTOP DROPDOWN */}
-      {profileOpen && (
+      {/* GRAY OVERLAY */}
+      {/* GRAY OVERLAY */}
+      {(mobileMenuOpen ||
+        mobileProfileOpen ||
+        profileOpen ||
+        mobileCategoriesOpen) && (
         <div
-          className="fixed inset-0 bg-black opacity-50 z-40"
-          onClick={() => setProfileOpen(false)}
+          className="fixed inset-0 bg-black opacity-40 z-[60]"
+          onClick={closeAllDropdowns}
         />
       )}
 
-      {/* NAVBAR */}
       <header
-        className={`relative z-20 bg-[#F7F7F7] h-[90px] md:h-[160px] transition-opacity ${
+        className={`relative z-50 bg-[#F7F7F7] h-[90px] sm:h-[120px] lg:h-[160px] transition-opacity ${
           visible ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <nav className="w-full max-w-[1920px] mx-auto flex items-center h-full px-4 md:px-[101px] gap-6">
-          {/* LOGO */}
-          <div className="flex items-center gap-4 flex-shrink-0">
+        <nav className="w-full max-w-[1920px] mx-auto flex items-center h-full px-6 sm:px-6 lg:px-[101px]">
+          {/* LEFT */}
+          <div className="flex items-center gap-3 shrink-0">
+            <button
+              className="sm:hidden"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <img src={HamburgerIcon} className="w-3 h-3" />
+            </button>
+
             <img
               src={Logo}
-              className="w-[45px] h-[45px] md:w-[65px] md:h-[65px]"
+              className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[65px] lg:h-[65px]"
             />
-            <Link to="/user" className="text-[24px] md:text-[40px] font-bold">
+
+            <Link
+              to="/user"
+              className="hidden sm:block text-[22px] md:text-[26px] lg:text-[36px] font-bold"
+            >
               Sheqlee
             </Link>
           </div>
 
           {/* DESKTOP NAV */}
-          <div className="ml-auto hidden md:flex items-center gap-6 lg:gap-10 flex-nowrap min-w-0">
+          <div className="ml-auto hidden sm:flex items-center gap-3 md:gap-5 lg:gap-8">
             <NavLink to="/all-jobs" className={navLinkClass}>
               All jobs
             </NavLink>
 
             {/* Categories */}
-            <div className="relative flex items-center gap-3">
+            <div className="relative flex items-center gap-1">
               <NavLink to="/categories" className={navLinkClass}>
                 Categories
               </NavLink>
-              <button onClick={() => setCategoriesOpen(!categoriesOpen)}>
+
+              <button onClick={() => setCategoriesOpen((v) => !v)}>
                 <img src={DownArrow} className="w-[10px]" />
               </button>
-
+              {/* Categories Dropdown – DESKTOP/TABLET ONLY */}
               {categoriesOpen && (
-                <div className="absolute top-full mt-6 w-[280px] bg-white rounded-2xl shadow-lg py-4 z-50">
-                  {mockCategories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      to={`/categories/${cat.id}`}
-                      className="block px-6 py-3 hover:bg-[#F4F1FA]"
-                    >
-                      {cat.name}
-                    </Link>
-                  ))}
+                <div
+                  className="
+      hidden sm:block
+      fixed
+      top-[140px]
+      w-[280px]
+      bg-white
+      rounded-2xl
+      shadow-[0_10px_30px_rgba(0,0,0,0.12)]
+      border border-[#EFEAF6]
+      !z-[9999]
+      overflow-hidden
+    "
+                >
+                  {/* Scrollable container */}
+                  <div
+                    className="
+        max-h-[320px]
+        overflow-y-auto
+        py-2
+        scrollbar-thin
+        scrollbar-thumb-[#C7B8E6]
+        scrollbar-track-transparent
+      "
+                  >
+                    {mockCategories.map((cat) => (
+                      <Link
+                        key={cat.id}
+                        to={`/categories/${cat.id}`}
+                        onClick={closeAllDropdowns}
+                        className="
+            block
+            px-6
+            py-3
+            text-[15px]
+            transition-all
+            hover:bg-[#F4F1FA]
+            hover:pl-8
+          "
+                      >
+                        {cat.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
 
-            {/* POST JOB */}
-            <Link
-              to="/company/post-job"
-              className="w-[140px] md:w-[160px] h-[48px] md:h-[56px]  text-[18px] md:text-[22px]
-              bg-[#8967B3] text-white rounded-[15px] flex items-center justify-center"
-            >
-              Post a job
-            </Link>
+         {!isMobile && (
+  <Link
+    to="/company/post-job"
+    className="px-4 lg:px-6 py-2 lg:py-3 text-[16px] lg:text-[20px] bg-[#8967B3] text-white rounded-[15px]"
+  >
+    Post a job
+  </Link>
+)}
 
-            {/* USER PROFILE */}
+            {/* PROFILE TRIGGER */}
             <div
               ref={profileTriggerRef}
               onClick={() => setProfileOpen((v) => !v)}
-              className="flex items-center gap-3 cursor-pointer"
+              className="flex items-center gap-2 cursor-pointer"
             >
-              <img src={logo} className="w-8 h-8 rounded-full object-cover" />
-
-              <span className="hidden xl:inline text-[22px] font-medium">
+              <img src={logo} className="w-8 h-8 rounded-full" />
+              <span className="hidden sm:inline text-[18px] lg:text-[20px] font-medium">
                 {name}
               </span>
-
-              <img src="/icons/arrow-down.svg" className="w-[10px]" />
+              <img src={DownArrow} className="w-[10px]" />
             </div>
           </div>
 
-          {/* MOBILE HAMBURGER */}
-          <button
-            className="ml-auto md:hidden flex items-center"
-            onClick={() => setMobileOpen(true)}
+          {/* MOBILE PROFILE */}
+          <div
+            className="sm:hidden ml-auto flex items-center gap-2"
+            onClick={() => setMobileProfileOpen(true)}
           >
-            <svg width="28" height="28" viewBox="0 0 24 24">
-              <path d="M3 6h18M3 12h18M3 18h18" stroke="#000" strokeWidth="2" />
-            </svg>
-          </button>
+            <img src={logo} className="w-8 h-8 rounded-full" />
+            <span className="text-[16px] font-medium">{name}</span>
+            <img src={DownArrow} className="w-[10px]" />
+          </div>
         </nav>
       </header>
-      {/* DESKTOP PROFILE DROPDOWN */}
-      {profileOpen && (
-        <div
-          className="fixed z-[60] w-[220px] bg-white shadow-xl py-2 my-4 rounded-b-2xl rounded-t-none"
-          style={{
-            top: `${dropdownPos.top}px`,
-            right: `${dropdownPos.right}px`,
-          }}
-        >
-          <Link
-            to="/company/dashboard"
-            onClick={() => setProfileOpen(false)}
-            className="flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
-          >
-            <img src="/icons/dashboard.svg" className="w-5 h-5" />
-            Dashboard
-          </Link>
-          <Link
-            to="/company/profile"
-            onClick={() => setProfileOpen(false)}
-            className="flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
-          >
-            <img src="/icons/company (1).svg" className="w-5 h-5" />
-            Company profile
-          </Link>
-          <Link
-            to="/company/account-setting"
-            onClick={() => setProfileOpen(false)}
-            className="flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
-          >
-            <img src="/icons/account-setting.svg" className="w-5 h-5" />
-            Account setting
-          </Link>
-          <button
-            onClick={() => navigate("/login")}
-            className="w-full flex items-center gap-4 px-6 py-3 hover:bg-[#F4F1FA]"
-          >
-            <img src="/icons/logout.svg" className="w-5 h-5" />
-            Logout
-          </button>
-        </div>
-      )}
-      {/* MOBILE NAVBAR */}
-      {mobileOpen && (
-        <div className="fixed inset-0 bg-white z-50 flex flex-col">
-          {/* MOBILE HEADER */}
-          <div className="flex items-center justify-between px-6 py-4 border-b">
-            <div className="flex items-center gap-3">
-              <img src={Logo} className="w-10 h-10" />
-              <span className="text-[24px] font-bold">Sheqlee</span>
-            </div>
-            <button onClick={() => setMobileOpen(false)}>✕</button>
-          </div>
 
-          {/* MOBILE CONTENT */}
-          <div className="flex flex-col gap-6 px-6 py-8 text-[20px] font-medium">
-            <NavLink to="/all-jobs" onClick={() => setMobileOpen(false)}>
+      {/* MOBILE MENU */}
+      {mobileMenuOpen && (
+        <div className="fixed z-[70] bg-white sm:hidden top-[75px] left-[20px] w-[160px] rounded-b-[10px]">
+          <div className="flex flex-col gap-4 px-4 py-4 text-[14px] font-medium">
+            <NavLink to="/all-jobs" onClick={closeAllDropdowns}>
               All jobs
             </NavLink>
 
-            {/* Categories */}
-            <div>
+            <div className="flex flex-col">
               <button
-                onClick={() => setCategoriesOpen(!categoriesOpen)}
-                className="flex items-center gap-2"
+                className="flex justify-between items-center  py-2"
+                onClick={() => setMobileCategoriesOpen((v) => !v)}
               >
                 Categories
-                <img src={DownArrow} className="w-3" />
+                <img src={DownArrow} className="w-4 h-4" />
               </button>
 
-              {categoriesOpen && (
-                <div className="mt-4 flex flex-col gap-3 pl-4">
-                  {mockCategories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      to={`/categories/${cat.id}`}
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {cat.name}
-                    </Link>
-                  ))}
+              {mobileCategoriesOpen && (
+                <div
+                  className="
+      mt-2
+      bg-white
+      rounded-xl
+      shadow-lg
+      border border-[#EFEAF6]
+      overflow-hidden
+    "
+                >
+                  <div
+                    className="
+        max-h-[240px]
+        overflow-y-auto
+        flex flex-col
+        scrollbar-thin
+        scrollbar-thumb-[#C7B8E6]
+        scrollbar-track-transparent
+      "
+                  >
+                    {mockCategories.map((cat) => (
+                      <Link
+                        key={cat.id}
+                        to={`/categories/${cat.id}`}
+                        onClick={closeAllDropdowns}
+                        className="
+            px-5
+            py-2.5
+            text-[14px]
+            transition-all
+            hover:bg-[#F4F1FA]
+            active:bg-[#EDE7F6]
+          "
+                      >
+                        {cat.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
 
+           {!isMobile && (
+  <NavLink to="/company/post-job" onClick={closeAllDropdowns}>
+    Post a job
+  </NavLink>
+)}
+
+          </div>
+        </div>
+      )}
+
+      {/* MOBILE PROFILE DROPDOWN */}
+      {mobileProfileOpen && (
+        <div className="fixed z-[70] bg-white sm:hidden top-[65px] right-[25px] w-[180px] rounded-b-[12px]">
+          <div className="flex flex-col">
             <Link
-              to="/company/post-job"
-              onClick={() => setMobileOpen(false)}
-              className="w-[120px] bg-[#8967B3] text-white py-3 rounded-xl text-center"
+              to="/company/dashboard"
+              onClick={closeAllDropdowns}
+              className="px-3 py-2 flex gap-2"
             >
-              Post a job
+              <img src="/icons/dashboard.svg" className="w-5 h-5" />
+              Dashboard
             </Link>
+            <div className="h-[2px] bg-[#DFDFDF]" />
+            <Link
+              to="/company/profile"
+              onClick={closeAllDropdowns}
+              className="px-3 py-2 flex gap-2"
+            >
+              <img src="/icons/company (1).svg" className="w-5 h-5" />
+              Company profile
+            </Link>
+            <Link
+              to="/company/account-setting"
+              onClick={closeAllDropdowns}
+              className="px-3 py-2 flex gap-2"
+            >
+              <img src="/icons/account-setting.svg" className="w-5 h-5" />
+              Account setting
+            </Link>
+            <div className="h-[2px] bg-[#DFDFDF]" />
+            <button
+              onClick={() => {
+                navigate("/login");
+                closeAllDropdowns();
+              }}
+              className="px-3 py-2 flex gap-2"
+            >
+              <img src="/icons/logout.svg" className="w-5 h-5" />
+              Logout
+            </button>
+          </div>
+        </div>
+      )}
 
-            {/* USER PROFILE */}
-            <div className="border-t pt-6 mt-6">
-              <div className="flex items-center gap-3 mb-4">
-                <img
-                  src={logo}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-
-                <span className="font-medium">{name}</span>
-              </div>
-
-              <div className="flex flex-col gap-4">
-                <Link
-                  to="/company/dashboard"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/company/profile"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Company profile
-                </Link>
-                <Link
-                  to="/company/account-setting"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Account setting
-                </Link>
-                <button
-                  onClick={() => navigate("/login")}
-                  className="text-left"
-                >
-                  Logout
-                </button>
-              </div>
-            </div>
+      {/* DESKTOP / TABLET PROFILE DROPDOWN */}
+      {profileOpen && (
+        <div
+          className="fixed z-[70] bg-white shadow-lg rounded-b-2xl"
+          style={{
+            top: dropdownPos.top,
+            left: dropdownPos.left,
+            width: dropdownPos.width,
+          }}
+        >
+          <div className="flex flex-col py-2">
+            <Link
+              to="/company/dashboard"
+              onClick={closeAllDropdowns}
+              className="px-6 py-3 flex gap-4"
+            >
+              <img src="/icons/dashboard.svg" className="w-5 h-5" />
+              Dashboard
+            </Link>
+            <div className="h-[2px] bg-[#DFDFDF]" />
+            <Link
+              to="/company/profile"
+              onClick={closeAllDropdowns}
+              className="px-6 py-3 flex gap-4"
+            >
+              <img src="/icons/company (1).svg" className="w-5 h-5" />
+              Company profile
+            </Link>
+            <Link
+              to="/company/account-setting"
+              onClick={closeAllDropdowns}
+              className="px-6 py-3 flex gap-4"
+            >
+              <img src="/icons/account-setting.svg" className="w-5 h-5" />
+              Account setting
+            </Link>
+            <div className="h-[2px] bg-[#DFDFDF]" />
+            <button
+              onClick={() => {
+                navigate("/login");
+                closeAllDropdowns();
+              }}
+              className="px-6 py-3 flex gap-4 text-left"
+            >
+              <img src="/icons/logout.svg" className="w-5 h-5" />
+              Logout
+            </button>
           </div>
         </div>
       )}

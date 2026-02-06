@@ -1,6 +1,6 @@
 import React from "react";
 
-const NoResults = ({ message = "No results foundsdasdadadadasdadas" }) => {
+const NoResults = ({ message = "No results found" }) => {
   return (
     <div
       className="

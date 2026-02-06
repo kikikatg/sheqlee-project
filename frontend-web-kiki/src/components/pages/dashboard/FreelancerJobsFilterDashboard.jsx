@@ -23,13 +23,15 @@ const FreelancerJobsFilterDashboard = ({ onApply }) => {
   };
 
   const uniqueTags = Array.from(
-    new Map(mockTags.map((t) => [t.name, t])).values()
+    new Map(mockTags.map((t) => [t.name, t])).values(),
   );
 
   return (
     <section className="w-full mt-14">
       <div className="max-w-[1000px] mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* ================= MOBILE LAYOUT ================= */}
+        <div className="flex flex-col gap-4 md:hidden">
+          {/* ROW 1 — CATEGORY */}
           <SelectBox
             value={filters.category}
             onChange={(v) => handleChange("category", v)}
@@ -37,22 +39,24 @@ const FreelancerJobsFilterDashboard = ({ onApply }) => {
             placeholder="Select category"
           />
 
-          <SelectBox
-            value={filters.type}
-            onChange={(v) => handleChange("type", v)}
-            options={JOB_TYPES}
-            placeholder="Select type"
-          />
+          {/* ROW 2 — TYPE + LEVEL */}
+          <div className="grid grid-cols-2 gap-4">
+            <SelectBox
+              value={filters.type}
+              onChange={(v) => handleChange("type", v)}
+              options={JOB_TYPES}
+              placeholder="Select type"
+            />
 
-          <SelectBox
-            value={filters.level}
-            onChange={(v) => handleChange("level", v)}
-            options={JOB_LEVELS}
-            placeholder="Select level"
-          />
-        </div>
+            <SelectBox
+              value={filters.level}
+              onChange={(v) => handleChange("level", v)}
+              options={JOB_LEVELS}
+              placeholder="Select level"
+            />
+          </div>
 
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-[1fr_300px] gap-4">
+          {/* ROW 3 — TAG */}
           <SelectBox
             value={filters.tag}
             onChange={(v) => handleChange("tag", v)}
@@ -61,12 +65,56 @@ const FreelancerJobsFilterDashboard = ({ onApply }) => {
             isObject
           />
 
+          {/* APPLY BUTTON */}
           <button
             onClick={applyFilters}
-            className="h-[70px] bg-[#8967B3] rounded-[15px] text-white text-[22px]"
+            className="h-[70px] w-[200px] justify-end  bg-[#8967B3] rounded-[15px] text-white text-[20px]"
           >
             Apply filter
           </button>
+        </div>
+
+        {/* ================= DESKTOP (UNCHANGED) ================= */}
+        <div className="hidden md:block">
+          <div className="grid grid-cols-3 gap-4">
+            <SelectBox
+              value={filters.category}
+              onChange={(v) => handleChange("category", v)}
+              options={JOB_CATEGORIES}
+              placeholder="Select category"
+            />
+
+            <SelectBox
+              value={filters.type}
+              onChange={(v) => handleChange("type", v)}
+              options={JOB_TYPES}
+              placeholder="Select type"
+            />
+
+            <SelectBox
+              value={filters.level}
+              onChange={(v) => handleChange("level", v)}
+              options={JOB_LEVELS}
+              placeholder="Select level"
+            />
+          </div>
+
+          <div className="mt-4 grid grid-cols-[1fr_300px] gap-4">
+            <SelectBox
+              value={filters.tag}
+              onChange={(v) => handleChange("tag", v)}
+              options={uniqueTags}
+              placeholder="Select tag"
+              isObject
+            />
+
+            <button
+              onClick={applyFilters}
+              className="h-[70px] bg-[#8967B3] rounded-[15px] text-white text-[22px]"
+            >
+              Apply filter
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -99,7 +147,7 @@ const SelectBox = ({
           <option key={opt} value={opt}>
             {opt}
           </option>
-        )
+        ),
       )}
     </select>
   </div>

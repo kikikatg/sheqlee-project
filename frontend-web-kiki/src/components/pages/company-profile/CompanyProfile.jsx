@@ -21,69 +21,73 @@ const CompanyProfile = () => {
   });
 
   const [description, setDescription] = useState(
-    user?.companyProfile?.description || ""
+    user?.companyProfile?.description || "",
   );
 
   const [logoPreview, setLogoPreview] = useState(
-    user?.companyProfile?.logo || ""
+    user?.companyProfile?.logo || "",
   );
 
   return (
     <main className="bg-white min-h-screen flex flex-col">
-      <SubNavbar crumbs={[{ label: "Dashboard", active: true }]} />
+      {/* Breadcrumb hidden on mobile */}
+      <div className="hidden sm:block">
+        <SubNavbar crumbs={[{ label: "Dashboard", active: true }]} />
+      </div>
 
       {/* HEADER */}
-      <section className="flex flex-col items-center mt-10 px-4">
+      <section className="flex flex-col items-center mt-6 sm:mt-10 px-4">
         <img
-          src="/icons/building.svg" // always the same
-          className="w-[100px] sm:w-[80px] sm:h-[80px] md:w-[90px] md:h-[90px] h-[100px] object-contain"
+          src="/icons/building.svg"
+          className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] md:w-[90px] md:h-[90px] object-contain"
         />
 
-        <h1 className="mt-10 text-[60px] font-semibold text-center  ">
+        <h1 className="mt-6 sm:mt-10 text-[28px] sm:text-[40px] md:text-[60px] font-semibold text-center">
           Company Profile
         </h1>
 
-        <p className="mt-6 text-center lg:text-[30px] sm:text-[26px] md:text-[28px] leading-[40px] max-w-[800px]  ">
-          Provide accurate information about your company <br />
+        <p className="mt-4 sm:mt-6 text-center text-[14px] sm:text-[26px] md:text-[28px] leading-[22px] sm:leading-[40px] max-w-[800px]">
+          Provide accurate information about your company{" "}
+          <br className="hidden sm:block" />
           to make yourself discoverable.
         </p>
       </section>
 
       {/* COMPANY NAME / DOMAIN / LOGO */}
-      <section className="mt-24 px-4">
-        <div className="max-w-[1282px] mx-auto flex flex-col lg:flex-row gap-[30px] justify-between">
+      <section className="mt-12 sm:mt-24 px-4">
+        <div className="max-w-[1282px] mx-auto flex flex-col lg:flex-row gap-[20px] sm:gap-[30px] justify-between">
           {/* COMPANY NAME */}
           <div className="w-full max-w-[525px]">
-            <label className="text-[24px]  font-medium">
+            <label className="text-[16px] sm:text-[24px] font-medium">
               Company name <span className="text-red-500">*</span>
             </label>
 
-            <div className="mt-4 relative w-full h-[80px] bg-[#DFDFDF] rounded-[15px]">
+            <div className="mt-2 sm:mt-4 relative w-full h-[52px] sm:h-[80px] bg-[#DFDFDF] rounded-[12px] sm:rounded-[15px]">
               <input
                 ref={companyRef}
                 value={form.company}
                 onChange={(e) => setForm({ ...form, company: e.target.value })}
                 placeholder="Sheqlee Co.Ltd."
-                className="w-full h-full  bg-transparent px-6 text-[22px] outline-none"
+                className="w-full h-full bg-transparent px-4 sm:px-6 text-[14px] sm:text-[22px] outline-none"
               />
 
               <img
                 src="/icons/edit-dark.svg"
                 alt="edit"
                 onClick={() => companyRef.current?.focus()}
-                className="absolute right-6 top-1/2 -translate-y-1/2 w-[18px] cursor-pointer"
+                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-[14px] sm:w-[18px] cursor-pointer"
               />
             </div>
           </div>
 
           {/* DOMAIN */}
           <div className="w-full max-w-[525px]">
-            <label className="text-[24px] font-medium">
+            <label className="text-[16px] sm:text-[24px] font-medium">
               Domain <span className="text-red-500">*</span>
             </label>
 
-            <div className="mt-4 relative w-full h-[80px] bg-[#DFDFDF] rounded-[15px] flex items-center">
-              <span className="pl-6 pr-2 text-[20px] text-gray-600">
+            <div className="mt-2 sm:mt-4 relative w-full h-[52px] sm:h-[80px] bg-[#DFDFDF] rounded-[12px] sm:rounded-[15px] flex items-center">
+              <span className="pl-4 sm:pl-6 pr-2 text-[14px] sm:text-[20px] text-gray-600">
                 https://
               </span>
 
@@ -92,20 +96,20 @@ const CompanyProfile = () => {
                 value={form.domain}
                 onChange={(e) => setForm({ ...form, domain: e.target.value })}
                 placeholder="sheqlee.com"
-                className="flex-1 h-full  bg-transparent text-[22px] outline-none"
+                className="flex-1 h-full bg-transparent text-[14px] sm:text-[22px] outline-none"
               />
 
               <img
                 src="/icons/edit-dark.svg"
                 alt="edit"
                 onClick={() => domainRef.current?.focus()}
-                className="absolute right-6 top-1/2 -translate-y-1/2 w-[18px] cursor-pointer"
+                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-[14px] sm:w-[18px] cursor-pointer"
               />
             </div>
           </div>
 
-          {/* LOGO + UPLOAD */}
-          <div className="flex flex-col items-center">
+          {/* LOGO + UPLOAD (hidden on mobile) */}
+          <div className="hidden sm:flex flex-col items-center">
             <div className="w-[141px] h-[141px] rounded-full bg-[#DFDFDF] flex items-center justify-center overflow-hidden">
               {logoPreview ? (
                 <img
@@ -126,28 +130,24 @@ const CompanyProfile = () => {
               onChange={(e) => {
                 const file = e.target.files[0];
                 if (!file) return;
-
                 if (file.size > 2 * 1024 * 1024) {
                   alert("Image must be under 2MB");
                   return;
                 }
-
                 const reader = new FileReader();
-                reader.onloadend = () => {
-                  setLogoPreview(reader.result); // only update local preview
-                };
+                reader.onloadend = () => setLogoPreview(reader.result);
                 reader.readAsDataURL(file);
               }}
             />
 
             <button
               onClick={() => document.getElementById("logoUpload").click()}
-              className="mt-4 w-[158px] h-[50px] bg-[#8967B3] text-white rounded-[10px]  "
+              className="mt-4 w-[158px] h-[50px] bg-[#8967B3] text-white rounded-[10px]"
             >
               Upload
             </button>
 
-            <p className="mt-2 text-[14px]   text-gray-500">
+            <p className="mt-2 text-[14px] text-gray-500">
               2MB Max | 1:1 Ratio
             </p>
           </div>
@@ -155,25 +155,23 @@ const CompanyProfile = () => {
       </section>
 
       {/* DESCRIPTION */}
-      <section className="mt-12 px-4">
-        <div className="max-w-[1282px] mx-auto ">
-          <label className="text-[24px]  font-medium ">
+      <section className="mt-8 sm:mt-12 px-4">
+        <div className="max-w-[1282px] mx-auto">
+          <label className="text-[16px] sm:text-[24px] font-medium">
             Description <span className="text-red-500">*</span>
           </label>
 
-          <div className="mt-4 bg-[#DFDFDF] w-full h-[317px] rounded-[15px] relative overflow-hidden">
+          <div className="mt-2 sm:mt-4 bg-[#DFDFDF] w-full h-[220px] sm:h-[317px] rounded-[12px] sm:rounded-[15px] relative overflow-hidden">
             <RichTextToolbar />
 
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               maxLength={256}
-              placeholder="A brief description about your company..."
-              className="w-full h-full p-6 text-[22px] 
-               bg-transparent resize-none outline-none"
+              className="w-full h-full p-4 sm:p-6 text-[14px] sm:text-[22px] bg-transparent resize-none outline-none"
             />
 
-            <span className="absolute bottom-4  right-6 text-[16px] text-gray-600">
+            <span className="absolute bottom-3 sm:bottom-4 right-4 sm:right-6 text-[12px] sm:text-[16px] text-gray-600">
               {description.length}/256
             </span>
           </div>
@@ -181,19 +179,19 @@ const CompanyProfile = () => {
       </section>
 
       {/* COMPANY SIZE + HQ LOCATION */}
-      <section className="mt-24 px-4">
-        <div className="max-w-[1282px] mx-auto flex flex-col lg:flex-row gap-[30px] justify-between">
+      <section className="mt-12 sm:mt-24 px-4">
+        <div className="max-w-[1282px] mx-auto flex flex-col lg:flex-row gap-[20px] sm:gap-[30px] justify-between">
           {/* COMPANY SIZE */}
           <div className="w-full max-w-[626px]">
-            <label className="text-[24px]  font-['Kantumruy_Pro'] font-medium">
+            <label className="text-[16px] sm:text-[24px] font-medium">
               Company size <span className="text-red-500">*</span>
             </label>
 
-            <div className="mt-4 relative w-full h-[80px] bg-[#DFDFDF] rounded-[15px]">
+            <div className="mt-2 sm:mt-4 relative w-full h-[52px] sm:h-[80px] bg-[#DFDFDF] rounded-[12px] sm:rounded-[15px]">
               <select
                 value={form.size}
                 onChange={(e) => setForm({ ...form, size: e.target.value })}
-                className="w-full h-full bg-transparent px-6 pr-14  font-['Kantumruy_Pro'] text-[22px] appearance-none outline-none"
+                className="w-full h-full bg-transparent px-4 sm:px-6 pr-12 text-[14px] sm:text-[22px] appearance-none outline-none"
               >
                 <option value="">Select company size</option>
                 <option>Less than 10 people</option>
@@ -206,32 +204,30 @@ const CompanyProfile = () => {
 
               <img
                 src="/icons/arrow-down.svg"
-                alt="arrow"
-                className="absolute right-6 top-1/2 -translate-y-1/2 w-[18px]"
+                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-[14px] sm:w-[18px]"
               />
             </div>
           </div>
 
           {/* HQ LOCATION */}
           <div className="w-full max-w-[626px]">
-            <label className="text-[24px] font-['Kantumruy_Pro'] font-medium">
+            <label className="text-[16px] sm:text-[24px] font-medium">
               HQ location <span className="text-red-500">*</span>
             </label>
 
-            <div className="mt-4 relative w-full h-[80px] bg-[#DFDFDF] rounded-[15px]">
+            <div className="mt-2 sm:mt-4 relative w-full h-[52px] sm:h-[80px] bg-[#DFDFDF] rounded-[12px] sm:rounded-[15px]">
               <input
                 ref={locationRef}
                 value={form.location}
                 onChange={(e) => setForm({ ...form, location: e.target.value })}
                 placeholder="Addis Ababa, Ethiopia"
-                className="w-full h-full bg-transparent px-6 pr-14  font-['Kantumruy_Pro'] text-[22px] outline-none"
+                className="w-full h-full bg-transparent px-4 sm:px-6 pr-12 text-[14px] sm:text-[22px] outline-none"
               />
 
               <img
                 src="/icons/edit-dark.svg"
-                alt="edit"
                 onClick={() => locationRef.current?.focus()}
-                className="absolute right-6 top-1/2 -translate-y-1/2 w-[18px] cursor-pointer"
+                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-[14px] sm:w-[18px] cursor-pointer"
               />
             </div>
           </div>
@@ -241,33 +237,28 @@ const CompanyProfile = () => {
       {/* UPDATE */}
       <section className="mt-10 px-4">
         <div className="max-w-[1282px] mx-auto flex justify-end">
-          <div className="w-full max-w-[626px] flex justify-end">
-            <button
-              onClick={() => {
-                setUser((prev) => ({
-                  ...prev,
-                  companyProfile: {
-                    name: form.company,
-                    logo: logoPreview,
-                    domain: form.domain,
-                    size: form.size,
-                    location: form.location,
-                    description,
-                  },
-                }));
-              }}
-              className="w-[282px] h-[85px] bg-[#8967B3] text-white text-[22px] rounded-[15px] flex items-center px-10 justify-center"
-            >
-              Update profile
-            </button>
-          </div>
+          <button
+            onClick={() =>
+              setUser((prev) => ({
+                ...prev,
+                companyProfile: {
+                  ...form,
+                  logo: logoPreview,
+                  description,
+                },
+              }))
+            }
+            className="w-[180px] sm:w-[220px] lg:w-[282px]  h-[52px] sm:h-[65px] bg-[#8967B3] text-white text-[14px] sm:text-[22px] rounded-[12px] sm:rounded-[15px]"
+          >
+            Update profile
+          </button>
         </div>
 
         <div className="mt-16 max-w-[1282px] mx-auto">
-          <div className="h-[5px] bg-[#DFDFDF] rounded-[15px]" />
+          {" "}
+          <div className="lg:h-[5px] md:h-[3px] h-1 bg-[#DFDFDF] rounded-[15px]" />{" "}
         </div>
-
-        <p className="mt-6 mb-12 text-left text-[18px] max-w-[1282px] mx-auto  ">
+        <p className="mt-6 mb-12 text-left text-[12px] sm:text-[18px] max-w-[1282px] mx-auto">
           <span className="text-red-500">*</span> fields are required
         </p>
       </section>
